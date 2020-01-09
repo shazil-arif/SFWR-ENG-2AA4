@@ -4,6 +4,7 @@
 #  @date January 9th, 2020
 
 import math as Math
+import date_adt as Date
 
 class GPost:
     ## @brief the constructor method for class GPost
@@ -12,6 +13,7 @@ class GPost:
     def __init__(self, phi, _lambda):
         self.lat = phi
         self.long = _lambda
+        
 
     ## @brief returns the latitude for the current GPost object
     #  @return the latitude value
@@ -35,6 +37,11 @@ class GPost:
     def north_of(self,p):
         return self.lat > p.lat
     
+    def equal(self,p):
+        return self.distance(p) < 1
+
+    def move(self,p):
+
     def distance(self,p):
         #earth's approximate radius in kilometres
         radius = 6371
@@ -47,3 +54,16 @@ class GPost:
         distance = Math.acos(Math.sin(lat_one)*Math.sin(lat_two) + Math.cos(lat_one)*Math.cos(lat_two*Math.cos(long_diff))) * radius
 
         return distance
+    
+    def arrival_date(self,p,d,s):
+        distance = self.distance(p)
+
+        #number of days required to cover the distance travelling at speed s
+        num_days = distance/s 
+
+        return d.add_days(num_days)
+
+        
+
+    
+

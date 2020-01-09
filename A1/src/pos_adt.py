@@ -40,7 +40,17 @@ class GPost:
     def equal(self,p):
         return self.distance(p) < 1
 
-    def move(self,p):
+    def move(self,b,d):
+        radius = 6371
+
+        phi_one = Math.radians(self.lat)
+        angular_dist = d/radius #row/sigma lookking
+
+        new_lat = Math.asin(Math.sin(phi_one) * Math.cos(angular_dist) + Math.cos(phi_one)*Math.sin(angular_dist)*Math.cos(b) )
+        new_long = self.long + Math.atan2(Math.sin(b)*Math.sin(angular_dist)*Math.cos(phi_one), (Math.cos(angular_dist) - Math.sin(phi_one)) * Math.sin(new_lat) )
+
+        self.lat = new_lat
+        self.long = new_long
 
     def distance(self,p):
         #earth's approximate radius in kilometres

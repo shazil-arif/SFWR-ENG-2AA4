@@ -139,14 +139,22 @@ class DateT:
   def equal(self,d):
     return (self.year == d.year and self.month == d.month and self.day == d.day)
 
+  ## @brief adds n days to the date represented by the current DateT object
+  #  @param n The number of days to add
+  #  @return A DateT object with its date set n days later than the original
   def add_days(self,n):
     temp = datetime(self.year, self.month, self.day)
     temp = temp + timedelta(days=n)
     return DateT(temp.day,temp.month,temp.year)
     
 
-  #def days_between(self,d):
-
+  
+  def days_between(self,d):
+    date_one = datetime(self.year, self.month, self.day)
+    date_two = datetime(d.year,d.month,d.day)
+    difference = date_one - date_two
+    return difference
+    
 
   ## @brief returns whether or not the year in the current DateT object is a leap year
   #  @return a boolean value indicating whether or not the year is a leap year (True if leap year, False otherwise)

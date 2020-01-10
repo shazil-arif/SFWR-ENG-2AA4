@@ -44,6 +44,10 @@ class GPost:
     def equal(self,p):
         return self.distance(p) < 1
 
+
+    ## @brief moves the position represented by the current GPost object in direction of bearing b with total distance d
+    #  @param b A real number indicating the bearing/direction to move in
+    #  @param d A real number indicating the distance to move in units of kilometres (km)
     def move(self,b,d):
         radius = 6371
 
@@ -56,6 +60,10 @@ class GPost:
         self.lat = new_lat
         self.long = new_long
 
+    ## @brief calculates the distance between the positions represented by current GPost object and another GPost object 'p'
+    #  details Applies the spherical law of cosines formula to calculate the distance. See https://www.movable-type.co.uk/scripts/latlong.html under the heading 'Spherical Law of Cosines'
+    #  @param p A GPost object
+    #  @return an integer value representing the distance between the current object and p in units of kilometres(km)
     def distance(self,p):
         #earth's approximate radius in kilometres
         radius = 6371
@@ -69,6 +77,11 @@ class GPost:
 
         return distance
     
+    ## @brief calculates the number of days required to travel from the position represented by current GPost object to another position represented by a GPost object while travelling at a specific speed and starting on a specific day
+    #  @param p A GPost object representing the position to travel to
+    #  @param d a DateT object respresenting the date to begin travelling on 
+    #  @param s A real number indicating the speed to travel at in units of km/day
+    #  @return an integer value representing the distance between the current object and p in units of kilometres(km)
     def arrival_date(self,p,d,s):
         distance = self.distance(p)
 

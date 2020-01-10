@@ -37,6 +37,10 @@ class GPost:
     def north_of(self,p):
         return self.lat > p.lat
     
+    ## @brief returns whether the current GPost object and a GPost object p represent the same position
+    #  @details considered to represent the same location if the distance between their coordinates is less than 1 km
+    #  @param p the GPost object to compare againt
+    #  @return a boolean value indicating whether the two objects represent same location(i.e if their distance is less than 1km). True if same location, False otherwise
     def equal(self,p):
         return self.distance(p) < 1
 

@@ -147,7 +147,6 @@ class DateT:
     temp = temp + timedelta(days=n)
     return DateT(temp.day,temp.month,temp.year)
     
-
   ## @brief calculates the number of days between the current DateT object and DateT object d
   #  @param d The DateT object to calculate the number of days in between with
   #  @return An integer value indicating the number of days between the two DateT objects
@@ -157,7 +156,6 @@ class DateT:
     difference = date_one - date_two
     return difference
     
-
   ## @brief returns whether or not the year in the current DateT object is a leap year
   #  @return a boolean value indicating whether or not the year is a leap year (True if leap year, False otherwise)
   def is_leap_year(self):

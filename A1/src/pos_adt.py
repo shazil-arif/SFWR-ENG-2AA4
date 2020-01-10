@@ -5,7 +5,7 @@
 
 import math as Math
 import date_adt as Date
-
+## @brief GPost is class that implements an object to represent coordinates using longitude and latitude values
 class GPost:
     ## @brief the constructor method for class GPost
     #  @param phi The latitude to be set for the GPost object

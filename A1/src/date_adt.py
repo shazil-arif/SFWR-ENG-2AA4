@@ -88,6 +88,8 @@ class DateT:
     #otherwise return the next day in the current month and year
     return DateT(self.day + 1, self.month, self.year)
 
+  ## @brief returns a DateT object that is 1 day before the current object
+  #  @return DateT object that is set 1 day before
   def prev(self):
     #in the case where we go back to the previous month
     if(self.day - 1 < 1 and self.month != self.january):

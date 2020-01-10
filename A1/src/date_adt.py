@@ -148,7 +148,9 @@ class DateT:
     return DateT(temp.day,temp.month,temp.year)
     
 
-  
+  ## @brief calculates the number of days between the current DateT object and DateT object d
+  #  @param d The DateT object to calculate the number of days in between with
+  #  @return An integer value indicating the number of days between the two DateT objects
   def days_between(self,d):
     date_one = datetime(self.year, self.month, self.day)
     date_two = datetime(d.year,d.month,d.day)

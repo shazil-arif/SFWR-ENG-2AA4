@@ -2,14 +2,20 @@
 #  @author Shazil Arif
 #  @brief ?
 #  @date ?
-import date_adt as Date
+from date_adt import DateT
 import pos_adt
 
-obj = Date.DateT(30,1,2020)
-obj2 = Date.DateT(1,1,2020)
-obj2.days_between(obj)
-# p = obj.add_days(28)
-# print(p.day)
-# print(p.month)
-# print(p.year)
 
+def compare(expected, actual):
+    return expected == actual
+
+def main():
+    #testing date_adt.py
+
+    #2020 is a leap year!
+    test = DateT(1,1,2020)
+
+    
+    
+
+    

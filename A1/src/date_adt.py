@@ -3,6 +3,9 @@
 #  @brief date_adt.py contains a Class that implements a Date object containing a year, month and day
 #  @date Jan 8th, 2020
 
+from datetime import datetime
+from datetime import timedelta
+
 ## @brief DateT is a class that implements a Date object containing a year, month and a day
 class DateT:
 
@@ -118,9 +121,9 @@ class DateT:
   #  @param d The DateT object to compare with the current object
   #  @return A boolean value indicating whether the current objects date is before the date in d (True if before, False otherwise)
   def before(self,d):
-    if(self.year < d.year) return True
-    if(self.year == d.year and self.month < d.month) return True
-    if(self.year == d.year and self.month == d.month and self.day < d.day) return True
+    if(self.year < d.year): return True
+    if(self.year == d.year and self.month < d.month): return True
+    if(self.year == d.year and self.month == d.month and self.day < d.day): return True
     return False
 
   ## @brief compares if the date represented by the current DateT object is after d (d is also a DateT object)
@@ -137,17 +140,20 @@ class DateT:
     return (self.year == d.year and self.month == d.month and self.day == d.day)
 
   def add_days(self,n):
-
-
-  def days_between(self,d):
+    temp = datetime(self.year, self.month, self.day)
+    temp = temp + timedelta(days=n)
+    return DateT(temp.day,temp.month,temp.year)
     
+
+  #def days_between(self,d):
+
 
   ## @brief returns whether or not the year in the current DateT object is a leap year
   #  @return a boolean value indicating whether or not the year is a leap year (True if leap year, False otherwise)
   def is_leap_year(self):
-    if(self.year % 400 == 0) return True
-    if(self.year % 100 == 0) return False
-    if(self.year % 4 == 0) return True
+    if(self.year % 400 == 0): return True
+    if(self.year % 100 == 0): return False
+    if(self.year % 4 == 0): return True
     return False
 
       

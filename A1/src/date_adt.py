@@ -78,11 +78,11 @@ class DateT:
     # if current month is february
     if(self.month() == self.february):
       #leap year and transitioning into march
-      if(self.is_leap_year() and self.day() + 1 > self.leap_year_days):
+      if(self.__is_leap_year() and self.day() + 1 > self.leap_year_days):
         return DateT(1, self.month() + 1, self.year() )
 
       #not a leap year but transitioning into march  
-      elif(not self.is_leap_year() and self.day() + 1 > self.feb_common_days):
+      elif(not self.__is_leap_year() and self.day() + 1 > self.feb_common_days):
         return DateT(1, self.month() + 1, self.year())
 
     #otherwise return the next day in the current month and year
@@ -106,7 +106,7 @@ class DateT:
 
       #in the case where previous month is february
       #first check if leap year or not
-      if(self.is_leap_year()):
+      if(self.__is_leap_year()):
         return DateT(self.leap_year_days,self.february,self.year())
       return DateT(self.feb_common_days, self.february, self.year())
       
@@ -157,11 +157,11 @@ class DateT:
     date_one = datetime(self.year(), self.month(), self.day())
     date_two = datetime(d.year(),d.month(),d.day())
     difference = date_one - date_two
-    return difference
+    return difference.days
     
   ## @brief returns whether or not the year in the current DateT object is a leap year
   #  @return a boolean value indicating whether or not the year is a leap year (True if leap year, False otherwise)
-  def is_leap_year(self):
+  def __is_leap_year(self):
     if(self.year() % 400 == 0): return True
     if(self.year() % 100 == 0): return False
     if(self.year() % 4 == 0): return True

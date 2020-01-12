@@ -135,15 +135,21 @@ def test_adt():
     test = DateT(1,1,2020)
     compare("test add days method, add 365 days when current year IS LEAP YEAR. it should return Dec 31st, 2020",DateT(31,12,2020),test.add_days(365))
 
+    test = DateT(1,1,2020)
+    compare("test add days method, add 366 days when current year IS LEAP YEAR. it should return Jan 1st, 2021",DateT(1,1,2021),test.add_days(366))
 
 
+    #test days_between method
+    test = DateT(31,1,2020)
+    test2 = DateT(1,3,2020)
 
+    compare("test days_between method with March and January when current year is leap year, it should return 30 days",30,test2.days_between(test))
 
+    test = DateT(31,1,2021)
+    test2 = DateT(1,3,2021)
+    compare("test days_between method with March and January when current year is NOT leap year, it should return 29 days",29,test2.days_between(test))
 
-
-
-
-
+    
 
 
     if(len(failed)!=0): print("\x1b[1;37;41m {num} tests failed \x1b[0m \n".format(num=len(failed)))

@@ -140,7 +140,6 @@ class DateT:
   #  @return A boolean value indicating whether the two objects represent the same data (True if equal, False otherwise)
   def equal(self,d):
     return self.__dict__ == d.__dict__
-    #return (self.year() == d.year and self.month() == d.month() and self.day() == d.day())
 
   ## @brief adds n days to the date represented by the current DateT object
   #  @param n The number of days to add

@@ -11,31 +11,31 @@ class GPost:
     #  @param phi The latitude to be set for the GPost object
     #  @param _lambda the longitude value to be set for the GPost object
     def __init__(self, phi, _lambda):
-        self.lat = phi
-        self.long = _lambda
+        self.latitude = phi
+        self.longitude = _lambda
         
 
     ## @brief returns the latitude for the current GPost object
     #  @return the latitude value
     def lat(self):
-        return self.lat
+        return self.latitude
 
     ## @brief returns the longitude for the current GPost object
     #  @return the longitude value
     def long(self):
-        return self.long
+        return self.longitude
 
     ## @brief returns whether the coordinates of the current GPost object are west of those in object p
     #  @param p the GPost object to compare
     #  @return a boolean value indicating whether the current objects coordinates are west of p (True if they are west of p, False otherwise) 
     def west_of(self,p):
-        return self.long < p.long
+        return self.long() < p.long()
 
     ## @brief returns whether the coordinates of the current GPost object are north of those in object p
     #  @param p the GPost object to compare
     #  @return a boolean value indicating whether the current objects coordinates are north of coordinates in p (True if they are west of p, False otherwise) 
     def north_of(self,p):
-        return self.lat > p.lat
+        return self.lat() > p.lat()
     
     ## @brief returns whether the current GPost object and a GPost object p represent the same position
     #  @details considered to represent the same location if the distance between their coordinates is less than 1 km
@@ -51,14 +51,14 @@ class GPost:
     def move(self,b,d):
         radius = 6371
 
-        phi_one = Math.radians(self.lat)
+        phi_one = Math.radians(self.lat())
         angular_dist = d/radius #row/sigma looking
 
         new_lat = Math.asin(Math.sin(phi_one) * Math.cos(angular_dist) + Math.cos(phi_one)*Math.sin(angular_dist)*Math.cos(b) )
         new_long = self.long + Math.atan2(Math.sin(b)*Math.sin(angular_dist)*Math.cos(phi_one), (Math.cos(angular_dist) - Math.sin(phi_one)) * Math.sin(new_lat) )
 
-        self.lat = new_lat
-        self.long = new_long
+        self.latitude = new_lat
+        self.longitude = new_long
 
     ## @brief calculates the distance between the positions represented by current GPost object and another GPost object 'p'
     #  details Applies the spherical law of cosines formula to calculate the distance. See https://www.movable-type.co.uk/scripts/latlong.html under the heading 'Spherical Law of Cosines'
@@ -68,10 +68,10 @@ class GPost:
         #earth's approximate radius in kilometres
         radius = 6371
 
-        lat_one = Math.radians(self.lat)
-        lat_two = Math.radians(p.lat)
+        lat_one = Math.radians(self.lat())
+        lat_two = Math.radians(p.lat())
 
-        long_diff = Math.radians(p.long - self.long)
+        long_diff = Math.radians(p.long() - self.long())
 
         distance = Math.acos(Math.sin(lat_one)*Math.sin(lat_two) + Math.cos(lat_one)*Math.cos(lat_two*Math.cos(long_diff))) * radius
 

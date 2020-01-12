@@ -35,9 +35,8 @@ def compare(description, expected, actual):
             print('\nResult: ' + '\x1b[1;37;41m' + 'Failed' + '\x1b[0m')
     print("\n------------------------------------------------\n")
 
-def test_adt():
+def test_date_adt():
     #testing date_adt.py
-
 
     #2020 is a leap year!
     test = DateT(1,1,2020)
@@ -150,27 +149,19 @@ def test_adt():
     compare("test days_between method with March and January when current year is NOT leap year, it should return 29 days",29,test2.days_between(test))
 
     
-
-
-    if(len(failed)!=0): print("\x1b[1;37;41m {num} tests failed \x1b[0m \n".format(num=len(failed)))
+    if(len(failed)!=0): 
+        print("\x1b[1;37;41m {num} tests failed: \x1b[0m \n".format(num=len(failed)))
+        for i in range(len(failed)):
+            print("{num} ) Description:{Description}".format(num=(i+1),Description=failed[i]["Description"]))
     else: print("\x1b[6;30;42m All tests passed \x1b[0m")
-    # for test in failed:
-    #     for i in test:
-    #         if(isinstance(test[i],DateT) or isinstance(test[i],GPost)):
-    #             expected_keys = test["Expected"].__dict__
-    #             actual_keys = test["Actual"].__dict__
-    #             print("Expected properties")
-    #             for i in expected_keys:
-    #                 print("{key} : {value}".format(key=i,value=expected_keys[i]))  
-    #             print("\nActual properties")
-    #             for i in actual_keys:        
-    #                 print("{key} : {value}".format(key=i,value=actual_keys[i])) 
-    #             break
-    #         else:    
-    #             print("{key} : {value}".format(key=i,value=test[i]))
-    #     print("\n")
-
     
-test_adt()
 
+def test_post_adt():
+    
+
+def main():
+    test_date_adt()
+    test_post_adt()
+
+main()
     

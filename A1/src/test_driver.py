@@ -1,9 +1,11 @@
 ## @file test_driver.py
 #  @author Shazil Arif
-#  @brief ?
-#  @date ?
+#  @brief this test driver module is used to unit test modules DateT and GPost
+#  @date January 10th, 2020
 from date_adt import DateT
 from pos_adt import GPost
+
+failed = []
 
 
 def compare(description, expected, actual):
@@ -20,19 +22,23 @@ def compare(description, expected, actual):
         for i in actual_keys:        
             print("{key} : {value}".format(key=i,value=actual_keys[i]))  
         if(expected.__dict__ == actual.__dict__):
-            print('\nResult: ' + '\x1b[6;30;42m' + 'Passed' + '\x1b[0m')
+            print('\nResult: ' + '\x1b[6;30;42m' + 'Passed' + '\x1b[0m') #source: https://stackoverflow.com/questions/287871/how-to-print-colored-text-in-terminal-in-python
         else:
+            failed.append({"Description":description,"Expected":expected,"Actual":actual})
             print('\nResult: ' + '\x1b[1;37;41m' + 'Failed' + '\x1b[0m')
 
     else: #comparing other types...string, int, float etc.
         print("Expected: {expected}".format(expected=expected))  
         print("Actual:   {actual}".format(actual=actual))
         if(expected == actual): print('\nResult: ' + '\x1b[6;30;42m' + 'Passed' + '\x1b[0m')
-        else: print('\nResult: ' + '\x1b[1;37;41m' + 'Failed' + '\x1b[0m')
+        else: 
+            failed.append({"Description":description,"Expected":expected,"Actual":actual})
+            print('\nResult: ' + '\x1b[1;37;41m' + 'Failed' + '\x1b[0m')
     print("\n------------------------------------------------\n")
 
 def main():
     #testing date_adt.py
+
 
     #2020 is a leap year!
     test = DateT(1,1,2020)
@@ -60,11 +66,44 @@ def main():
 
     compare("testing next method, it should return January 2nd 2020 and pass",test.next(),DateT(2,1,2020))
 
-    compare("testing next method, it should return January 2nd 2020 but fail this time",test.next(),DateT(2,2,2020))
-
-    #test for transitioning into next month with current month having 31 days
     test = DateT(31,1,2020)
     compare("test for transitioning into next month with current month having 31 days. It should return february 1st 2020 and pass",test.next(),DateT(1,2,2020))
+
+    test = DateT(30,4,2020) #April 30th, 2020
+    compare("test for transitioning into next month with current month having 30 days. It should return May 1st 2020 and pass",test.next(),DateT(1,5,2020))
+
+    test = DateT(28,2,2020) 
+    compare("test for transitioning into next month with current month being february and the year is a leap year. It should return Feb 29th 2020 and pass",test.next(),DateT(29,2,2020))
+
+    test = DateT(28,2,2021) 
+    compare("test for transitioning into next month with current month being february and the year is NOT leap year. It should return March 1st 2021 and pass",test.next(),DateT(1,3,2021))
+
+    test = DateT(31,12,2020) 
+    compare("test for transitioning into next year. It should return Jan 1st 2021 and pass",test.next(),DateT(1,1,2021))
+
+    
+
+    if(len(failed)!=0): print("\x1b[1;37;41m {num} tests failed \x1b[0m \n".format(num=len(failed)))
+    else: print("\x1b[6;30;42m All tests passed \x1b[0m")
+    # for test in failed:
+    #     for i in test:
+    #         if(isinstance(test[i],DateT) or isinstance(test[i],GPost)):
+    #             expected_keys = test["Expected"].__dict__
+    #             actual_keys = test["Actual"].__dict__
+    #             print("Expected properties")
+    #             for i in expected_keys:
+    #                 print("{key} : {value}".format(key=i,value=expected_keys[i]))  
+    #             print("\nActual properties")
+    #             for i in actual_keys:        
+    #                 print("{key} : {value}".format(key=i,value=actual_keys[i])) 
+    #             break
+    #         else:    
+    #             print("{key} : {value}".format(key=i,value=test[i]))
+    #     print("\n")
+
+    
+
+
 
 
 

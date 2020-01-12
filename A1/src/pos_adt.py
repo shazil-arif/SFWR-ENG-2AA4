@@ -5,8 +5,8 @@
 
 import math as Math
 import date_adt as Date
-## @brief GPost is class that implements an object to represent coordinates using longitude and latitude values
-class GPost:
+## @brief GPosT is class that implements an object to represent coordinates using longitude and latitude values
+class GPosT:
     ## @brief the constructor method for class GPost
     #  @param phi The latitude to be set for the GPost object
     #  @param _lambda the longitude value to be set for the GPost object
@@ -52,17 +52,17 @@ class GPost:
         radius = 6371
 
         phi_one = Math.radians(self.lat())
-        angular_dist = d/radius #row/sigma looking
+        angular_dist = d/radius 
 
         new_lat = Math.asin(Math.sin(phi_one) * Math.cos(angular_dist) + Math.cos(phi_one)*Math.sin(angular_dist)*Math.cos(b) )
-        new_long = self.long + Math.atan2(Math.sin(b)*Math.sin(angular_dist)*Math.cos(phi_one), (Math.cos(angular_dist) - Math.sin(phi_one)) * Math.sin(new_lat) )
+        new_long = self.long() + Math.atan2(Math.sin(b)*Math.sin(angular_dist)*Math.cos(phi_one), Math.cos(angular_dist) - Math.sin(phi_one) * Math.sin(new_lat) )
 
-        self.latitude = new_lat
-        self.longitude = new_long
+        self.latitude = Math.degrees(new_lat)
+        self.longitude = Math.degrees(new_long)
 
     ## @brief calculates the distance between the positions represented by current GPost object and another GPost object 'p'
     #  details Applies the spherical law of cosines formula to calculate the distance. See https://www.movable-type.co.uk/scripts/latlong.html under the heading 'Spherical Law of Cosines'
-    #  @param p A GPost object
+    #  @param p A GPost object containing the lat/long coordinates to calculate the distance to
     #  @return an integer value representing the distance between the current object and p in units of kilometres(km)
     def distance(self,p):
         #earth's approximate radius in kilometres
@@ -73,7 +73,7 @@ class GPost:
 
         long_diff = Math.radians(p.long() - self.long())
 
-        distance = Math.acos(Math.sin(lat_one)*Math.sin(lat_two) + Math.cos(lat_one)*Math.cos(lat_two*Math.cos(long_diff))) * radius
+        distance = Math.acos(Math.sin(lat_one)*Math.sin(lat_two) + Math.cos(lat_one)*Math.cos(lat_two)*Math.cos(long_diff)) * radius
 
         return distance
     

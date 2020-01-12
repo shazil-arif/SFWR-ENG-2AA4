@@ -3,7 +3,7 @@
 #  @brief this test driver module is used to test modules DateT and GPost
 #  @date January 10th, 2020
 from date_adt import DateT
-from pos_adt import GPost
+from pos_adt import GPosT
 
 failed = []
 
@@ -11,7 +11,7 @@ def compare(description, expected, actual):
     print("Description: {description}\n".format(description=description))
 
     #if expected value is instance of DateT or GPost class
-    if(isinstance(expected,DateT) or isinstance(expected,GPost)): 
+    if(isinstance(expected,DateT) or isinstance(expected,GPosT)): 
         expected_keys = expected.__dict__
         actual_keys = actual.__dict__
         print("Expected properties")
@@ -103,12 +103,10 @@ def test_date_adt():
     test2 = DateT(1,5,2020)
 
     compare("test for before method , it should return True and pass",True,test.before(test2))
-
     compare("test for before method , it should return False and pass",False,test2.before(test))
 
     #test for after method
     compare("test for after method , it should return True and pass",True,test2.after(test))
-
     compare("test for after method , it should return False and pass",False,test.after(test2))
 
     #test equals method
@@ -116,13 +114,11 @@ def test_date_adt():
     test2 = DateT(1,1,2020)
     test3 = DateT(1,2,2020)
     compare("test for equals method, it should return True and pass",True,test.equal(test2))
-
     compare("test for equals method, it should return False and pass",False,test.equal(test3))
 
     #test add_days method
     test = DateT(31,1,2020)
     compare("test add days method, it should return Feb 1st 2020 and pass",DateT(1,2,2020),test.add_days(1))
-
     compare("test add days method, it should return Feb 29, 2020", DateT(29,2,2020),test.add_days(29))
 
     test = DateT(31,1,2021)
@@ -149,19 +145,55 @@ def test_date_adt():
     compare("test days_between method with March and January when current year is NOT leap year, it should return 29 days",29,test2.days_between(test))
 
     
+
+def test_post_adt():
+    test = GPosT(45,45)
+    compare("test for constructor",45, test.latitude)
+    compare("test for constructor",45, test.longitude)
+
+    compare("test getter method for latitude",45,test.lat())
+    compare("test getter method for longitude",45,test.long())
+
+    #compare("test west_of method",)
+
+    test = GPosT(43.580605, -79.625668)
+    test2 = GPosT(40.723606, -73.860514)
+    compare("test distance method , it should return 571km rounded to the nearest whole number",571,int(test2.distance(test)))
+
+    test = GPosT(43.261897, -79.921433)
+    test2 = GPosT(43.262545, -79.922549)
+    compare("test equal method for distance < 1 km, it should return True",True, test2.equal(test))
+
+    test2 = GPosT(43.250880, -79.920292)
+    compare("test equal method for distance > 1km, it should return False",False,test2.equal(test)) 
+
+    test = GPosT(45,45)
+    test2 = GPosT(45,-45)
+    compare("test west_of method , it should return True",True,test2.west_of(test))
+
+    compare("test west_of method, it should return False",False,test.west_of(test2))
+
+    test = GPosT(45,45)
+    test2 = GPosT(50,-45)
+    compare("test north_of method, it should return True",True,test2.north_of(test))
+    compare("test north_of method, it should return False",True,test.north_of(test2))
+
+
+
+    
+
+def main():
+    print("Tests for date_adt.py")
+    test_date_adt()
+
+    print("\nTESTS FOR pos_adt.py")
+    test_post_adt()
+
     if(len(failed)!=0): 
         print("\x1b[1;37;41m {num} tests failed: \x1b[0m \n".format(num=len(failed)))
         for i in range(len(failed)):
             print("{num} ) Description:{Description}".format(num=(i+1),Description=failed[i]["Description"]))
     else: print("\x1b[6;30;42m All tests passed \x1b[0m")
-    
-
-def test_post_adt():
-    
-
-def main():
-    test_date_adt()
-    test_post_adt()
 
 main()
     

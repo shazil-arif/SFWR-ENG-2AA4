@@ -1,12 +1,11 @@
 ## @file test_driver.py
 #  @author Shazil Arif
-#  @brief this test driver module is used to unit test modules DateT and GPost
+#  @brief this test driver module is used to test modules DateT and GPost
 #  @date January 10th, 2020
 from date_adt import DateT
 from pos_adt import GPost
 
 failed = []
-
 
 def compare(description, expected, actual):
     print("Description: {description}\n".format(description=description))
@@ -36,7 +35,7 @@ def compare(description, expected, actual):
             print('\nResult: ' + '\x1b[1;37;41m' + 'Failed' + '\x1b[0m')
     print("\n------------------------------------------------\n")
 
-def main():
+def test_adt():
     #testing date_adt.py
 
 
@@ -100,14 +99,6 @@ def main():
     test=DateT(1,1,2020)
     compare("test for transitioning into previous year. It should return Dec 31st 2019 and pass",DateT(31,12,2019),test.prev())
 
-    #test equals method
-    test = DateT(1,1,2020)
-    test2 = DateT(1,1,2020)
-    test3 = DateT(1,2,2020)
-    compare("test for equals method, it should return True and pass",True,test.equal(test2))
-
-    compare("test for equals method, it should return False and pass",False,test.equal(test3))
-
     #test for before method
     test  = DateT(1,1,2020)
     test2 = DateT(1,5,2020)
@@ -120,6 +111,32 @@ def main():
     compare("test for after method , it should return True and pass",True,test2.after(test))
 
     compare("test for after method , it should return False and pass",False,test.after(test2))
+
+    #test equals method
+    test = DateT(1,1,2020)
+    test2 = DateT(1,1,2020)
+    test3 = DateT(1,2,2020)
+    compare("test for equals method, it should return True and pass",True,test.equal(test2))
+
+    compare("test for equals method, it should return False and pass",False,test.equal(test3))
+
+    #test add_days method
+    test = DateT(31,1,2020)
+    compare("test add days method, it should return Feb 1st 2020 and pass",DateT(1,2,2020),test.add_days(1))
+
+    compare("test add days method, it should return Feb 29, 2020", DateT(29,2,2020),test.add_days(29))
+
+    test = DateT(31,1,2021)
+    compare("test add days method, it should return March 1st, 2021", DateT(1,3,2021),test.add_days(29))
+
+    test = DateT(1,1,2021)
+    compare("test add days method, add 365 days when current year is NOT leap year, it should return january 1st 2022",DateT(1,1,2022),test.add_days(365))
+
+    test = DateT(1,1,2020)
+    compare("test add days method, add 365 days when current year IS LEAP YEAR. it should return Dec 31st, 2020",DateT(31,12,2020),test.add_days(365))
+
+
+
 
 
 
@@ -148,12 +165,6 @@ def main():
     #     print("\n")
 
     
-
-
-
-
-
-    
-main()
+test_adt()
 
     

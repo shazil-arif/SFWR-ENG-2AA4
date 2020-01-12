@@ -148,7 +148,7 @@ class DateT:
   def add_days(self,n):
     temp = datetime(self.year(), self.month(), self.day())
     temp = temp + timedelta(days=n)
-    return DateT(temp.day(),temp.month(),temp.year())
+    return DateT(temp.day,temp.month,temp.year)
     
   ## @brief calculates the number of days between the current DateT object and DateT object d
   #  @param d The DateT object to calculate the number of days in between with

@@ -44,14 +44,14 @@ def main():
     test = DateT(1,1,2020)
 
     #test constructor
-    compare("test for constructor",test.d,1)
-    compare("test for constructor",test.m,10)
-    compare("test for constructor", test.y,2020)
+    compare("test for constructor",1,test.d)
+    compare("test for constructor",1,test.m)
+    compare("test for constructor",2020,test.y)
 
     #test getter
-    compare("testing getter method for day",test.day(),1)
-    compare("testing getter method for month",test.month(),1)
-    compare("testing getter method for year",test.year(),2020)
+    compare("testing getter method for day",1, test.day())
+    compare("testing getter method for month",1, test.month())
+    compare("testing getter method for year",2020, test.year())
 
 
     #test next function
@@ -81,7 +81,53 @@ def main():
     test = DateT(31,12,2020) 
     compare("test for transitioning into next year. It should return Jan 1st 2021 and pass",test.next(),DateT(1,1,2021))
 
+    #test prev method
+    test=DateT(2,1,2020)
+    compare("test for prev method, it should return January 1st 2020 and pass",DateT(1,1,2020),test.prev())
+
+    test=DateT(1,5,2020)
+    compare("test for transitioning into previous month with current month having 31 days. It should return April 30th 2020 and pass",DateT(30,4,2020),test.prev())
+
+    test=DateT(1,6,2020)
+    compare("test for transitioning into previous month with current month having 30 days. It should return May 31st 2020 and pass",DateT(31,5,2020),test.prev())
+
+    test=DateT(1,3,2020)
+    compare("test for transitioning back into february and the year is a leap year. It should return Feb 29th 2020 and pass",DateT(29,2,2020),test.prev())
     
+    test=DateT(1,3,2021)
+    compare("test for transitioning back into february and the year is NOT leap year. It should return Feb 28th 2021 and pass",DateT(28,2,2021),test.prev())
+    
+    test=DateT(1,1,2020)
+    compare("test for transitioning into previous year. It should return Dec 31st 2019 and pass",DateT(31,12,2019),test.prev())
+
+    #test equals method
+    test = DateT(1,1,2020)
+    test2 = DateT(1,1,2020)
+    test3 = DateT(1,2,2020)
+    compare("test for equals method, it should return True and pass",True,test.equal(test2))
+
+    compare("test for equals method, it should return False and pass",False,test.equal(test3))
+
+    #test for before method
+    test  = DateT(1,1,2020)
+    test2 = DateT(1,5,2020)
+
+    compare("test for before method , it should return True and pass",True,test.before(test2))
+
+    compare("test for before method , it should return False and pass",False,test2.before(test))
+
+    #test for after method
+    compare("test for after method , it should return True and pass",True,test2.after(test))
+
+    compare("test for after method , it should return False and pass",False,test.after(test2))
+
+
+
+
+
+
+
+
 
     if(len(failed)!=0): print("\x1b[1;37;41m {num} tests failed \x1b[0m \n".format(num=len(failed)))
     else: print("\x1b[6;30;42m All tests passed \x1b[0m")

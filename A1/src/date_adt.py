@@ -101,7 +101,7 @@ class DateT:
           return DateT(self.max_odd_month, self.month() - 1, self.year())
 
         #previous month has 30 days
-        if(self.month - 1 in self.even_month):
+        if(self.month() - 1 in self.even_month):
           return DateT(self.max_even_month, self.month() - 1, self.year())
 
       #in the case where previous month is february
@@ -139,7 +139,8 @@ class DateT:
   #  @param d The DateT object to compare with the current object
   #  @return A boolean value indicating whether the two objects represent the same data (True if equal, False otherwise)
   def equal(self,d):
-    return (self.year() == d.year and self.month() == d.month() and self.day() == d.day())
+    return self.__dict__ == d.__dict__
+    #return (self.year() == d.year and self.month() == d.month() and self.day() == d.day())
 
   ## @brief adds n days to the date represented by the current DateT object
   #  @param n The number of days to add

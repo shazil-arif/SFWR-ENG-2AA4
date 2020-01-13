@@ -54,11 +54,11 @@ class GPosT:
         phi_one = Math.radians(self.lat())
         angular_dist = d/radius 
 
-        new_lat = Math.asin(Math.sin(phi_one) * Math.cos(angular_dist) + Math.cos(phi_one)*Math.sin(angular_dist)*Math.cos(b) )
-        new_long = self.long() + Math.atan2(Math.sin(b)*Math.sin(angular_dist)*Math.cos(phi_one), Math.cos(angular_dist) - Math.sin(phi_one) * Math.sin(new_lat) )
+        new_lat = Math.asin(Math.sin(phi_one) * Math.cos(angular_dist) + Math.cos(phi_one)*Math.sin(angular_dist)*Math.cos(Math.radians(b)) )
+        new_long = self.long() + Math.atan2(Math.sin(Math.radians(b))*Math.sin(angular_dist)*Math.cos(phi_one), Math.cos(angular_dist) - Math.sin(phi_one) * Math.sin(new_lat) )
 
-        self.latitude = Math.degrees(new_lat)
-        self.longitude = Math.degrees(new_long)
+        self.latitude = (new_lat)
+        self.longitude = (new_long)
 
     ## @brief calculates the distance between the positions represented by current GPost object and another GPost object 'p'
     #  details Applies the spherical law of cosines formula to calculate the distance. See https://www.movable-type.co.uk/scripts/latlong.html under the heading 'Spherical Law of Cosines'

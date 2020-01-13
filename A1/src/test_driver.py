@@ -176,9 +176,12 @@ def test_post_adt():
     test = GPosT(45,45)
     test2 = GPosT(50,-45)
     compare("test north_of method, it should return True",True,test2.north_of(test))
-    compare("test north_of method, it should return False",True,test.north_of(test2))
+    compare("test north_of method, it should return False",False,test.north_of(test2))
 
-
+    test = GPosT(43,-75)
+    test2 = GPosT(44.078061, -73.170068)
+    test.move(45,100)
+    compare("test move method",GPosT(44.078061, -73.170068),test)
 
     
 
@@ -190,7 +193,7 @@ def main():
     test_post_adt()
 
     if(len(failed)!=0): 
-        print("\x1b[1;37;41m {num} tests failed: \x1b[0m \n".format(num=len(failed)))
+        print("\x1b[1;37;41m {num} tests failed. The following tests failed: \x1b[0m \n".format(num=len(failed)))
         for i in range(len(failed)):
             print("{num} ) Description:{Description}".format(num=(i+1),Description=failed[i]["Description"]))
     else: print("\x1b[6;30;42m All tests passed \x1b[0m")

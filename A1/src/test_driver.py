@@ -184,12 +184,21 @@ def test_post_adt():
 
     test = GPosT(43,-75)
     test2 = GPosT(44.078061, -73.170068)
+
     test.move(45,100)
     compare("test move method",GPosT(44.078061, -73.170068),test)
 
     date = DateT(18,1,2020)
+    test = GPosT(43,-75)
     val = test.arrival_date(test2,date,190.1) #starting from 43,-75 travel to test2 at 190.1km/day starting on date
-    compare("test arrival date",DateT(19,1,2020),val)
+    compare("test arrival date it should return Jan 19th, 2020",DateT(19,1,2020),val)
+    print(round(190.1534234,2))
+
+
+    val = test.arrival_date(test2,date,570.3)
+    compare("test arrival date with travelling speed that allows to reach within the same (i.e days required < 1) it should return Jan 18th, 2020 the same day",DateT(18,1,2020),val)
+
+    val = test.arrival_date(test2,date,95)
 
 
 def main():
@@ -202,10 +211,8 @@ def main():
     if(len(failed)!=0): 
         print("\x1b[1;37;41m {num} tests failed. The following tests failed: \x1b[0m \n".format(num=len(failed)))
         for i in range(len(failed)):
-            print("{num} ) Description : {Description}".format(num=(i+1),Description=failed[i]["Description"]))
+            print("{num}) Description: {Description}".format(num=(i+1),Description=failed[i]["Description"]))
     else: print("\x1b[6;30;42m All tests passed \x1b[0m")
-
-    
 
 main()
     

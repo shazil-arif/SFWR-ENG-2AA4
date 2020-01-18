@@ -5,7 +5,6 @@
 
 import math as Math
 import date_adt as Date
-from pytest import *
 ## @brief GPosT is class that implements an object to represent coordinates using longitude and latitude values
 class GPosT:
     ## @brief the constructor method for class GPost
@@ -79,16 +78,16 @@ class GPosT:
         return round(distance,2)
     
     ## @brief calculates the number of days required to travel from the position represented by current GPost object to another position represented by a GPost object while travelling at a specific speed and starting on a specific day
+    #  @details please note that the speed parameter will be rounded to two decimal places to keep it consistent with distance values
     #  @param p A GPost object representing the position to travel to
     #  @param d a DateT object respresenting the date to begin travelling on 
     #  @param s A real number indicating the speed to travel at in units of km/day
     #  @return an integer value representing the distance between the current object and p in units of kilometres(km)
     def arrival_date(self,p,d,s):
         distance = self.distance(p)
-        print(distance)
 
         #number of days required to cover the distance travelling at speed s
-        num_days = Math.ceil(distance/s)
+        num_days = Math.floor(distance/round(s,2))
 
         return d.add_days(num_days)
 

@@ -5,6 +5,7 @@
 
 import math as Math
 import date_adt as Date
+from pytest import *
 ## @brief GPosT is class that implements an object to represent coordinates using longitude and latitude values
 class GPosT:
     ## @brief the constructor method for class GPost
@@ -55,9 +56,9 @@ class GPosT:
         angular_dist = d/radius 
 
         new_lat = Math.asin(Math.sin(phi_one) * Math.cos(angular_dist) + Math.cos(phi_one)*Math.sin(angular_dist)*Math.cos(Math.radians(b)) )
-        new_long = self.long() + Math.atan2(Math.sin(Math.radians(b))*Math.sin(angular_dist)*Math.cos(phi_one), Math.cos(angular_dist) - Math.sin(phi_one) * Math.sin(new_lat) )
+        new_long = self.long() + Math.degrees(Math.atan2(Math.sin(Math.radians(b))*Math.sin(angular_dist)*Math.cos(phi_one), Math.cos(angular_dist) - Math.sin(phi_one) * Math.sin(new_lat) ))
 
-        self.latitude = (new_lat)
+        self.latitude = Math.degrees(new_lat)
         self.longitude = (new_long)
 
     ## @brief calculates the distance between the positions represented by current GPost object and another GPost object 'p'
@@ -86,7 +87,7 @@ class GPosT:
         distance = self.distance(p)
 
         #number of days required to cover the distance travelling at speed s
-        num_days = distance/s 
+        num_days = Math.ceil(distance/s)
 
         return d.add_days(num_days)
 

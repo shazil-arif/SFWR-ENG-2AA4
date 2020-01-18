@@ -144,6 +144,10 @@ def test_date_adt():
     test2 = DateT(1,3,2021)
     compare("test days_between method with March and January when current year is NOT leap year, it should return 29 days",29,test2.days_between(test))
 
+    test = GPosT(0,122.2)
+    test.move(144.2,23)
+    compare("test random",test,test)
+
     
 
 def test_post_adt():
@@ -189,14 +193,16 @@ def main():
     print("Tests for date_adt.py")
     test_date_adt()
 
-    print("\nTESTS FOR pos_adt.py")
-    test_post_adt()
+    #print("\nTESTS FOR pos_adt.py")
+    #test_post_adt()
 
     if(len(failed)!=0): 
         print("\x1b[1;37;41m {num} tests failed. The following tests failed: \x1b[0m \n".format(num=len(failed)))
         for i in range(len(failed)):
             print("{num} ) Description:{Description}".format(num=(i+1),Description=failed[i]["Description"]))
     else: print("\x1b[6;30;42m All tests passed \x1b[0m")
+
+    
 
 main()
     

@@ -156,7 +156,7 @@ class DateT:
     date_one = datetime(self.year(), self.month(), self.day())
     date_two = datetime(d.year(),d.month(),d.day())
     difference = date_one - date_two
-    return difference.days
+    return abs(difference.days)
     
   ## @brief returns whether or not the year in the current DateT object is a leap year
   #  @return a boolean value indicating whether or not the year is a leap year (True if leap year, False otherwise)

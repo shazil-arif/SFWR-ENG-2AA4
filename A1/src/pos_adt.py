@@ -61,7 +61,7 @@ class GPosT:
         self.latitude = Math.degrees(new_lat)
         self.longitude = (new_long)
 
-    ## @brief calculates the distance between the positions represented by current GPost object and another GPost object 'p'
+    ## @brief calculates the distance between the positions represented by current GPost object and another GPost object 'p'. Calculates to 2 decimal places
     #  details Applies the spherical law of cosines formula to calculate the distance. See https://www.movable-type.co.uk/scripts/latlong.html under the heading 'Spherical Law of Cosines'
     #  @param p A GPost object containing the lat/long coordinates to calculate the distance to
     #  @return an integer value representing the distance between the current object and p in units of kilometres(km)
@@ -76,7 +76,7 @@ class GPosT:
 
         distance = Math.acos(Math.sin(lat_one)*Math.sin(lat_two) + Math.cos(lat_one)*Math.cos(lat_two)*Math.cos(long_diff)) * radius
 
-        return distance
+        return round(distance,2)
     
     ## @brief calculates the number of days required to travel from the position represented by current GPost object to another position represented by a GPost object while travelling at a specific speed and starting on a specific day
     #  @param p A GPost object representing the position to travel to
@@ -85,6 +85,7 @@ class GPosT:
     #  @return an integer value representing the distance between the current object and p in units of kilometres(km)
     def arrival_date(self,p,d,s):
         distance = self.distance(p)
+        print(distance)
 
         #number of days required to cover the distance travelling at speed s
         num_days = Math.ceil(distance/s)

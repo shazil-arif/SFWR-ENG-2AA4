@@ -187,19 +187,22 @@ def test_post_adt():
     test.move(45,100)
     compare("test move method",GPosT(44.078061, -73.170068),test)
 
-    
+    date = DateT(18,1,2020)
+    val = test.arrival_date(test2,date,190.1) #starting from 43,-75 travel to test2 at 190.1km/day starting on date
+    compare("test arrival date",DateT(19,1,2020),val)
+
 
 def main():
     print("Tests for date_adt.py")
     test_date_adt()
 
-    #print("\nTESTS FOR pos_adt.py")
-    #test_post_adt()
+    print("\nTESTS FOR pos_adt.py")
+    test_post_adt()
 
     if(len(failed)!=0): 
         print("\x1b[1;37;41m {num} tests failed. The following tests failed: \x1b[0m \n".format(num=len(failed)))
         for i in range(len(failed)):
-            print("{num} ) Description:{Description}".format(num=(i+1),Description=failed[i]["Description"]))
+            print("{num} ) Description : {Description}".format(num=(i+1),Description=failed[i]["Description"]))
     else: print("\x1b[6;30;42m All tests passed \x1b[0m")
 
     

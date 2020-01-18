@@ -51,7 +51,6 @@ def test_date_adt():
     compare("testing getter method for month",1, test.month())
     compare("testing getter method for year",2020, test.year())
 
-
     #test next function
     #ideally for a functions like this the number of tests to run should be equal to or greater than the number of execution paths
     #there are 6 cases
@@ -62,22 +61,22 @@ def test_date_adt():
     # v) Transition into the next month when the current month is february and it a leap year
     # vi) Transition into the next month when current month is february and it is not a leap year
 
-    compare("testing next method, it should return January 2nd 2020 and pass",test.next(),DateT(2,1,2020))
+    compare("testing next method, it should return January 2nd 2020 and pass",DateT(2,1,2020),test.next())
 
     test = DateT(31,1,2020)
-    compare("test for transitioning into next month with current month having 31 days. It should return february 1st 2020 and pass",test.next(),DateT(1,2,2020))
+    compare("test for transitioning into next month with current month having 31 days. It should return february 1st 2020 and pass",DateT(1,2,2020), test.next())
 
     test = DateT(30,4,2020) #April 30th, 2020
-    compare("test for transitioning into next month with current month having 30 days. It should return May 1st 2020 and pass",test.next(),DateT(1,5,2020))
+    compare("test for transitioning into next month with current month having 30 days. It should return May 1st 2020 and pass",DateT(1,5,2020),test.next())
 
     test = DateT(28,2,2020) 
-    compare("test for transitioning into next month with current month being february and the year is a leap year. It should return Feb 29th 2020 and pass",test.next(),DateT(29,2,2020))
+    compare("test for transitioning into next month with current month being february and the year is a leap year. It should return Feb 29th 2020 and pass",DateT(29,2,2020),test.next())
 
     test = DateT(28,2,2021) 
-    compare("test for transitioning into next month with current month being february and the year is NOT leap year. It should return March 1st 2021 and pass",test.next(),DateT(1,3,2021))
+    compare("test for transitioning into next month with current month being february and the year is NOT leap year. It should return March 1st 2021 and pass",DateT(1,3,2021),test.next())
 
     test = DateT(31,12,2020) 
-    compare("test for transitioning into next year. It should return Jan 1st 2021 and pass",test.next(),DateT(1,1,2021))
+    compare("test for transitioning into next year. It should return Jan 1st 2021 and pass",DateT(1,1,2021),test.next())
 
     #test prev method
     test=DateT(2,1,2020)
@@ -133,7 +132,6 @@ def test_date_adt():
     test = DateT(1,1,2020)
     compare("test add days method, add 366 days when current year IS LEAP YEAR. it should return Jan 1st, 2021",DateT(1,1,2021),test.add_days(366))
 
-
     #test days_between method
     test = DateT(31,1,2020)
     test2 = DateT(1,3,2020)
@@ -143,12 +141,6 @@ def test_date_adt():
     test = DateT(31,1,2021)
     test2 = DateT(1,3,2021)
     compare("test days_between method with March and January when current year is NOT leap year, it should return 29 days",29,test2.days_between(test))
-
-    test = GPosT(0,122.2)
-    test.move(144.2,23)
-    compare("test random",test,test)
-
-    
 
 def test_post_adt():
     test = GPosT(45,45)
@@ -213,7 +205,7 @@ def main():
     test_post_adt()
 
     if(len(failed)!=0): 
-        print("\x1b[1;37;41m {num} tests failed. The following tests failed: \x1b[0m \n".format(num=len(failed)))
+        print("\x1b[1;37;41m {num} tests failed\n Tests highlighted above in red failed. The following tests failed: \x1b[0m \n".format(num=len(failed)))
         for i in range(len(failed)):
             print("{num}) Description: {Description}".format(num=(i+1),Description=failed[i]["Description"]))
     else: print("\x1b[6;30;42m All tests passed \x1b[0m")

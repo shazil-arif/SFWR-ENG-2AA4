@@ -159,6 +159,7 @@ class DateT:
     return abs(difference.days)
     
   ## @brief returns whether or not the year in the current DateT object is a leap year
+  #  @details private method, not accessible from external interface
   #  @return a boolean value indicating whether or not the year is a leap year (True if leap year, False otherwise)
   def __is_leap_year(self):
     if(self.year() % 400 == 0): return True

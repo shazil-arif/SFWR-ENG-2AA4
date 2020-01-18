@@ -190,15 +190,19 @@ def test_post_adt():
 
     date = DateT(18,1,2020)
     test = GPosT(43,-75)
-    val = test.arrival_date(test2,date,190.1) #starting from 43,-75 travel to test2 at 190.1km/day starting on date
-    compare("test arrival date it should return Jan 19th, 2020",DateT(19,1,2020),val)
-    print(round(190.1534234,2))
+    val = test.arrival_date(test2,date,180) #starting from 43,-75 travel to test2 at 190.1km/day starting on date
+    compare("test arrival date while travelling at speed that allowed to reach within the same (i.e days required < 1), it should return Jan 19th, 2020",DateT(19,1,2020),val)
 
+    test_distance = test.distance(test2)
+    val = test.arrival_date(test2,date,test_distance)
+    compare("test arrival date with travelling speed that takes exactly 1 day in total, it should return Jan 19th 2020",DateT(19,1,2020),val)
 
-    val = test.arrival_date(test2,date,570.3)
-    compare("test arrival date with travelling speed that allows to reach within the same (i.e days required < 1) it should return Jan 18th, 2020 the same day",DateT(18,1,2020),val)
+    val = test.arrival_date(test2,date,14.62)
+    compare("test arrival date with travelling speed that takes until the 31st of the month, it should return Jan 31st 2020",DateT(31,1,2020),val)
 
-    val = test.arrival_date(test2,date,95)
+    date = DateT(1,2,2020)
+    val = test.arrival_date(test2,date,6.55)
+    compare("test arrival date that takes 29 days to travel in feb, it should return March 1st 2020",DateT(1,3,2020),val)
 
 
 def main():

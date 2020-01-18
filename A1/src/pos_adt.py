@@ -44,7 +44,6 @@ class GPosT:
     def equal(self,p):
         return self.distance(p) < 1
 
-
     ## @brief moves the position represented by the current GPost object in direction of bearing b with total distance d
     #  @param b A real number indicating the bearing/direction to move in
     #  @param d A real number indicating the distance to move in units of kilometres (km)
@@ -87,7 +86,8 @@ class GPosT:
         distance = self.distance(p)
 
         #number of days required to cover the distance travelling at speed s
-        num_days = Math.floor(distance/round(s,2))
+        num_days = 0
+        if(s!=0): num_days = Math.floor(distance/round(s,2))
 
         return d.add_days(num_days)
 

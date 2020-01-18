@@ -23,7 +23,9 @@ def compare(description, expected, actual):
         if(expected.__dict__ == actual.__dict__):
             print('\nResult: ' + '\x1b[6;30;42m' + 'Passed' + '\x1b[0m') #source: https://stackoverflow.com/questions/287871/how-to-print-colored-text-in-terminal-in-python
         else:
-            failed.append({"Description":description,"Expected":expected,"Actual":actual})
+            failed.append({"Description":description,
+            "Expected":expected,
+            "Actual":actual})
             print('\nResult: ' + '\x1b[1;37;41m' + 'Failed' + '\x1b[0m')
 
     else: #comparing other types...string, int, float etc.
@@ -146,15 +148,12 @@ def test_post_adt():
     test = GPosT(45,45)
     compare("test for constructor",45, test.latitude)
     compare("test for constructor",45, test.longitude)
-
     compare("test getter method for latitude",45,test.lat())
     compare("test getter method for longitude",45,test.long())
 
-    #compare("test west_of method",)
-
     test = GPosT(43.580605, -79.625668)
     test2 = GPosT(40.723606, -73.860514)
-    compare("test distance method , it should return 571km rounded to the nearest whole number",571,int(test2.distance(test)))
+    compare("test distance method , it should return 571.44 km rounded to the 2 decimal places",571.44,test2.distance(test))
 
     test = GPosT(43.261897, -79.921433)
     test2 = GPosT(43.262545, -79.922549)
@@ -178,7 +177,7 @@ def test_post_adt():
     test2 = GPosT(44.078061, -73.170068)
 
     test.move(45,100)
-    compare("test move method",GPosT(44.078061, -73.170068),test)
+    compare("test move method",GPosT(43.63, -74.12),test)
 
     date = DateT(18,1,2020)
     test = GPosT(43,-75)
@@ -195,7 +194,6 @@ def test_post_adt():
     date = DateT(1,2,2020)
     val = test.arrival_date(test2,date,6.55)
     compare("test arrival date that takes 29 days to travel in feb, it should return March 1st 2020",DateT(1,3,2020),val)
-
 
 def main():
     print("Tests for date_adt.py")

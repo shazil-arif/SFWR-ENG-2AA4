@@ -14,7 +14,6 @@ class GPosT:
         self.latitude = phi
         self.longitude = _lambda
         
-
     ## @brief returns the latitude for the current GPost object
     #  @return the latitude value
     def lat(self):
@@ -56,8 +55,8 @@ class GPosT:
         new_lat = Math.asin(Math.sin(phi_one) * Math.cos(angular_dist) + Math.cos(phi_one)*Math.sin(angular_dist)*Math.cos(Math.radians(b)) )
         new_long = self.long() + Math.degrees(Math.atan2(Math.sin(Math.radians(b))*Math.sin(angular_dist)*Math.cos(phi_one), Math.cos(angular_dist) - Math.sin(phi_one) * Math.sin(new_lat) ))
 
-        self.latitude = Math.degrees(new_lat)
-        self.longitude = (new_long)
+        self.latitude = round(Math.degrees(new_lat),2)
+        self.longitude = round(new_long,2)
 
     ## @brief calculates the distance between the positions represented by current GPost object and another GPost object 'p'. Calculates to 2 decimal places
     #  details Applies the spherical law of cosines formula to calculate the distance. See https://www.movable-type.co.uk/scripts/latlong.html under the heading 'Spherical Law of Cosines'

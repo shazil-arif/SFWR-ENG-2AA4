@@ -1,7 +1,7 @@
 ## @file test_driver.py
 #  @author Shazil Arif
 #  @brief this test driver module is used to test modules DateT and GPost
-#  @date January 10th, 2020
+#  @date January 18th, 2020
 from date_adt import DateT
 from pos_adt import GPosT
 import time
@@ -218,7 +218,7 @@ def main():
         print("\x1b[1;37;41m {num} tests failed\n Tests highlighted above in red failed. The following tests failed: \x1b[0m \n".format(num=len(failed)))
         for i in range(len(failed)):
             print("{num}) Description: {Description}".format(num=(i+1),Description=failed[i]["Description"]))
-    else: print("\x1b[6;30;42m All tests passed. Executed {count} tests in {time} seconds \x1b[0m.".format(count=count,time=end))
+    else: print("\x1b[6;30;42m All tests passed. Executed {count} tests in {time} seconds \x1b[0m".format(count=count,time=end))
 
 main()
     

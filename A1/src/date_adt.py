@@ -1,7 +1,7 @@
 ## @file date_adt.py
 #  @author Shazil Arif
 #  @brief date_adt.py contains a Class that implements a Date object containing a year, month and day
-#  @date Jan 8th, 2020
+#  @date Jan 18th, 2020
 
 from datetime import datetime
 from datetime import timedelta

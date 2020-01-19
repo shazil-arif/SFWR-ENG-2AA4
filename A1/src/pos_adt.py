@@ -1,7 +1,7 @@
 ## @file pos_adt.py
 #  @author Shazil Arif
 #  @brief pos_adt.py implements a class for global position coordinates
-#  @date January 9th, 2020
+#  @date January 18th, 2020
 
 import math as Math
 import date_adt as Date

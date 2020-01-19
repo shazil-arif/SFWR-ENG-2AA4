@@ -4,11 +4,15 @@
 #  @date January 10th, 2020
 from date_adt import DateT
 from pos_adt import GPosT
+import time
 
 failed = []
+count = 0
 
 def compare(description, expected, actual):
     print("Description: {description}\n".format(description=description))
+    global count
+    count = count + 1
 
     #if expected value is instance of DateT or GPost class
     if(isinstance(expected,DateT) or isinstance(expected,GPosT)): 
@@ -41,6 +45,7 @@ def test_date_adt():
     #testing date_adt.py
 
     #2020 is a leap year!
+    start = time.time()
     test = DateT(1,1,2020)
 
     #test constructor
@@ -195,18 +200,25 @@ def test_post_adt():
     val = test.arrival_date(test2,date,6.55)
     compare("test arrival date that takes 29 days to travel in feb, it should return March 1st 2020",DateT(1,3,2020),val)
 
+    val = test.arrival_date(test2,date,0)
+    compare("test arrival date with 0 speed it should return the current date",DateT(1,2,2020),val)
+
+
 def main():
+    start = time.time()
     print("Tests for date_adt.py")
     test_date_adt()
 
     print("\nTESTS FOR pos_adt.py")
     test_post_adt()
+    end = time.time()
+    end = round(end - start,5)
 
     if(len(failed)!=0): 
         print("\x1b[1;37;41m {num} tests failed\n Tests highlighted above in red failed. The following tests failed: \x1b[0m \n".format(num=len(failed)))
         for i in range(len(failed)):
             print("{num}) Description: {Description}".format(num=(i+1),Description=failed[i]["Description"]))
-    else: print("\x1b[6;30;42m All tests passed \x1b[0m")
+    else: print("\x1b[6;30;42m All tests passed. Executed {count} tests in {time} seconds \x1b[0m.".format(count=count,time=end))
 
 main()
     

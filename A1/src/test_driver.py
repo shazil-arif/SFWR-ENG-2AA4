@@ -48,11 +48,7 @@ def test_date_adt():
     start = time.time()
     test = DateT(1,1,2020)
 
-    #test constructor
-    compare("test for constructor",1,test.d)
-    compare("test for constructor",1,test.m)
-    compare("test for constructor",2020,test.y)
-
+    
     #test getter
     compare("testing getter method for day",1, test.day())
     compare("testing getter method for month",1, test.month())

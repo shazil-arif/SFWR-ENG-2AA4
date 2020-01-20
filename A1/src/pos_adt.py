@@ -79,7 +79,7 @@ class GPosT:
     #  @details please note that the speed parameter will be rounded to two decimal places to keep it consistent with distance values. If the speed is 0 the current DateT object will be returned
     #  @param p A GPost object representing the position to travel to
     #  @param d a DateT object respresenting the date to begin travelling on 
-    #  @param s A real number indicating the speed to travel at in units of km/day
+    #  @param s A real number indicating the speed to travel at in units of km/day. It is assumed to be positive
     #  @return an integer value representing the distance between the current object and p in units of kilometres(km)
     def arrival_date(self,p,d,s):
         distance = self.distance(p)

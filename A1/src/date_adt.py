@@ -1,7 +1,7 @@
 ## @file date_adt.py
 #  @author Shazil Arif
 #  @brief date_adt.py contains a Class that implements a Date object containing a year, month and day
-#  @date Jan 18th, 2020
+#  @date Jan 20th, 2020
 
 from datetime import datetime
 from datetime import timedelta
@@ -37,9 +37,9 @@ class DateT:
   __feb_common_days = 28
 
   ## @brief the constructor method for class DateT
-  #  @param d The date to be set 
-  #  @param m the Month to be set
-  #  @param y the Year to be set
+  #  @param d The date to be set. Assumes an integer between 1 to 31 (inclusive)
+  #  @param m the Month to be set. Assumes an integer from 1 to 12 (inclusive)
+  #  @param y the Year to be set. Assumes a positive integer
   def __init__(self, d, m, y):
     self.d = d
     self.m = m
@@ -60,7 +60,7 @@ class DateT:
   def year(self):
     return self.y
 
-  ## @brief returns a DateT object that is 1 day later than the current object
+  ## @brief Returns a DateT object that is 1 day later than the current object
   #  @return DateT object that is set 1 day later
   def next(self):
     #going into new month when current month has 31 days
@@ -120,7 +120,7 @@ class DateT:
 
 
   ## @brief compares if the date represented by the current DateT object is before d (d is also a DateT object)
-  #  @param d The DateT object to compare with the current object
+  #  @param d The DateT object to compare with the current object. Assumes a valid DateT object
   #  @return A boolean value indicating whether the current objects date is before the date in d (True if before, False otherwise)
   def before(self,d):
     if(self.year() < d.year()): return True
@@ -129,20 +129,20 @@ class DateT:
     return False
 
   ## @brief compares if the date represented by the current DateT object is after d (d is also a DateT object)
-  #  @param d The DateT object to compare with the current object
+  #  @param d The DateT object to compare with the current object. Assumes a valid DateT object
   #  @return A boolean value indicating whether the current objects date is after the date in d (True if before, False otherwise)
   def after(self,d):
     if not self.before(d): return True
     return False
 
   ## @brief compares if the current DateT object and another DateT object d represent the same date
-  #  @param d The DateT object to compare with the current object
+  #  @param d The DateT object to compare with the current object. Assumes a valid DateT object
   #  @return A boolean value indicating whether the two objects represent the same data (True if equal, False otherwise)
   def equal(self,d):
     return self.__dict__ == d.__dict__
 
   ## @brief adds n days to the date represented by the current DateT object
-  #  @param n The number of days to add
+  #  @param n The number of days to add. Assumes an integer greater than or equal to 0
   #  @return A DateT object with its date set n days later than the original
   def add_days(self,n):
     temp = datetime(self.year(), self.month(), self.day())
@@ -150,7 +150,7 @@ class DateT:
     return DateT(temp.day,temp.month,temp.year)
     
   ## @brief calculates the number of days between the current DateT object and DateT object d
-  #  @param d The DateT object to calculate the number of days in between with
+  #  @param d The DateT object to calculate the number of days in between with. Assumes a valid DateT object
   #  @return An integer value indicating the number of days between the two DateT objects
   def days_between(self,d):
     date_one = datetime(self.year(), self.month(), self.day())

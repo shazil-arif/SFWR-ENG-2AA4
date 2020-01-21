@@ -48,7 +48,6 @@ def test_date_adt():
     start = time.time()
     test = DateT(1,1,2020)
 
-    
     #test getter
     compare("testing getter method for day",1, test.day())
     compare("testing getter method for month",1, test.month())
@@ -103,7 +102,6 @@ def test_date_adt():
     #test for before method
     test  = DateT(1,1,2020)
     test2 = DateT(1,5,2020)
-
     compare("test for before method , it should return True and pass",True,test.before(test2))
     compare("test for before method , it should return False and pass",False,test2.before(test))
 
@@ -209,9 +207,9 @@ def main():
     end = round(end - start,5)
 
     if(len(failed)!=0): 
-        print("\x1b[1;37;41m {num} tests failed\n Tests highlighted above in red failed. The following tests failed: \x1b[0m \n".format(num=len(failed)))
+        print("\x1b[1;37;41m{num} tests failed\nTests highlighted above in red failed\nThe following tests failed: \x1b[0m".format(num=len(failed)))
         for i in range(len(failed)):
-            print("{num}) Description: {Description}".format(num=(i+1),Description=failed[i]["Description"]))
+            print("\n{num}) Description: {Description}".format(num=(i+1),Description=failed[i]["Description"]))
     else: print("\x1b[6;30;42m All tests passed. Executed {count} tests in {time} seconds \x1b[0m".format(count=count,time=end))
 
 main()

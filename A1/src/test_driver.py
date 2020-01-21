@@ -1,7 +1,7 @@
 ## @file test_driver.py
 #  @author Shazil Arif
 #  @brief this test driver module is used to test modules DateT and GPost
-#  @date January 18th, 2020
+#  @date January 20th, 2020
 from date_adt import DateT
 from pos_adt import GPosT
 import time
@@ -67,16 +67,16 @@ def test_date_adt():
     compare("testing next method, it should return January 2nd 2020 and pass",DateT(2,1,2020),test.next())
 
     test = DateT(31,1,2020)
-    compare("test for transitioning into next month with current month having 31 days. It should return february 1st 2020 and pass",DateT(1,2,2020), test.next())
+    compare("test for transitioning into next month with current month having 31 days. It should return february 1st 2020",DateT(1,2,2020), test.next())
 
     test = DateT(30,4,2020) #April 30th, 2020
-    compare("test for transitioning into next month with current month having 30 days. It should return May 1st 2020 and pass",DateT(1,5,2020),test.next())
+    compare("test for transitioning into next month with current month having 30 days. It should return May 1st 2020",DateT(1,5,2020),test.next())
 
     test = DateT(28,2,2020) 
-    compare("test for transitioning into next month with current month being february and the year is a leap year. It should return Feb 29th 2020 and pass",DateT(29,2,2020),test.next())
+    compare("test for transitioning into next month with current month being february and the year is a leap year. It should return Feb 29th 2020",DateT(29,2,2020),test.next())
 
     test = DateT(28,2,2021) 
-    compare("test for transitioning into next month with current month being february and the year is NOT leap year. It should return March 1st 2021 and pass",DateT(1,3,2021),test.next())
+    compare("test for transitioning into next month with current month being february and the year is NOT leap year. It should return March 1st 2021",DateT(1,3,2021),test.next())
 
     test = DateT(31,12,2020) 
     compare("test for transitioning into next year. It should return Jan 1st 2021 and pass",DateT(1,1,2021),test.next())
@@ -86,16 +86,16 @@ def test_date_adt():
     compare("test for prev method, it should return January 1st 2020 and pass",DateT(1,1,2020),test.prev())
 
     test=DateT(1,5,2020)
-    compare("test for transitioning into previous month with current month having 31 days. It should return April 30th 2020 and pass",DateT(30,4,2020),test.prev())
+    compare("test for transitioning into previous month with current month having 31 days. It should return April 30th 2020",DateT(30,4,2020),test.prev())
 
     test=DateT(1,6,2020)
-    compare("test for transitioning into previous month with current month having 30 days. It should return May 31st 2020 and pass",DateT(31,5,2020),test.prev())
+    compare("test for transitioning into previous month with current month having 30 days. It should return May 31st 2020",DateT(31,5,2020),test.prev())
 
     test=DateT(1,3,2020)
-    compare("test for transitioning back into february and the year is a leap year. It should return Feb 29th 2020 and pass",DateT(29,2,2020),test.prev())
+    compare("test for transitioning back into february and the year is a leap year. It should return Feb 29th 2020",DateT(29,2,2020),test.prev())
     
     test=DateT(1,3,2021)
-    compare("test for transitioning back into february and the year is NOT leap year. It should return Feb 28th 2021 and pass",DateT(28,2,2021),test.prev())
+    compare("test for transitioning back into february and the year is NOT leap year. It should return Feb 28th 2021",DateT(28,2,2021),test.prev())
     
     test=DateT(1,1,2020)
     compare("test for transitioning into previous year. It should return Dec 31st 2019 and pass",DateT(31,12,2019),test.prev())
@@ -147,8 +147,6 @@ def test_date_adt():
 
 def test_post_adt():
     test = GPosT(45,45)
-    compare("test for constructor",45, test.latitude)
-    compare("test for constructor",45, test.longitude)
     compare("test getter method for latitude",45,test.lat())
     compare("test getter method for longitude",45,test.long())
 
@@ -182,7 +180,7 @@ def test_post_adt():
 
     date = DateT(18,1,2020)
     test = GPosT(43,-75)
-    val = test.arrival_date(test2,date,180) #starting from 43,-75 travel to test2 at 190.1km/day starting on date
+    val = test.arrival_date(test2,date,180) #starting from 43,-75 travel to test2 at 180km/day starting on date
     compare("test arrival date while travelling at speed that allowed to reach within the same (i.e days required < 1), it should return Jan 19th, 2020",DateT(19,1,2020),val)
 
     test_distance = test.distance(test2)

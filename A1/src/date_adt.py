@@ -41,24 +41,24 @@ class DateT:
   #  @param m the Month to be set. Assumes an integer from 1 to 12 (inclusive)
   #  @param y the Year to be set. Assumes a positive integer
   def __init__(self, d, m, y):
-    self.d = d
-    self.m = m
-    self.y = y
+    self.__d = d
+    self.__m = m
+    self.__y = y
 
   ## @brief returns the day
   #  @return the day
   def day(self):
-    return self.d
+    return self.__d
 
   ## @brief returns the month
   #  @return the month
   def month(self):
-    return self.m
+    return self.__m
 
   ## @brief returns the year
   #  @return the year
   def year(self):
-    return self.y
+    return self.__y
 
   ## @brief Returns a DateT object that is 1 day later than the current object
   #  @return DateT object that is set 1 day later

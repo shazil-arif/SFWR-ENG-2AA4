@@ -150,7 +150,7 @@ Discussed what a set is:
 2) All elements are of the same type
 
 Operations on sets:
-Union: elements in either set
+Union: essentially combine two sets
 Intersection: elements in both sets
 Set Difference: Take first set and remove any elements that are common with other set 
 e.g if we have S=  {1,2} and T = {2,3,4} then we have S - T = {1} . 3 and 4 not included cuz not in both sets
@@ -158,6 +158,34 @@ e.g if we have S=  {1,2} and T = {2,3,4} then we have S - T = {1} . 3 and 4 not 
 Subset
 
 Cartesian product: all possible pairs
+
+A set can be described in two ways:
+set enumeration: List out all elements in a set
+
+Set comprehension: 
+S = { x : t | R : E}
+This means S is a set where its elements are of type t and satisfy a property R and E is some defining expression for a set element
+e.g S = {x : N | 1 <= x < 5 : $x ^2$} then S = {1,4,9,16}
+
+Types:
+A set of values e.g a value of type integer belongs to the set  S = {...-1,-2,0,1,2....}
+
+We can have custom types:
+Such as a PointT type which can be a tuple(x : R, y : R)
+
+Quantifiers (Shorthand for applying the same operator many times)
+
+( *x : X | R : P)
+x is an element of type X
+R is a range (usually a boolean condition indicating which elements to include/consider)
+P - the values to apply the operator "*" to.
+* may be +,-, / etc.
+e.g {+x : N | 1<= x < 5 : $x^2$} means to sum up the square of the terms from 1 to 5 (including 1 but not 5)
+
+Quantifiers for conjunction and disjunction
+for logical and, we use the universal quantifier forall, since "and"
+
+for logical or, we use existential quantifier, exists since "or" 
 
 \subsubsection *{Textbook Reading (Ghezzi, H\&S or other)}
 
@@ -174,6 +202,8 @@ Reviewing principles
 \subsubsection *{Reflection Relating Course Topics, Other Courses, Other Experiences}
 
 Discussing modular design and information hiding tied in with what is currently being taught in our 2XB3 course, modular design and object oriented programming with Java. The overlapping material helps build a deeper understanding!
+
+The Math review helps tie in with other courses such as Discrete Mathematics (2FA3)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

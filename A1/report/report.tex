@@ -4,6 +4,7 @@
 \usepackage{paralist}
 \usepackage{listings}
 \usepackage{booktabs}
+\usepackage{listings}
 
 \oddsidemargin 0mm
 \evensidemargin 0mm
@@ -17,33 +18,57 @@
 
 \title{Assignment 1 Solution}
 \author{Shazil Arif, 400201970}
-\date{\today}
+\date{Jan 26th, 2020}
 
 \begin {document}
 
 \maketitle
 
-Intro blurb.
+Intro blurb ??
 
 \section{Testing of the Original Program}
 
-Description of approach to testing.  Rationale for test case selection.  Summary
-of results.  Any problems uncovered through testing.
+As someone who is experienced with unit testing, the motivation behind my test driver file was very similar to that of a real testing framework. The idea was to have a single function (called "compare") that compares an expected to 
+an actual value; if they match, the test passes otherwise it fails. For visual purposes the output to the terminal is "Passed" highlighted in green if a test passes, and "Failed" hightlighted in red if a test fails. This removes the need for a user to sit through and read which tests failed/passed. The compare function also checks if the expected/actual values are objects (instances of GPosT or DateT). If they are objects it compares all their state variables and a test passes if all the compared values are the same. The program keeps a count of how many tests are executed and how many fail. Another important design choice was to let the program continue its execution even if a test fails, this way all tests will be executed once and the result for each can be seen.
+
+The rationale behind the test cases was to cover all/majority of possible execution paths given the assumptions and design choices in the actual code files. For example, when testing the next() function for DateT, I wrote tests that would cover several test cases including when the function: returns the next day in the current month, returns first day of the next month, returns the first day of the next year, tests the month of february for leap years and so on. I used this same approach and considered the many different possbilities when writing all the tests. 
+
+Initially, some tests failed and some passed. Writing good test cases that covered all execution paths helped me find some flaws in my code. For example, I realized in the arrivaldate() function I did not account for when a 0 speed would be passed as a parameter. I also discovered other minor issues such as returning the current day minus one, instead of one for the next() function. While testing, I also realized the class state variables were not private which is not ideal, so I decided to encapsulate these fields.
+
+
 
 \section{Results of Testing Partner's Code}
 
-Consequences of running partner's code.  Success, or lack of success, running
-test cases.  Explanation of why it worked, or didn't.
+After running my partner's code with my test file, 6 out of 44 test cases failed. The methods that failed were:
+\begin{itemize}
+	\item The distance() method for GPosT. My test driver expected 571.44 km because I decided to round distance values to 2 decimal places. My partner's returned 571.44064.. and several other decimals. The test failed due to different choices when it came to rounding distance values.
+
+	\item The move() method for GPosT. Same reason as above. Due to different choices, regarding how many decimal places to keep, the expected and actual were different. The non-decimal portion is correct however.
+
+	\item The arrival \textunderscore date() method. My test driver expected the 19th of January as the returned date, partner's code returned January 20th, 2020. This is due to different design choices. In my code I decided to floor (round down) any decimal values when calculating the number of days required. My partner decided to ceil (round up) decimal values, hence the difference of one day in the expected and actual answer. My code for calculating the number of days required : \lstinputlisting[language=Python, firstline=90, lastline=90]{../src/pos_adt.py} Partner's code for calculating number of days required:  \lstinputlisting[language=Python, firstline=123, lastline=123]{../partner/pos_adt.py}
+
+	\item The arrival \textunderscore date() again failed for a different set of parameters. It failed for the same reason as above. Due to different choices for handling decimal values for arrival \textunderscore date(). 
+
+	\item The arrival \textunderscore date() a third time for another set of parameters. It failed for the same reason as above. Due to different design choices for handling decimal values.
+	
+	\item The arrival \textunderscore date() with a value of 0 for speed. The test failed and gave a division by zero error, it failed because partner's code did not account for a value of 0 and it gave a division by zero.
+
+
+\end{itemize}
 
 \section{Critique of Given Design Specification}
 
-Advantages and disadvantages of the given design specification.
+A major advantage of the design specification was the open-endedness. The modules and functions to be implemented were specified with their parameters, return values and a description of what it should do. How the output is achieved is not defined, this gives the developer the abillity to implement the required functionality however they want. Whether it's deciding which formula to use for a calculation or whether to use an existing library and tailor it to the assignment requirements, there was a lot of freedom. 
+
+Another part of the design specification t
 
 \section{Answers to Questions}
 
 \begin{enumerate}[(a)]
 
-\item 
+\item One possibility for the state variables is simply having three variables for the day, month and year for DateT and similarly two variables for latitude/longitude in GPosT. Another possibility is using an iterable type such as a list or tuple that contain the latitude/longitude values for GPosT and day,month, year for DateT.
+
+\item The interface specified in this assignment does not state the use of any state variables or how to maintain them. This means the state variables can be left private or public. Depending on whether the state variables were made public or private, their values could be mutated. However, in the GPosT module, the move() method modifies the values of the state variables. Although not directly, GPosT objects are then indirectly mutable. There are no setter methods. 
 
 \end{enumerate}
 

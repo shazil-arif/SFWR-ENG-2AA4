@@ -70,6 +70,16 @@ Another part of the design specification t
 
 \item The interface specified in this assignment does not state the use of any state variables or how to maintain them. This means the state variables can be left private or public. Depending on whether the state variables were made public or private, their values could be mutated. However, in the GPosT module, the move() method modifies the values of the state variables. Although not directly, GPosT objects are then indirectly mutable. There are no setter methods. 
 
+\item pytest is an automated unit testing framework. It provides several features including:
+\begin{enumerate}[(1)]
+
+\item Detailed debugging info on assert statements if a test fails
+\item Over 315+ plugins for third party python packages, allowing users to unit test a variety of different applications. See http://plugincompat.herokuapp.com/ for a list.
+\item
+
+\end{enumerate}
+
+
 \end{enumerate}
 
 \newpage

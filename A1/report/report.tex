@@ -5,6 +5,7 @@
 \usepackage{listings}
 \usepackage{booktabs}
 \usepackage{listings}
+\usepackage{hyperref}
 
 \oddsidemargin 0mm
 \evensidemargin 0mm
@@ -29,7 +30,7 @@ Intro blurb ??
 \section{Testing of the Original Program}
 
 As someone who is experienced with unit testing, the motivation behind my test driver file was very similar to that of a real testing framework. The idea was to have a single function (called "compare") that compares an expected to 
-an actual value; if they match, the test passes otherwise it fails. For visual purposes the output to the terminal is "Passed" highlighted in green if a test passes, and "Failed" hightlighted in red if a test fails. This removes the need for a user to sit through and read which tests failed/passed. The compare function also checks if the expected/actual values are objects (instances of GPosT or DateT). If they are objects it compares all their state variables and a test passes if all the compared values are the same. The program keeps a count of how many tests are executed and how many fail. Another important design choice was to let the program continue its execution even if a test fails, this way all tests will be executed once and the result for each can be seen.
+an actual value; if they match, the test passes otherwise it fails. For visual purposes the output to the terminal is "Passed" highlighted in green if a test passes, and "Failed" highlighted in red if a test fails. This removes the need for a user to sit through and read which tests failed/passed. The compare function also checks if the expected/actual values are objects (instances of GPosT or DateT). If they are objects it compares all their state variables and a test passes if all the compared values are the same. The program keeps a count of how many tests are executed and how many fail. Another important design choice was to let the program continue its execution even if a test fails, this way all tests will be executed once and the result for each can be seen.
 
 The rationale behind the test cases was to cover all/majority of possible execution paths given the assumptions and design choices in the actual code files. For example, when testing the next() function for DateT, I wrote tests that would cover several test cases including when the function: returns the next day in the current month, returns first day of the next month, returns the first day of the next year, tests the month of february for leap years and so on. I used this same approach and considered the many different possbilities when writing all the tests. 
 
@@ -74,11 +75,85 @@ Another part of the design specification t
 \begin{enumerate}[(1)]
 
 \item Detailed debugging info on assert statements if a test fails
-\item Over 315+ plugins for third party python packages, allowing users to unit test a variety of different applications. See http://plugincompat.herokuapp.com/ for a list.
-\item
+\item Over 315+ plugins for third party python packages, allowing users to unit test a variety of different applications. \href{http://plugincompat.herokuapp.com/}{See here for more info}
+
+\item Auto-discovery of tests, meaning the developer could write a class that contains all the tests and execute it with pytest. \href{https://docs.pytest.org/en/latest/goodpractices.html#test-discovery}{Click here for more info}
+
+In the future, the major benefit pytest would provide is the lack of labour. Since much of the functionality for testing is already provided, as the developer I would only be required to write my test cases and call the necessary functions (such as assert()). The test discovery feature would also help in testing
 
 \end{enumerate}
 
+\item An example of a past software failure is the Mariner 1 spacecraft. A spacecraft on a mission to fly-by Venus in 1062
+went off its course with the threat of crashing back on to Earth's surface. The spacecraft was issued a self destruct command and 
+blew up mid-air. It was later determined that the omission of a hyphen in the code for the software led to incorrect calculations leading to the loss of 18 million dollars. \\
+Another example of a software failure is when Knight Capital Group (The largest financial services company by Equity in the US uptil 2012) suffered a 460 million dollar loss due to a software error. A flaw in the company's trading algorithm lead to a stock buying spree with a total cost of up to 7 billion dollars. By stock exchange rules, the company was required to pay for the share within the next three days but, these purchases were unintended and the company did not have the funds to back these purchases. \\
+There are several reasons why software quality and high cost are a major challenge. Some of these include::
+
+\begin{itemize}
+\item Lack of strong and thorough communication between clients/business managers (or anyone who provides the software specifications/requirements) and developers. This creates ambiguities that lead to confusions which are not clarified and ultimately leads to misunderstanding of the program. In the Mariner 1 spacecraft failure discussed above, one of the developers interpreted a formula for the spacecraft's velocity incorrectly. Not only do misunderstandings happen but they are very hard to identify in some scenarios. Due to this reason, many companies now are spending a significant portion of their budget to test their products but, what exactly are these costs? This leads us to our next point.
+
+\item Time, manpower and cost. In order to properly ensure that software will not fail in production requires thorough testing. Thorough testing requires alot of time. Writing several test cases for many different parts of code, identifying the failed tests and why they failed and then fixing bugs requires significant amount of time. Developers already have alot of work under their belt with the software they have to build. This demands too much extra work and time for developers. Due to this, many companies now hire seperate people; Quality Assurance Testers (QA testers) to distribute the workload. Unfortunately, this comes with a cost. Hiring more people means more wages companies have to pay. Apart from hiring more people, many software testing tools have their own cost. It is too time consuming for developers/QA testers to write manual test cases or develop software to automate the testing process, thus many opt in to using third party testing tools and platforms (e.g. Travis CI, Jenkins, Circle CI, Selenium) which have their own costs.
+
+\item Human error and unanticipated behaviour. There will always be human error in software projects. This may simply be a typo (e.g. using wrong variable), an actual flaw in the design that may not initially be identified until later in production. Unanticipated behaviour can show up. This may be because an end-user uses the product/service in such a way that results in failure in the software because this scenario was not even thought of during the implementation. Another example would be atom transactions when saving data to a database. The developers may not have thought about this before the software went into production, leading to people's data being corrupted/inaccurate. 
+
+
+In summary, the challenge with high software quality and high cost is businesses have limited time to deliver their product/services to the market. Thorough testing is the most plausible way to ensure high quality of software but is a very tedious and time consuming process. Many companies will then opt in to hiring people for testing/quality assurance purposes and pay for third party tools/platforms required for testing. Furthermore, producing bug free software is essentially impossible because of human errors, unanticipated behavior and even outdated libraries/other software that a certain software depends.\\
+
+I believe good steps are already being taken to address this problem. With the rise in QA tester jobs, software testing frameworks and continuous integration/delivery platforms that combine the testing and deployment phase of software
+
+\end{itemize}
+
+\item The rational design process discussed has several phases including: 
+
+\begin{itemize}[(a)]
+
+\item Problem statement
+\item Development Plan
+\item Requirements
+\item Design and Docs
+\item Code
+\item Verification and Validation
+
+\end{itemize}
+
+While it sounds logical in theory, in practice a design process like this does not work. According to a paper by David Parnas and Paul Clement
+\href{See https://www.researchgate.net/publication/260649064_A_Rational_Design_Process_How_and_Why_to_Fake_i}{See here} some of the reasons it does not 
+work is:
+\begin{itemize}[(a)]
+
+\item Most people who commission the building of a software project do not know exactly what they want and are unable to communicate this information
+
+\item Even if all relevant facts are known before the project is started, human beings have a difficult time comprehending a bulk of details in order to design a complex system correctly
+
+\item Human errors are difficult to avoid. No matter how separated the concerns are, human errors will still be made
+
+\item Most software projects are subject to change for external reasons and these changes invalidate previous design decisions. This leads to the resulting design not being the one that would have been produced by a rational design process.
+\end{itemize}
+
+Due to these reasons it is impossible to have an ideal "rational" design process. However, Parnas and Clement argue that there is still need for one, and that is why we must "fake" one. We need to fake the design process because:
+
+\begin{itemize}[(a)]
+
+\item Developers need guidance. Many times when we take on a project, we are intimidated by the bulk of details/requirements and are unsure of where to begin. Having a design process in place will help developers give a sense of direction to where to begin.
+
+\item Having a standard procedure helps organizations maintain their software projects in the long term. It makes it easier to have design reviews, transfer people, ideas and software from one project to another. 
+
+\item If a party has agreed on an ideal/standard design process then it becomes easier to measure the progress of the project by comparing the actual progress to that the ideal process would want. 
+
+The benefits of documentation that follows a rational design process
+\end{itemize}
+
+\item Software correctness achieved when a software product achieves its requirement specification. Take this assignment for example. We were given several functions to implement and were told their inputs and outputs (return values). The assignment specification was not concerned with how the correct output for an input is achieved, as long as it is right. This is the quality of correctness\\
+
+Software robustness is achieved when a software product behaves reasonably in unanticipated or exceptional situations. (For simplicity we will define "reasonably" as not crashing). An example would is how a software program handles saving data to a database. Suppose the specifications simply state "user data should be saved to a database". Instead of naively writing queries to save data to the database, the developer considers atomic transactions. This is the approach used when saving multiple pieces of data to a database. Suppose we save a few pieces of the user's data such as their name and age but then suddenly our remote connection to the database disconnects. Now the user's name and age is saved but their order is not. The data is incomplete, inconsistent and corrupt. Atomic transactions address this issue by saving all data, if any one fails, all changes are rolled back to maintain integrity of the data. Now, when the software is in production, in the unexpected scenario when some data is unable to be sent to the database, everything is rolled back. This is a example of robustness. The software performed "reasonably" (i.e did not crash) and did not corrupt our user's data.\\
+
+Software Reliability is achieved when a software product usually does what it is intended do. This is a quantitative measure and can be statistically measured. We can think of it as the probability of failure-free software execution. As an example, suppose a piece of software that uses machine learning techniques to predict weather patterns. Because of the nature of such a program, it operates on past data, patterns and statistical reasoning and is naturally not perfect. If this software does what "it is intended to do" then it correctly predicts the weather and we can statistically measure how often it is correct to decide whether is is reliable or not.
+
+\item Seperation of concerns (SoC) is a design principle to seperate software into different sub sections, where each sub section addresses a different concern. We can think of a "concern" as an integral part of the software as a whole. For example, suppose we want to build an application for customer management for a local convenience store. We may create a class to represent customers and their information, another class that contains the code to write data to a database and another class that deals with necessary calculations of item prices. Each of these sub modules address a different concern.\\
+
+The motivation behind SoC is to reduce complexity when taking on a complex software project. Human brains are have a difficult time retaining a bulk of information
+
+The principle of modularity is to divide a complex system into smaller modules. As we see in the convenience store customer management software example, by addressing the principle of SoC we naturally follow the principle of modularity. By it's definition, SoC aims to divide software into smaller modules and this is the principle of modularity.\\
 
 \end{enumerate}
 

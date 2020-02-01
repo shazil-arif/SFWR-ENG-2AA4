@@ -1,11 +1,14 @@
-## @file ElemSet.py
+## @file ElmSet.py
 #  @author Shazil Arif
-class ElemSet(set):
-    def __init__(self, items):
-        self.call(items)
+#  @brief Represents a Set of type MoleculeT found in ChemEntity.py
+#  @date 
 
-    def call(self,items):
-        return set(items)
+from Set import *
+
+
+class ElmSet(Set):
+    pass
+    
     
     
 

@@ -5,9 +5,8 @@ from abc import ABC, abstractmethod
 ## @class Equality
 class Equality(ABC):
     @abstractmethod
-    def equals(T):
+    def equals(self,T):
         pass
-
     
 
     

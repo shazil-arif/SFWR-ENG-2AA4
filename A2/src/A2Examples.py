@@ -38,12 +38,14 @@ from CompoundT import *
 # print(E.equals(ElmSet([ElementT.H, ElementT.C, ElementT.O])))
 
 # MoleculeT Examples
-# M1 = MoleculeT(2, ElementT.H)
-# M2 = MoleculeT(7, ElementT.O)
-# print(M1.num_atoms(ElementT.C))
-# print(M1.constit_elems() == ElmSet([ElementT.H]))
-# print(M1.equals(M2))
-# print(M1 == M2)
+M1 = MoleculeT(2, ElementT.H)
+M2 = MoleculeT(7, ElementT.O)
+print(M1.num_atoms(ElementT.C))
+print(M1.constit_elems().to_seq() == ElmSet([ElementT.H]).to_seq())
+print(M1.equals(M2))
+print(M1 == M2)
+
+print("----------")
 
 # CompoundT Examples
 C1 = CompoundT(MolecSet([M1, M2]))

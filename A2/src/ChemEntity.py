@@ -1,7 +1,5 @@
 ## @file ChemEntity.py
 #  @author 
-import ChemTypes
-import ElmSet
 from abc import ABC,abstractmethod
 
 class ChemEntity(ABC):
@@ -10,7 +8,7 @@ class ChemEntity(ABC):
         pass
 
     @abstractmethod
-    def constit_elements():
+    def constit_elems():
         pass
 
         

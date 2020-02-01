@@ -6,8 +6,6 @@
 from Equality import *
 
 ## @brief Set is a class that implements a Date object containing a year, month and a day
-
-
 class Set(Equality):
 
     ## @brief constructor method for class Set, intializes a Set from a given sequence t

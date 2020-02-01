@@ -11,18 +11,18 @@ class Set(Equality):
     ## @brief constructor method for class Set, intializes a Set from a given sequence t
     #  @param t a sequence of values that will be converted a set
     def __init__(self, t):
-        self.S = set(t)
+        self._S = set(t)
 
     ## @brief add a new element to the set
     #  @param e The element to add to the set
     def add(self, e):
-        self.S.add(e)
+        self._S.add(e)
 
     ## @brief remove a element from the set
     #  @param e The element to remove from the set
     #  @throws ValueError if e is not a member of the set
     def rm(self, e):
-        if (e in self.S):
+        if (e in self._S):
             self.S.remove(e)
         else:
             raise ValueError("{e} is not a member".format(e=e))
@@ -31,12 +31,12 @@ class Set(Equality):
     #  @param e The element to add to the set
     #  @return boolean value indicating whether parameter e was # found in the set
     def member(self, e):
-        return self.S.__contains__(e)
+        return self._S.__contains__(e)
 
     ## @brief return size of the set
     #  @return integer representing the size of the set
     def size(self):
-        return len(self.S)
+        return len(self._S)
 
     ## @brief check if two sets are equal
     #  @param r the set to compare against
@@ -45,7 +45,7 @@ class Set(Equality):
         if(r.size() != self.size()):
             return False
         temp_set = r.to_seq()
-        for element in self.S:
+        for element in self._S:
             if (element not in temp_set):
                 return False
         return True
@@ -53,4 +53,4 @@ class Set(Equality):
     ## @brief convert the set to a sequence
     #  @return a sequence containing all elements of the set
     def to_seq(self):
-        return list(self.S)
+        return list(self._S)

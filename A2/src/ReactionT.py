@@ -14,6 +14,7 @@ class ReactionT(CompoundT):
     def __init__(self, l, r):
         self._lhs = l
         self._rhs = r
+        self.
         
 
     def get_lhs():

@@ -35,7 +35,6 @@ class MoleculeT(Set,ChemEntity,Equality,ElmSet):
     def num_atoms(self,e):
         return self.get_num() if e == self.elm else 0
 
-
     ## @brief return a set, specifically ElmSet of the elements in the molecule
     #  @return an ElmSet of the elements in the molecule
     def constit_elements(self):

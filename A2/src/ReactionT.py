@@ -5,8 +5,8 @@
 
 from CompoundT import *
 
-## @brief
-#  @details
+## @brief ReactionT is responsible for balancing equations 
+#  @details extends from CompoundT
 class ReactionT(CompoundT):
     ## @brief constructor method for ReactionT
     #  @param l

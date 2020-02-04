@@ -1,6 +1,6 @@
 ## @file ReactionT.py
 #  @author Shazil Arif
-#  @brief
+#  @brief ReactionT is responsible for balancing equations
 #  @date Feb 1st, 2020
 
 from CompoundT import *
@@ -14,39 +14,41 @@ class ReactionT(CompoundT):
     def __init__(self, l, r):
         self._lhs = l
         self._rhs = r
-        self.
+        self._coeff_l = self.get_lhs_coeff()
+        self._coeff_r = self.get_rhs_coeff()
         
 
-    def get_lhs():
+    def get_lhs(self):
         return self._lhs
 
-    def get_rhs():
+    def get_rhs(self):
         return self._rhs
 
-    def get_lhs_coeff():
+    def get_lhs_coeff(self):
+        pass
+
 
     def get_rhs_coeff():
 
 
 
-    @staticmethod
-    def pos(self,seq):
+    def __pos(self,seq):
         for i in seq:
             if (i <= 0): return False
         return True
 
-    @staticmethod
-    def n_atoms():
+    def __n_atoms(self,compound,c,e):
+        count = 0
+        for i in range(len(c)):
+            count += c[i]*compound[i].num_atoms(e)
+        return
+
+
+    def __elm_in_chem_eq():
         pass
 
-    @staticmethod
-    def elm_in_chem_eq():
+    def __is_bal_elm():
         pass
 
-    @staticmethod
-    def is_bal_elm():
-        pass
-
-    @staticmethod
-    def is_balanced():
+    def __is_balanced():
         pass

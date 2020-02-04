@@ -20,10 +20,10 @@ class Set(Equality):
 
     ## @brief remove a element from the set
     #  @param e The element to remove from the set
-    #  @throws ValueError if e is not a member of the set
+    #  @throws ValueError if parameter e is not a member of the set
     def rm(self, e):
         if (e in self._S):
-            self.S.remove(e)
+            self._S.remove(e)
         else:
             raise ValueError("{e} is not a member".format(e=e))
 
@@ -31,7 +31,7 @@ class Set(Equality):
     #  @param e The element to add to the set
     #  @return boolean value indicating whether parameter e was # found in the set
     def member(self, e):
-        return self._S.__contains__(e)
+        return e in self._S
 
     ## @brief return size of the set
     #  @return integer representing the size of the set

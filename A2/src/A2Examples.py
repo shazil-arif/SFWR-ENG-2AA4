@@ -30,27 +30,27 @@ from CompoundT import *
 # #for i in R:
 #  #   print(i)
 
-# # ElmSet Examples
-# E = ElmSet([ElementT.H, ElementT.O])
-# E.add(ElementT.C)
-# print(E.to_seq())
-# print(E == ElmSet([ElementT.H, ElementT.C, ElementT.O]))
-# print(E.equals(ElmSet([ElementT.H, ElementT.C, ElementT.O])))
+# ElmSet Examples
+E = ElmSet([ElementT.H, ElementT.O])
+E.add(ElementT.C)
+print(E.to_seq())
+print(E == ElmSet([ElementT.H, ElementT.C, ElementT.O]))
+print(E.equals(ElmSet([ElementT.H, ElementT.C, ElementT.O])))
 
-# MoleculeT Examples
-M1 = MoleculeT(2, ElementT.H)
-M2 = MoleculeT(7, ElementT.O)
-p = ElmSet([ElementT.H])
-print(M1.num_atoms(ElementT.C))
-print(M1.constit_elems().to_seq() == ElmSet([ElementT.H]).to_seq())
-print(M1.equals(M2))
-print(M1 == M2)
+# # MoleculeT Examples
+# M1 = MoleculeT(2, ElementT.H)
+# M2 = MoleculeT(7, ElementT.O)
+# p = ElmSet([ElementT.H])
+# print(M1.num_atoms(ElementT.C))
+# print(M1.constit_elems().to_seq() == ElmSet([ElementT.H]).to_seq())
+# print(M1.equals(M2))
+# print(M1 == M2)
 
-print("----------")
+# print("----------")
 
-# CompoundT Examples
-C1 = CompoundT(MolecSet([M1, M2]))
-print(C1.num_atoms(ElementT.H))
-e = C1.constit_elems()
-print(e.equals(ElmSet([ElementT.H, ElementT.O])))
-print(C1.equals(CompoundT(MolecSet([M1]))))
+# # CompoundT Examples
+# C1 = CompoundT(MolecSet([M1, M2]))
+# print(C1.num_atoms(ElementT.H))
+# e = C1.constit_elems()
+# print(e.equals(ElmSet([ElementT.H, ElementT.O])))
+# print(C1.equals(CompoundT(MolecSet([M1]))))

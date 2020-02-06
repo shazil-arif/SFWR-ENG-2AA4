@@ -39,13 +39,36 @@ class TestSetADT:
     #test add method with existing element
     def test_add_with_existing_element(self):
         self.test_set.add(2)
-        assert 2 in self.test_set.to_seq()
+        
+        #check if 2 in set and it should occur only once 
+        assert 2 in self.test_set.to_seq() and self.test_set.to_seq().count(2) == 1
 
-        #should contain only 1 occurence of value 2
-        assert self.test_set.to_seq().count(2) == 1
+    #test member method, it should return True
+    def test_member_with_existing_element(self):
+        assert self.test_set.member(1) == True
 
-    #test remove method
-    def test_rm(self):
-        pass
+    def test_member_with_non_existing_element(self):
+        assert self.test_set.member(0) == False
+
+    def test_remove_method_exception(self):
+        with pytest.raises(ValueError):
+            self.test_set.rm(max(self.test_list)+1)
+
+    def test_remove_method(self):
+        #assume we are blackbox testing, remove arbitrary values
+        removed_element = max(self.test_list)
+        self.test_set.rm(removed_element)
+        assert not removed_element in self.test_set.to_seq()
+
+    def test_size(self):
+        assert self.test_set.size() == len(self.test_list)
+
+    #test size method with a zero size
+    def test_size_zero(self):
+        test = Set([])
+        assert test.size() == 0
+    
+    def test_equals(self):
+
 
 

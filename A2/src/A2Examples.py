@@ -40,6 +40,7 @@ from CompoundT import *
 # MoleculeT Examples
 M1 = MoleculeT(2, ElementT.H)
 M2 = MoleculeT(7, ElementT.O)
+p = ElmSet([ElementT.H])
 print(M1.num_atoms(ElementT.C))
 print(M1.constit_elems().to_seq() == ElmSet([ElementT.H]).to_seq())
 print(M1.equals(M2))

@@ -14,6 +14,7 @@ class ReactionT(CompoundT):
     def __init__(self, l, r):
         self._lhs = l
         self._rhs = r
+        lhs_elms = l.consit_elements()
         self._coeff_l = self.get_lhs_coeff()
         self._coeff_r = self.get_rhs_coeff()
         
@@ -29,6 +30,7 @@ class ReactionT(CompoundT):
 
 
     def get_rhs_coeff():
+        pass
 
 
 

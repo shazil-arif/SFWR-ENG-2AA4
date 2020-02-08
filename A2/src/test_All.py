@@ -174,11 +174,48 @@ class TestReactionT:
         left_o4 = MoleculeT(4,ElementT.O)
         sulfuric_acid = CompoundT(MolecSet([left_h2,left_sulfur,left_o4]))
 
-       
+         #create Sodium sulfate (Na2SO4 - right side)
+        right_na2 = MoleculeT(2,ElementT.Na)
+        right_sulfur = MoleculeT(1,ElementT.S)
+        right_o4 = MoleculeT(4,ElementT.O)
+        sodium_sulfate = CompoundT(MolecSet([right_na2,right_sulfur,right_o4]))
 
+        #create water (H2O - right side)
+        right_h2 = MoleculeT(2,ElementT.H)
+        right_o = MoleculeT(1,ElementT.O)
+        water = CompoundT(MolecSet([right_h2,right_o]))
+
+        #create sequences of CompoundT for left and right
+        left = [sodium_hydroxide,sulfuric_acid]
+        right = [sodium_sulfate,water]
+
+        #create Reaction
+        self.left = left
+        self.right = right
+        self.left_coeffs = [1,0.5]
+        self.right_coeffs = [0.5,1]
+        self.reaction = ReactionT(self.left,self.right)
 
     def teardown_method(self):
+        self.left = None
+        self.right = None
+        self.left_coeffs = None
+        self.right_coeffs = None
         self.reaction = None
+
+    def tet_get_lhs(self):
+        assert self.reaction.get_lhs().equals(self.left)
+
+    def test_get_rhs(self):
+        assert self.reaction.get_rhs().equals(self.right)
+
+    def test_get_lhs_coeff(self):
+        assert self.reaction.get_lhs_coeff().equals(self.left_coeffs)
+
+    def test_get_rhs_coeff(self):
+        assert self.reaction.get_rhs_coeff().equals(self.right_coeffs)
+
+
 
     
         

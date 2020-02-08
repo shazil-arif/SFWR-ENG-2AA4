@@ -71,7 +71,7 @@ class ReactionT(CompoundT):
             b_vector.append(-matrix[i][0])
             matrix[i].pop(0)
 
-        coeffs = np.linalg.lstsq(matrix,b_vector)[0]
+        coeffs = np.linalg.lstsq(matrix,b_vector,rcond=-1)[0]
         coeffs = np.append([1],coeffs)
 
         #get number of compounds on left side
@@ -84,7 +84,8 @@ class ReactionT(CompoundT):
         else: raise ValueError("Unable to balance")
 
     def __pos(self,seq):
-        for i in seq: if (i <= 0): return False
+        for i in seq: 
+            if (i <= 0): return False
         return True
 
     def __n_atoms(self,compound,c,e):

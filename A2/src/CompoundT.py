@@ -5,14 +5,14 @@
 
 
 from MoleculeT import *
-
+from MolecSet import *
 ## @brief CompoundT 
 #  @details
 class CompoundT(MoleculeT):
     ## @brief constructor for class CompoundT
     #  @param molec_set A MolecSet Object
     def __init__(self, molec_set):
-        self._C = molec_set
+        self._C = MolecSet(molec_set.to_seq())
 
     ## @brief return the molecules in the compound
     #  @return a Set containing the molecules in the compound

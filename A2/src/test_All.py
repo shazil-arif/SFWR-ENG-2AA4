@@ -126,10 +126,8 @@ class TestCompoundT:
         self.elm_num = 2
         self.elm = ElementT.H
         self.molecule = MoleculeT(self.elm_num,self.elm)
-
         self.molecule_two = MoleculeT(self.elm_num+1,self.elm+1)
         self.molec_set = MolecSet([self.molecule,self.molecule_two])
-
         self.compound = CompoundT(self.molec_set)
        
     #reset state variables

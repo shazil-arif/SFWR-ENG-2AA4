@@ -79,7 +79,7 @@ class TestSetADT:
         length = len(self.test_set.to_seq())
         for i in range(0,length):
             #some arbitrary values not equal to those in test_set
-            test.add(i*10)
+            test.add(i*-1)
         assert not self.test_set.equals(test)
 
 ## @brief test MoleculeT.py

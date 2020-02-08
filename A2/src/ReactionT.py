@@ -21,66 +21,10 @@ class ReactionT(CompoundT):
     def __init__(self, l, r):
         self._lhs = l
         self._rhs = r
-        left_coeff = []
-        right_coeff = []
-
-        mapping = {
-            11:"Na",
-            8:"O",
-            1:"H",
-            16:"S"
-        }
-
-        elm_set = self.__elm_in_chem_eq(l)
-        print(elm_set.to_seq())
-        matrix = []
-        index = 0
-        flag = elm_set.to_seq()[0]
-       
-        for elm in elm_set.to_seq():
-            matrix.append([])
-            for compound in l:
-                matrix[index].append(compound.num_atoms(elm))
-            for compound in r:
-                #can be thought of as subtracting terms from both
-                #sides of a linear equation, thus add the negative
-                matrix[index].append(-compound.num_atoms(elm))
-            index +=1
-
-        b_vector = []
-        for i in range(len(matrix)):
-            b_vector.append(-matrix[i][0])
-            matrix[i].pop(0)
-
-        print(matrix)
-        print(b_vector)
-
-        coeffs = np.linalg.lstsq(matrix,b_vector)[0]
-        # for compound in l:
-        #     elm_set = compound.constit_elems().to_seq()
-        #     for elm in elm_set:
-        #         left_coeff.append({"elm":mapping[elm],"num":compound.num_atoms(elm)})
-
-        # right_coeff = []
-        # for compound in r:
-        #     elm_set = compound.constit_elems().to_seq()
-        #     for elm in elm_set:
-        #         right_coeff.append({"elm":mapping[elm],"num":compound.num_atoms(elm)})
-
-        # count = len(left_coeff)-1
-        # matrix = np.array([3])
-        # matrix = np.append(matrix,[1,2])
-        # print(matrix)
-        
-        for i in left_coeff:
-            print(i)
-        print("-----------")
-        for i in right_coeff:
-            print(i)
-
-        # self._coeff_l = self.get_lhs_coeff()
-        # self._coeff_r = self.get_rhs_coeff()
-        
+        self._coeff_l = []
+        self._coeff_r = []
+        self.__balance(l,r)
+ 
     ## @brief getter method for the Compounds on the left side
     #  @return a sequence of CompoundT 
     def get_lhs(self):
@@ -98,7 +42,45 @@ class ReactionT(CompoundT):
     ## @brief getter method for the coefficients of compounds on the right side
     #  @details indicates the coefficient of the compounds retrieved from get_rhs()
     #  @return a sequence of real numbers indicating the coefficents  
-    def get_rhs_coeff(): return self._coeff_r
+    def get_rhs_coeff(self): return self._coeff_r
+
+    ## @brief setter method for the coefficients on the left side
+    #  @details private method, coefficients are not to be modified by a client
+    #  @param coeff The list of coefficient values to assign
+    def __set_lhs_coeff(self,coeff): self._coeff_l = coeff
+    
+    ## @brief setter method for the coefficients on the right side
+    #  @details private method, coefficients are not to be modified by a client
+    #  @param coeff The list of coefficient values to assign
+    def __set_rhs_coeff(self,coeff): self._coeff_r = coeff
+    
+    def __balance(self,l,r):
+        left_coeff = []
+        right_coeff = []
+
+        elm_set = self.__elm_in_chem_eq(l)
+        matrix = []
+        index = 0       
+        for elm in elm_set.to_seq():
+            matrix.append([])
+            for compound in l: matrix[index].append(compound.num_atoms(elm))
+            for compound in r: matrix[index].append(-compound.num_atoms(elm))
+            index +=1
+
+        b_vector = []
+        for i in range(len(matrix)):
+            b_vector.append(-matrix[i][0])
+            matrix[i].pop(0)
+
+        coeffs = np.linalg.lstsq(matrix,b_vector)[0]
+        coeffs = np.append([1],coeffs)
+
+        #get number of compounds on left side
+        left_compounds_num = len(l)
+        
+        #take subarrays corresponding to each side of the equation
+        self.__set_lhs_coeff(coeffs[0:left_compounds_num])
+        self.__set_rhs_coeff(coeffs[left_compounds_num:len(coeffs)])
 
     def __pos(self,seq):
         for i in seq:
@@ -133,30 +115,5 @@ class ReactionT(CompoundT):
 # right = [compound]
 # test_reac = ReactionT(left,right)
 
-left_h = MoleculeT(1,ElementT.H)
-left_na = MoleculeT(1,ElementT.Na)
-left_o = MoleculeT(1,ElementT.O)
-sodium_hydroxide = CompoundT(MolecSet([left_na,left_o,left_h]))
 
-left_h2 = MoleculeT(2,ElementT.H)
-left_sulfur = MoleculeT(1,ElementT.S)
-left_o4 = MoleculeT(4,ElementT.O)
-
-sulfuric_acid = CompoundT(MolecSet([left_h2,left_sulfur,left_o4]))
-
-right_na2 = MoleculeT(2,ElementT.Na)
-right_sulfur = MoleculeT(1,ElementT.S)
-right_o4 = MoleculeT(4,ElementT.O)
-
-sodium_sulfate = CompoundT(MolecSet([right_na2,right_sulfur,right_o4]))
-
-right_h2 = MoleculeT(2,ElementT.H)
-right_o = MoleculeT(1,ElementT.O)
-
-water = CompoundT(MolecSet([right_h2,right_o]))
-
-left = [sodium_hydroxide,sulfuric_acid]
-right = [sodium_sulfate,water]
-
-reaction = ReactionT(left,right)
 

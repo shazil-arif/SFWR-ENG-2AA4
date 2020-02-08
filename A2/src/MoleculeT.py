@@ -32,7 +32,7 @@ class MoleculeT(ElementT,ChemEntity,ElmSet):
     #  @param e an element to check for the number of elements in the molecule
     #  @return integer, number of atoms of e if e is in the molecule. 0 otherwise
     def num_atoms(self,e):
-        return self.get_num() if e == self.__elm else 0
+        return self.get_num() if e == self.get_elm() else 0
 
     ## @brief return a set, specifically ElmSet of the elements in the molecule
     #  @return an ElmSet of the elements in the molecule

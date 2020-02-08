@@ -38,7 +38,6 @@ class CompoundT(MoleculeT):
             elems.append(molecule.get_elm())
         return ElmSet(elems)
 
-
     ## @brief check if two compounds are equals
     #  @param d the object to compare against
     #  @return integer indicating the number of atoms of element e in the compound

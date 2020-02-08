@@ -12,7 +12,12 @@ import pytest
 # import MolecSet
 # import MoleculeT
 # import ReactionT
+from MoleculeT import MoleculeT
+from ChemTypes import ElementT
 from Set import Set
+from ElmSet import ElmSet
+from CompoundT import CompoundT
+from MolecSet import MolecSet
 
 ## @brief Test methods from Set.py
 class TestSetADT:
@@ -68,7 +73,91 @@ class TestSetADT:
         test = Set([])
         assert test.size() == 0
     
-    def test_equals(self):
+    def test_equals_with_different_size_sets(self):
+        test = Set([1,2])
+        assert not self.test_set.equals(test)
+
+    def test_equals_with_same_size_sets(self):
+        test = self.test_set
+        assert self.test_set.equals(test)
+
+    def test_equals_with_nonequal_sets(self):
+        test = Set([])
+        length = len(self.test_set.to_seq())
+        for i in range(0,length):
+            #some arbitrary values not equal to those in test_set
+            test.add(i*10)
+        assert not self.test_set.equals(test)
+
+## @brief test MoleculeT.py
+class TestMoleculeT:
+    def setup_method(self,method):
+        self.elm_num = 2
+        self.elm = ElementT.H
+        self.molecule = MoleculeT(self.elm_num,self.elm)
+       
+    #reset state variables
+    def teardown_method(self,method):
+        self.elm = None
+        self.elm_num = None
+        self.molecule = None
+
+    def test_get_num(self):
+        assert self.molecule.get_num() == self.elm_num
+    
+    def test_get_elm(self):
+        assert self.molecule.get_elm() == self.elm
+
+    def test_num_atoms(self):
+        assert self.molecule.num_atoms(self.elm) == self.elm_num
+
+    def test_num_atom_with_wrong_element(self):
+        #add one to self.elm to test with arbitrary element
+        #main idea is to use blackbox approach and minimize hardcoding
+        assert self.molecule.num_atoms(self.elm+1) == 0
+
+    def test_constit_elems(self):
+        assert self.molecule.constit_elems().equals(ElmSet([self.elm]))
+
+    def test_equals_with_same_molecule(self):
+        test_molec = MoleculeT(self.elm_num,self.elm)
+        assert self.molecule.equals(test_molec)
+
+    def test_equals_with_different_molecule(self):
+        test_molec = MoleculeT(self.elm_num+1,self.elm)
+        assert not self.molecule.equals(test_molec)
+
+class TestCompoundT:
+    def setup_method(self,method):
+        self.elm_num = 2
+        self.elm = ElementT.H
+        self.molecule = MoleculeT(self.elm_num,self.elm)
+
+        self.molecule_two = MoleculeT(self.elm_num+1,self.elm+1)
+        self.molec_set = MolecSet([self.molecule,self.molecule_two])
+
+        self.compound = CompoundT(self.molec_set)
+       
+    # #reset state variables
+    # def teardown_method(self,method):
+    #     self.elm = None
+    #     self.elm_num = None
+    #     self.molecule = None
+
+    def test_get_molec_set(self):
+        assert self.compound.get_molec_set().equals(self.molec_set)
+
+    def test_num_atoms(self):
+        
+       
+
+
+
+
+
+
+
+
 
 
 

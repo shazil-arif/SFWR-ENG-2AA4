@@ -11,12 +11,14 @@ class Set(Equality):
     ## @brief constructor method for class Set, intializes a Set from a given sequence t
     #  @param t a sequence of values that will be converted a set
     def __init__(self, t):
-        self._S = set(t)
+        #source: http://www.martinbroadhurst.com/removing-duplicates-from-a-list-while-preserving-order-in-python.html
+        seen = set() 
+        self._S = [x for x in t if not (x in seen or seen.add(x))]
 
     ## @brief add a new element to the set
     #  @param e The element to add to the set
     def add(self, e):
-        self._S.add(e)
+        if(not e in self._S): self._S.append(e)
 
     ## @brief remove a element from the set
     #  @param e The element to remove from the set
@@ -53,4 +55,4 @@ class Set(Equality):
     ## @brief convert the set to a sequence
     #  @return a sequence containing all elements of the set
     def to_seq(self):
-        return list(self._S)
+        return self._S

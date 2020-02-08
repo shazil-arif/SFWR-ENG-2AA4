@@ -4,20 +4,13 @@
 #  @date Feb 6th 2020
 
 import pytest
-# import ChemEntity
-# import CompoundT
-# import ChemTypes
-# import ElmSet
-# import Equality
-# import MolecSet
-# import MoleculeT
-# import ReactionT
 from MoleculeT import MoleculeT
 from ChemTypes import ElementT
 from Set import Set
 from ElmSet import ElmSet
 from CompoundT import CompoundT
 from MolecSet import MolecSet
+from ReactionT import ReactionT
 
 ## @brief Test methods from Set.py
 class TestSetADT:
@@ -160,6 +153,13 @@ class TestCompoundT:
     def test_equals(self):
         test_compound = CompoundT(self.molec_set)
         assert self.compound.equals(test_compound)
+
+class TestReactionT:
+    def k(self):
+        left = [CompoundT(MolecSet([MoleculeT(2,ElementT.H)])),CompoundT(MolecSet([MoleculeT(2,ElementT.O)]))]
+        right = [CompoundT(MolecSet([MoleculeT(2,ElementT.H),MolecSet(2,ElementT.O)]))]
+        test_reac = ReactionT(left,right)
+
 
        
 

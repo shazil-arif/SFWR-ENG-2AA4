@@ -128,6 +128,7 @@ class TestMoleculeT:
         assert not self.molecule.equals(test_molec)
 
 class TestCompoundT:
+    #state variables to be used for all tests
     def setup_method(self,method):
         self.elm_num = 2
         self.elm = ElementT.H
@@ -138,17 +139,29 @@ class TestCompoundT:
 
         self.compound = CompoundT(self.molec_set)
        
-    # #reset state variables
-    # def teardown_method(self,method):
-    #     self.elm = None
-    #     self.elm_num = None
-    #     self.molecule = None
+    #reset state variables
+    def teardown_method(self,method):
+        self.elm_num = None
+        self.elm = None
+        self.molecule = None
+        self.molecule_two = None
+        self.molec_set = None
+        self.compound = None
 
     def test_get_molec_set(self):
         assert self.compound.get_molec_set().equals(self.molec_set)
 
     def test_num_atoms(self):
-        
+        assert self.compound.num_atoms(self.molecule.get_elm())==self.molecule.get_num()
+    
+    def test_constit_elems(self):
+        print(ElmSet([self.molecule.get_elm(),self.molecule_two.get_elm()]))
+        assert self.compound.constit_elems().equals(ElmSet([self.molecule.get_elm(),self.molecule_two.get_elm()]))
+
+    def test_equals(self):
+        test_compound = CompoundT(self.molec_set)
+        assert self.compound.equals(test_compound)
+
        
 
 

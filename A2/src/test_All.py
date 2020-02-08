@@ -153,10 +153,35 @@ class TestCompoundT:
         assert self.compound.equals(test_compound)
 
 class TestReactionT:
-    def k(self):
-        left = [CompoundT(MolecSet([MoleculeT(2,ElementT.H)])),CompoundT(MolecSet([MoleculeT(2,ElementT.O)]))]
-        right = [CompoundT(MolecSet([MoleculeT(2,ElementT.H),MolecSet(2,ElementT.O)]))]
-        test_reac = ReactionT(left,right)
+    def setup_method(self):
+        
+        '''Test the equation that looks like
+
+        (a)NaOH + (b)H2SO4 -> (x)Na2SO4 + (y)H2O
+        Balanced equation is :
+        NaOH + (0.5)H2SO4 -> (0.5)Na2SO4 + H2O
+        '''
+
+        #create sodium hydroxide (NaOH - left side)
+        left_h = MoleculeT(1,ElementT.H)
+        left_na = MoleculeT(1,ElementT.Na)
+        left_o = MoleculeT(1,ElementT.O)
+        sodium_hydroxide = CompoundT(MolecSet([left_na,left_o,left_h]))
+
+        #create Sulfurice Acid (H2SO4 - left side)
+        left_h2 = MoleculeT(2,ElementT.H)
+        left_sulfur = MoleculeT(1,ElementT.S)
+        left_o4 = MoleculeT(4,ElementT.O)
+        sulfuric_acid = CompoundT(MolecSet([left_h2,left_sulfur,left_o4]))
+
+       
+
+
+    def teardown_method(self):
+        self.reaction = None
+
+    
+        
 
 
        

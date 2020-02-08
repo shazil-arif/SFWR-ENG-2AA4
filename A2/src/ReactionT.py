@@ -27,8 +27,7 @@ class ReactionT(CompoundT):
  
     ## @brief getter method for the Compounds on the left side
     #  @return a sequence of CompoundT 
-    def get_lhs(self):
-        return self._lhs
+    def get_lhs(self): return self._lhs
 
     ## @brief getter method for the Compounds on the right side
     #  @return a sequence of CompoundT 
@@ -79,12 +78,13 @@ class ReactionT(CompoundT):
         left_compounds_num = len(l)
         
         #take subarrays corresponding to each side of the equation
-        self.__set_lhs_coeff(coeffs[0:left_compounds_num])
-        self.__set_rhs_coeff(coeffs[left_compounds_num:len(coeffs)])
+        if(self.__pos(coeffs)):
+            self.__set_lhs_coeff(coeffs[0:left_compounds_num])
+            self.__set_rhs_coeff(coeffs[left_compounds_num:len(coeffs)])
+        else: raise ValueError("Unable to balance")
 
     def __pos(self,seq):
-        for i in seq:
-            if (i <= 0): return False
+        for i in seq: if (i <= 0): return False
         return True
 
     def __n_atoms(self,compound,c,e):
@@ -97,15 +97,9 @@ class ReactionT(CompoundT):
         elms = []
         for i in seq_compounds:
             temp = i.constit_elems().to_seq()
-            elms = elms + temp #concatenate/union two lists
-        return ElmSet(elms) #return an elmset
+            elms = elms + temp 
+        return ElmSet(elms) 
 
-    
-    def __is_bal_elm():
-        pass
-
-    def __is_balanced():
-        pass
 
 # left = [CompoundT(MolecSet([MoleculeT(2,ElementT.H)])),CompoundT(MolecSet([MoleculeT(2,ElementT.O)]))]
 # M2 = MoleculeT(1,ElementT.O)

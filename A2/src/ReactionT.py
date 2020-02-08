@@ -18,21 +18,24 @@ class ReactionT(CompoundT):
         self._coeff_l = self.get_lhs_coeff()
         self._coeff_r = self.get_rhs_coeff()
         
-
+    ## @brief getter method for the Compounds on the left side
+    #  @return a sequence of CompoundT 
     def get_lhs(self):
         return self._lhs
 
-    def get_rhs(self):
-        return self._rhs
+    ## @brief getter method for the Compounds on the right side
+    #  @return a sequence of CompoundT 
+    def get_rhs(self): return self._rhs
 
-    def get_lhs_coeff(self):
-        pass
+    ## @brief getter method for the coefficients of compounds on the left side
+    #  @details indicates the coefficient of the compounds retrieved from get_lhs()
+    #  @return a sequence of real numbers indicating the coefficents  
+    def get_lhs_coeff(self): return self._coeff_l
 
-
-    def get_rhs_coeff():
-        pass
-
-
+    ## @brief getter method for the coefficients of compounds on the right side
+    #  @details indicates the coefficient of the compounds retrieved from get_rhs()
+    #  @return a sequence of real numbers indicating the coefficents  
+    def get_rhs_coeff(): return self._coeff_r
 
     def __pos(self,seq):
         for i in seq:
@@ -44,7 +47,6 @@ class ReactionT(CompoundT):
         for i in range(len(c)):
             count += c[i]*compound[i].num_atoms(e)
         return
-
 
     def __elm_in_chem_eq():
         pass

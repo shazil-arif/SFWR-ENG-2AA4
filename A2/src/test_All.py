@@ -155,7 +155,6 @@ class TestCompoundT:
         assert self.compound.num_atoms(self.molecule.get_elm())==self.molecule.get_num()
     
     def test_constit_elems(self):
-        print(ElmSet([self.molecule.get_elm(),self.molecule_two.get_elm()]))
         assert self.compound.constit_elems().equals(ElmSet([self.molecule.get_elm(),self.molecule_two.get_elm()]))
 
     def test_equals(self):

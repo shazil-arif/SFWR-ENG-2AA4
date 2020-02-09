@@ -1,7 +1,7 @@
 ## @file CompoundT.py
 #  @author Shazil
 #  @brief CompoundT is a sub module used to build a chemical equation balancer
-#  @date February 1st, 2020
+#  @date February 8th, 2020
 
 
 from MoleculeT import *

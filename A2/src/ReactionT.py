@@ -13,18 +13,20 @@ import numpy as np
 
 ## @brief ReactionT is responsible for balancing equations 
 #  @details extends from CompoundT
+
 class ReactionT(CompoundT):
+
     ## @brief constructor method for ReactionT
     #  @details the chemical equation is balanced in the constructor
     #  @param l a sequence of compounds on the left side of the equation
     #  @param r a sequence of compounds on the right side of the equation
-    #  @throws ValueError if the equation cannot be balanceds
+    #  @throws ValueError if the equation cannot be balanced
     def __init__(self, l, r):
         self._lhs = l
         self._rhs = r
         self._coeff_l = []
         self._coeff_r = []
-        self.__balance(l,r)
+        self.__balance()
  
     ## @brief getter method for the Compounds on the left side of reaction
     #  @return a sequence of CompoundT 
@@ -64,17 +66,18 @@ class ReactionT(CompoundT):
         matrix = []
         index = 0       
 
+        #source: https://stackoverflow.com/questions/45220032/how-to-balance-a-chemical-equation-in-python-2-7-using-matrices
         #iterate over all elements
         for elm in elm_set.to_seq():
             #append new row
             matrix.append([])
 
             #iterate over left and right, totalling the count for each element
-            for compound in l: matrix[index].append(compound.num_atoms(elm))
+            for compound in self.get_lhs(): matrix[index].append(compound.num_atoms(elm))
 
             #add the negative of the count on right 
             #can be though of as "subtracting from both sides" 
-            for compound in r: matrix[index].append(-compound.num_atoms(elm))
+            for compound in self.get_rhs(): matrix[index].append(-compound.num_atoms(elm))
 
             index +=1
 

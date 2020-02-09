@@ -1,7 +1,7 @@
 ## @file test_All.py
 #  @author Shazil
 #  @brief test_All.py is used to test several modules used to model and balance chemical equations
-#  @date Feb 6th 2020
+#  @date Feb 8th 2020
 
 import pytest
 from pytest import approx
@@ -121,6 +121,7 @@ class TestMoleculeT:
         test_molec = MoleculeT(self.elm_num+1,self.elm)
         assert not self.molecule.equals(test_molec)
 
+## @brief Test CompoundT
 class TestCompoundT:
     #state variables to be used for all tests
     def setup_method(self,method):
@@ -153,14 +154,17 @@ class TestCompoundT:
         test_compound = CompoundT(self.molec_set)
         assert self.compound.equals(test_compound)
 
+## @brief Test ReactionT
 class TestReactionT:
     def setup_method(self):
         
-        '''Test the equation that looks like
+        '''
+        Test the equation that looks like
 
         (a)NaOH + (b)H2SO4 -> (x)Na2SO4 + (y)H2O
         Balanced equation is :
         NaOH + (0.5)H2SO4 -> (0.5)Na2SO4 + H2O
+
         '''
 
         #create sodium hydroxide (NaOH - left side)
@@ -219,9 +223,10 @@ class TestReactionT:
         return True
 
     #utility function
+    #admit a tolerance of 0.1
     def is_equal_numbers_array(self,one,two):
         for i in range(len(one)):
-            if(abs(one[i]-two[i]) >0.1): return False
+            if(abs(one[i]-two[i]) > 0.1): return False
         return True
 
 

@@ -7,6 +7,8 @@ from Set import *
 
 ## @brief MolecSet is a set of MoleculeT objects
 #  @details extends from Set.py
+
+
 class MolecSet(Set):
     
     ## @brief compare two MolecSets

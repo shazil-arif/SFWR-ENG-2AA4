@@ -43,9 +43,6 @@ print(M1.constit_elems() == ElmSet([ElementT.H]))
 print(M1.equals(M2))
 print(M1 == M2)
 
-def funcname(self, parameter_list):
-    pass
-##dsadas
 # CompoundT Examples
 C1 = CompoundT(MolecSet([M1, M2]))
 print(C1.num_atoms(ElementT.H))

@@ -1,7 +1,7 @@
 ## @file ChemTypes.py
 #  @author Shazil Arif 
 #  @details ElementT contains an enumeration for elements on the periodic table
-#  Date Feb 8th, 2020
+#  @Date Feb 8th, 2020
 
 ## @brief ElementT contains an enumeration for elements on the periodic table
 class ElementT():

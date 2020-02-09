@@ -1,7 +1,7 @@
 ## @file MoleculeT.py
 #  @author Shazil Arif
-#  @brief
-#  @date
+#  @brief MoleculeT is used to model a chemical Molecule
+#  @date Feb 8th , 2020
 
 from ChemTypes import ElementT
 from ChemEntity import *
@@ -11,26 +11,28 @@ from ElmSet import *
 #  @details extends from Set, ChemEntity, Equality, ElmSet
 
 class MoleculeT(ElementT,ChemEntity,ElmSet):
+
     ## @brief constructor method 
     #  @param num an integer indicating the number of atoms of element elm
     #  @param elm an element from the periodic table, from ChemTypes
+
     def __init__(self, num, elm):
         self.__elm = elm
         self.__num = num
 
     ## @brief get the number of atoms of Element elm in the molecule
-    #  return state variable: num, integer indicating the number of atoms
+    #  @return integer indicating the number of atoms
     def get_num(self):
         return self.__num
 
     ## @brief get the Element in the molecule
-    #  return state variable: elm, indicating the element from ElementT
+    #  @return Enumerated ElementT indicating the element from periodic table
     def get_elm(self):
         return self.__elm
 
     ## @brief return the number of atoms of an element in the molecule
     #  @param e an element to check for the number of elements in the molecule
-    #  @return integer, number of atoms of e if e is in the molecule. 0 otherwise
+    #  @return an integer, number of atoms of e if e is in the molecule. 0 otherwise
     def num_atoms(self,e):
         return self.get_num() if e == self.get_elm() else 0
 

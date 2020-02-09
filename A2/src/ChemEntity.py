@@ -1,6 +1,8 @@
 ## @file ChemEntity.py
-#  @author Shazil
-
+#  @author Shazil Arif
+#  @brief ChemEntity is a sub module used to build equation balancer 
+#  @date Feb 8th 2020
+#  
 
 
 from abc import ABC,abstractmethod

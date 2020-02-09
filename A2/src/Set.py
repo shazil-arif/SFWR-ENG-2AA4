@@ -1,7 +1,7 @@
 ##  @file Set.py
 #  @author Shazil Arif
 #  @brief Set.py contains a class that implements a set data type
-#  @date Feb 1st, 2020
+#  @date Feb 8th, 2020
 
 from Equality import *
 
@@ -29,7 +29,7 @@ class Set(Equality):
 
     ## @brief check if an element is in the set
     #  @param e The element to add to the set
-    #  @return boolean value indicating whether parameter e was # found in the set
+    #  @return boolean value indicating whether parameter e was found in the set
     def member(self, e): 
         return e in self._S
 
@@ -39,6 +39,7 @@ class Set(Equality):
         return len(self._S)
 
     ## @brief check if two sets are equal
+    #  @details two sets are considered equal if they have same size and elements
     #  @param r the set to compare against
     #  @return boolean indicating if the sets are equal
     def equals(self, r):

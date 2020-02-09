@@ -6,8 +6,10 @@
 
 from MoleculeT import *
 from MolecSet import *
+
 ## @brief CompoundT 
 #  @details
+
 class CompoundT(MoleculeT):
     ## @brief constructor for class CompoundT
     #  @param molec_set A MolecSet Object

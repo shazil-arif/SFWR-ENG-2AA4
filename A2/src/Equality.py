@@ -11,11 +11,7 @@ class Equality(ABC):
 
     @abstractmethod
     ## @brief a generic method to compare two values/objects
-    ## @param T any type
+    ## @param t any type
     ## @return boolean indicating results of comparison
-    def equals(self,T):
+    def equals(self, t):
         pass
-    
-
-    
-

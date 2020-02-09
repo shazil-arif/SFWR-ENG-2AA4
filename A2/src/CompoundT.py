@@ -9,6 +9,7 @@ from MolecSet import *
 
 ## @brief CompoundT is used to represent a chemical compound
 
+
 class CompoundT(MoleculeT):
     ## @brief constructor for class CompoundT
     #  @param molec_set A MolecSet Object
@@ -44,8 +45,3 @@ class CompoundT(MoleculeT):
     #  @return boolean indicating if they are equal
     def equals(self, d):
         return self.get_molec_set().equals(d.get_molec_set())
-        
-
-        
-
-    

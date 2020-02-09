@@ -10,13 +10,13 @@ from Set import *
 
 
 class MolecSet(Set):
-    
+
     ## @brief compare two MolecSets
     #  @details Overrides equals defined in Set.py
     #  @param other The other MolecSet to compare against
     #  @return Boolean indicating if two sets are equal
     def equals(self, other):
-        if(self.size()!=other.size()):
+        if(self.size() != other.size()):
             return False
 
         self_obj = self.to_seq()
@@ -26,10 +26,3 @@ class MolecSet(Set):
             if(not other_obj[i].__dict__ == self_obj[i].__dict__):
                 return False
         return True
-  
-
-    
-
-    
-
-    

@@ -5,9 +5,14 @@
 
 from Set import *
 
-## @brief MolecSet
-## @
+## @brief MolecSet is a set of MoleculeT objects
+#  @details extends from Set.py
 class MolecSet(Set):
+    
+    ## @brief compare two MolecSets
+    #  @details Overrides equals defined in Set.py
+    #  @param other The other MolecSet to compare against
+    #  @return Boolean indicating if two sets are equal
     def equals(self, other):
         if(self.size()!=other.size()):
             return False

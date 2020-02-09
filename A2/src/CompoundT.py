@@ -7,8 +7,7 @@
 from MoleculeT import *
 from MolecSet import *
 
-## @brief CompoundT 
-#  @details
+## @brief CompoundT is used to represent a chemical compound
 
 class CompoundT(MoleculeT):
     ## @brief constructor for class CompoundT
@@ -32,7 +31,7 @@ class CompoundT(MoleculeT):
         return count
 
     ## @brief return an ElmSet of the elements in the molecules that are in the compound
-    #  @return ElmSet containing the element
+    #  @return ElmSet containing the elements
     def constit_elems(self):
         molecs = self._C.to_seq()
         elems = []
@@ -42,7 +41,7 @@ class CompoundT(MoleculeT):
 
     ## @brief check if two compounds are equals
     #  @param d the object to compare against
-    #  @return integer indicating the number of atoms of element e in the compound
+    #  @return boolean indicating if they are equal
     def equals(self, d):
         return self.get_molec_set().equals(d.get_molec_set())
         

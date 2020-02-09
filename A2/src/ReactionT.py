@@ -66,7 +66,8 @@ class ReactionT(CompoundT):
         matrix = []
         index = 0
 
-        # source: https://stackoverflow.com/questions/45220032/how-to-balance-a-chemical-equation-in-python-2-7-using-matrices
+        # source:
+        # https://stackoverflow.com/questions/45220032/how-to-balance-a-chemical-equation-in-python-2-7-using-matrices
         # iterate over all elements
         for elm in elm_set.to_seq():
             # append new row

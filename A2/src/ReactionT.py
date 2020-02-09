@@ -73,14 +73,11 @@ class ReactionT(CompoundT):
 
         coeffs = np.linalg.lstsq(matrix,b_vector,rcond=-1)[0]
         coeffs = np.append([1],coeffs)
-
-        #get number of compounds on left side
-        left_compounds_num = len(l)
         
         #take subarrays corresponding to each side of the equation
         if(self.__pos(coeffs)):
-            self.__set_lhs_coeff(coeffs[0:left_compounds_num])
-            self.__set_rhs_coeff(coeffs[left_compounds_num:len(coeffs)])
+            self.__set_lhs_coeff(list(coeffs[0:len(l)]))
+            self.__set_rhs_coeff(list(coeffs[len(l):len(coeffs)]))
         else: raise ValueError("Unable to balance")
 
     def __pos(self,seq):

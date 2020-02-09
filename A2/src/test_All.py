@@ -4,6 +4,7 @@
 #  @date Feb 6th 2020
 
 import pytest
+from pytest import approx
 from MoleculeT import MoleculeT
 from ChemTypes import ElementT
 from Set import Set
@@ -185,13 +186,9 @@ class TestReactionT:
         right_o = MoleculeT(1,ElementT.O)
         water = CompoundT(MolecSet([right_h2,right_o]))
 
-        #create sequences of CompoundT for left and right
-        left = [sodium_hydroxide,sulfuric_acid]
-        right = [sodium_sulfate,water]
-
         #create Reaction
-        self.left = left
-        self.right = right
+        self.left = [sodium_hydroxide,sulfuric_acid]
+        self.right = [sodium_sulfate,water]
         self.left_coeffs = [1,0.5]
         self.right_coeffs = [0.5,1]
         self.reaction = ReactionT(self.left,self.right)
@@ -203,17 +200,28 @@ class TestReactionT:
         self.right_coeffs = None
         self.reaction = None
 
-    def tet_get_lhs(self):
-        assert self.reaction.get_lhs().equals(self.left)
+    def tet_get_lhs(self): 
+        assert self.is_equal_array(self.reaction.get_lhs(),self.left)
 
-    def test_get_rhs(self):
-        assert self.reaction.get_rhs().equals(self.right)
+    def test_get_rhs(self): 
+        assert self.is_equal_array(self.reaction.get_rhs(),self.right)
 
-    def test_get_lhs_coeff(self):
-        assert self.reaction.get_lhs_coeff().equals(self.left_coeffs)
+    def test_get_lhs_coeff(self): 
+        assert self.is_equal_numbers_array(self.reaction.get_lhs_coeff(),self.left_coeffs)
 
-    def test_get_rhs_coeff(self):
-        assert self.reaction.get_rhs_coeff().equals(self.right_coeffs)
+    def test_get_rhs_coeff(self): 
+        assert self.is_equal_numbers_array(self.reaction.get_rhs_coeff(),self.right_coeffs)
+
+    def is_equal_array(self,one,two):
+        for i in range(len(one)):
+            if(not one[i].equals(two[i])):
+                return False
+        return True
+
+    def is_equal_numbers_array(self,one,two):
+        for i in range(len(one)):
+            if(abs(one[i]-two[i]) >0.1): return False
+        return True
 
 
 

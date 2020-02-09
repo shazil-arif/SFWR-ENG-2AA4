@@ -6,31 +6,37 @@
 from Equality import *
 
 ## @brief Set is a class that implements a Date object containing a year, month and a day
+
+
 class Set(Equality):
 
     ## @brief constructor method for class Set, intializes a Set from a given sequence t
     #  @param t a sequence of values that will be converted a set
     def __init__(self, t):
-        #source: http://www.martinbroadhurst.com/removing-duplicates-from-a-list-while-preserving-order-in-python.html
-        seen = set() 
+        # source:
+        # http://www.martinbroadhurst.com/removing-duplicates-from-a-list-while-preserving-order-in-python.html
+        seen = set()
         self._S = [x for x in t if not (x in seen or seen.add(x))]
 
     ## @brief add a new element to the set
     #  @param e The element to add to the set
     def add(self, e):
-        if(not e in self._S): self._S.append(e)
+        if(e not in self._S):
+            self._S.append(e)
 
     ## @brief remove a element from the set
     #  @param e The element to remove from the set
     #  @throws ValueError if parameter e is not a member of the set
     def rm(self, e):
-        if (e in self._S): self._S.remove(e)
-        else: raise ValueError("{elm} is not a member".format(elm=e))
+        if (e in self._S):
+            self._S.remove(e)
+        else:
+            raise ValueError("{elm} is not a member".format(elm=e))
 
     ## @brief check if an element is in the set
     #  @param e The element to add to the set
     #  @return boolean value indicating whether parameter e was found in the set
-    def member(self, e): 
+    def member(self, e):
         return e in self._S
 
     ## @brief return size of the set

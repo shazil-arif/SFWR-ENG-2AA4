@@ -1,5 +1,8 @@
 ## @file ChemEntity.py
-#  @author 
+#  @author Shazil
+
+
+
 from abc import ABC,abstractmethod
 
 class ChemEntity(ABC):

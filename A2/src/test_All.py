@@ -212,12 +212,13 @@ class TestReactionT:
     def test_get_rhs_coeff(self): 
         assert self.is_equal_numbers_array(self.reaction.get_rhs_coeff(),self.right_coeffs)
 
+    #utility function
     def is_equal_array(self,one,two):
         for i in range(len(one)):
-            if(not one[i].equals(two[i])):
-                return False
+            if(not one[i].equals(two[i])): return False
         return True
 
+    #utility function
     def is_equal_numbers_array(self,one,two):
         for i in range(len(one)):
             if(abs(one[i]-two[i]) >0.1): return False

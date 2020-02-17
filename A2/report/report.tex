@@ -40,6 +40,8 @@ My partner's code passed all of my test cases. In the first assignment, my partn
 
 \section{Critique of Given Design Specification}
 
+I genuinely really liked the formal specification given for this assignment. The main reason I enjoyed it was the mathematical and formal notation used to communicate clearly any requirements, an invariant for a module, boolean conditions for exceptions etc. The inputs, outputs and desired behavior was very clear. However, due to the bulk of formal notation and less natural language it took significantly longer to fully interpret and understand the specification and specifically how each module depends and integrates with other modules. For example, it took me time to understand that certain modules were interfaces with generic/abstract methods that would have their unique implementation in a module that would inherit those properties. I did find some aspects of the design that could be changed. I would make the design more essential by removing certain redundant features. For example, the MolecSet and ElmSet modules are redundant since Python is dynamically typed and does not enforce the programmer to have the same types within a list. Simply using an instance of a Set object (Set refers to Set module defined in the context of this assignment and not a generic python set) of ElementT types is no different than using an ElmSet. The requirements are actually not opaque and do not satisfy information hiding. It is actually not stated anywhere whether state variables should be private or public. The state variables should be enforced to be kept as private making the specification opaque. I did not find any examples where the specification was did not meet other quality criteria including high cohesion, low coupling and consistency
+
 \section{Answers}
 
 \begin{enumerate}[a)]
@@ -78,11 +80,18 @@ My partner's code passed all of my test cases. In the first assignment, my partn
 
 \end{enumerate} 
 
-\item 
+\item The process of converting string to logical and meaningful syntactical components is called \emph{\href{https://en.wikipedia.org/wiki/Lexical_analysis}{Lexical Analysis}}. To convert a string to a reaction in the context of this assignment and the ReactionT module, we need to supply ReactionT a left and right hand side of a chemical equation. Suppose the user enters a equation such as ``2H2 + O2 -> 2H2O'' as a string. To convert this to a reaction, we can split the string first by the ``->'' character and then inspect individual characters such as O and map them to ElementT types. We also need to take the numbers associated with the elements (the coefficients and subscripts) and construct MoleculeT objects, then a MolecSet, CompoundT and eventually the two sets of CompoundT objects to create a ReactionT object. The main secrets are substring search and/or regex splitting which can be implemented in a new Module that could be called StringReactionT.
+  
+\item I would create a new module that would contain a mapping between elements and a their atomic mass. Additionally, the element would be of type ElementT and mapped to a floating point value. This may be achieved using a dictionary that would look something like :
+\begin{verbatim}
+	weights = { ElementT.H  : 1.007,
+				ElementT.He : 4.002
+			   }
+\end{verbatim}
 
-\item 
+This mapping can be easily used to retrieve the weight of ElementT type. Additionally, the constit\textunderscore elements() method defined in both CompoundT and MoleculeT retrieves a list of elements contained in the compound/molecule which can be passed to a new method that will iteratively get the weights all of the elements, add them up and get the total weight of a molecule or compound. This is elegant because it does not require us to change any existing implementation and only add new code.
 
-\item The usual convention in Chemistry is to have a chemical equation balanced with integer coefficients. The domain of Integer Programming addresses this problem. An algorithm that can compute coefficients as integers Can be found \emph{\href{https://www.sciencedirect.com/science/article/pii/S0895717706000367}{here}}
+\item The usual convention in Chemistry is to have a chemical equation balanced with integer coefficients. The domain of Integer Programming addresses this problem. An algorithm that can compute coefficients as integers can be found \emph{\href{https://www.sciencedirect.com/science/article/pii/S0895717706000367}{here}}
 
 \item In a dynamically typed language such as Python the types of variables are checked during execution, as the program runs. This means a programmer could write a statement such as \begin{verbatim}
 print("hello" + 5)
@@ -114,27 +123,29 @@ def sin(x)
 	
 		\item Abstraction
 			\begin{enumerate}
-					\item 
+					\item Abstraction is the idea of ``abstracting'' unnecessary details of a software module interface from a client. The programmer should only provide the details necessary for a client to achieve their desired output. Abstraction should encourage the idea of focusing on the \emph{interface} rather than \emph{implementation}. This means state information should be encapsulated, the interface should not expose any details about internal algorithms/secrets (potentially from a security perspective for a sensitive application such as a password hashing module, but more importantly to hide these details from the client to avoid confusion).
 			\end{enumerate}
 			
 		\item Anticipation of Change
 			\begin{enumerate}
-					\item 
+					\item Anticipation of change (AoC) addresses software design from a \emph{long term and maintainable} perspective. Suppose we design a module that satisfied our clients needs but six months later, we need to implement new functionality/features. By AoC principle to implement these features we should be able to do so smoothly and elegantly. This means not a lot of existing code should be modified but instead new code should be able to be easily added and integrated. This encourages the design of software in \emph{modules} and each module should address a different concern/sub problem and the module as a whole should have high cohesion. This also means that software should have low coupling since high coupling would imply changing one component of the code would not work without changing another component.
 			\end{enumerate}
 		
 		\item Generality
 			\begin{enumerate}
-					\item 
+			
+			\item
+					
 			\end{enumerate}
 			
 		\item Modularity
 			\begin{enumerate}
-					\item 
+					\item Modularity ties in with Anticipation of Change (AoC). It can be viewed as a consequence of AoC. As we discussed above AoC encourages software to be designed in module/smaller units to increase cohesion and achieve long term maintainability. This means we should have seperate classes that group together various methods used to achieve a common task. For example, in a Chemical equations software we should have a module that addresses balancing of equations and a seperate module that addresses the representation of an equation. These two modules would then have their own methods that achieve the sub problem that they are addressing (a balancing method in the balancing module)
 			\end{enumerate}
 			
 		\item Separation of concerns
 			\begin{enumerate}
-					\item 
+					\item Seperation of conerns (SoC) specifies the need for humans to work with little information at any given time. Humans have a  difficult time understanding all the complex and technical details to design a software system. To avoid confusion and enable a person to be able to work on a software, we should work with small bits of information/work with smaller sub problems at a time. This encourges the design of software to be done in modules (enabling Modularity)
 			\end{enumerate}
 	\end{enumerate}
   

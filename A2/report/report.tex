@@ -4,7 +4,8 @@
 \usepackage{paralist}
 \usepackage{listings}
 \usepackage{booktabs}
-
+\usepackage{amssymb}
+\usepackage{hyperref}
 \oddsidemargin 0mm
 \evensidemargin 0mm
 \textwidth 160mm
@@ -16,19 +17,26 @@
 \newcounter{stepnum}
 
 \title{Assignment 2 Solution}
-\author{Your name here}
+\author{Shazil Arif}
 \date{\today}
 
 \begin {document}
 
 \maketitle
 
-Introduce report.
+This report discusses the testing phase for the modules Set, ReactionT, CompoundT and MoleculeT. It also discusses
+the results of running the same tests on the partner files. The assignment specifications
+are then critiqued and various discussion questions are answered
 
 \section{Testing of the Original Program}
 
 
+Instead of writing one test case, executing it and then writing more and repeating the process, I took a different approach to testing. I wrote all my test cases for every module, covering all execution paths and then running the tests all together. This approach helped identify bugs not only within a certain method but also any issues with the integration of several methods/modules.
+
+
 \section{Results of Testing Partner's Code}
+
+My partner's code passed all of my test cases. In the first assignment, my partner's code failed for several test cases. Due to the nature of the first assignment and the design assumptions and choices that had to be made, failed test cases were expected. For this assignment there were no assumptions that had to be made by the developer as everything was made concise in the specification and thus it was expected that majority of test cases should pass. Furthermore, I did not find any problems with mine or my partners code since all tests passed
 
 \section{Critique of Given Design Specification}
 
@@ -36,7 +44,99 @@ Introduce report.
 
 \begin{enumerate}[a)]
 
-\item
+\item Comparing the specification of the first assignment with this one, the major difference is the how the specification is communicated. Assignment 1 was described in natural language and Assignment 2 had a formal specification that used mathematical notation and symbols to communicate specifications, invariant and certain properties of methods. 
+
+\begin{enumerate}
+\item Advantages of Natural language specification:
+	\begin{enumerate}
+	
+	\item General audience, easy to interpret natural language vs technical terminology and notation(formal specification)
+	\item Statements can be vague and not very concise regarding requirements, this allows the developer/programmer to make design choices and assumptions as necessary which encourages creativity and unique solutions
+	
+	\end{enumerate}
+\item Disadvantages of Natural language specification:
+
+	\begin{enumerate}
+	
+	\item The vagueness of natural language description may encourage creativity and unique solutions but often opens the door for confusion and may result in a product that does not meet the requirements due to lack of understanding and communication.
+	\item Often difficult to communicate technical ideas verbally, it can also be more challenging to interpret by the developer. For example ``Function x takes an input y such that y is an integer less than or equal to 5'' can be harder to interpret than ``Function x takes a input y such that $y : \mathbb{Z} \leq x$''
+	
+	\end{enumerate}
+	
+	\item Advantages of a Formal specification
+	
+	\begin{enumerate}
+		\item The requirements are clear and concise. Mathematical notation and symbols indicate exactly what is required. For example, a method's output can be described as the output of a mathematical function. Let's say a method computes lengths of sides of a triangle using the Pythagorean  theorem and so the method's specification can be be described as ``given $a$ and $b$ as parameters return $c$ = $\sqrt{a^2 + b^2}$''. This formal notation can be extended to explain certain properties or an invariant, for example ``Method x(y) where y is a parameter containing a list of integers, should raise an error $\forall a \in y. a \geq 20$''. The formal notation makes the requirements clear and avoids confusions among programmers leading to a higher quality end product.
+		
+	\end{enumerate}
+	
+	\item Disadvantages of a formal specification
+	
+	\begin{enumerate}
+		\item Due to the technical nature of the notation, it can be difficult for certain developers to read and interpret. It requires extra effort and a basic background knowledge and familiarity with the notation and language.
+	\end{enumerate}
+
+\end{enumerate} 
+
+\item 
+
+\item 
+
+\item The usual convention in Chemistry is to have a chemical equation balanced with integer coefficients. The domain of Integer Programming addresses this problem. An algorithm that can compute coefficients as integers Can be found \emph{\href{https://www.sciencedirect.com/science/article/pii/S0895717706000367}{here}}
+
+\item In a dynamically typed language such as Python the types of variables are checked during execution, as the program runs. This means a programmer could write a statement such as \begin{verbatim}
+print("hello" + 5)
+\end{verbatim} and Python would not indicate any errors and would execute. But, as the program executes Python will throw an error along the lines of not being able to convert a string to an integer since the types are clearly mismatched. Furthermore, if the above print statement was placed inside a if statement whose condition is never true, then Python will never throw an error.\\
+
+In a statically typed language like Java the types of variables are checked before run-time. If a programmer writes a statement such as \begin{verbatim}
+System.out.println("hello" + 5)
+\end{verbatim} Java will not even compile due to this type mismatch. If the print statement is placed inside a if statement that may never even execute, Java will still not compile due to the type mismatch.\\
+
+Advantages of static typing are enforcing a coding standard. The strict type checking makes it harder to get past the compiler and as a result when the program executes, gives the programmer high confidence that they have done things correctly as opposed to a dynamically typed language where this confidence may be lower since some type errors may never even be caught. Static typing also results in better performance at run time since the type of every variable does not need to be checked.\\
+
+Disadvantages of static typing include frustration, constraints on a program and making simple programs unnecessarily complicated due to type checking. Some programmers may argue that constant errors showing up can be frustrating during the development process and leads to a decrease in productivity. Static typing places constraints on a program since it can only worth with a given type at a time. For example, a programmer
+may want to write a method to convert numbers to string and support this for both integers and floating point values. Unfortunately, due to static type checking the method can only take one type of value and do the conversion and a additional method must be defined to do the same process but for a different type of the input. This leads to the last point; making simple programs complicated. Consider the Quicksort sorting algorithm. We want to implement a generic quick sort that can be used on any comparable type such as strings and integers. In a dynamically typed language this is not a problem, we can have a function sort() that can take a list of any type. However, it is more complicated in a statically typed language such as Java. This is exactly why Java has \emph{\href{https://www.geeksforgeeks.org/generics-in-java/}{Generics}}. In conclusion, the strict type checking leads to more and usually complicated code as opposed to dynamic typing.
+
+\item \begin{verbatim} [(x,y) for x in range(1,11) for y in range(x,11) if x % 2 and y % 2 and x < y] 
+\end{verbatim}
+
+\item \begin{verbatim}
+def length(x):
+        return sum(map(lambda n:1,x))
+\end{verbatim}
+
+\item The interface can be thought of as a ``contract'' between a client and a programmer that may state the public methods in a class, their parameters and return values. The interface communicates to a client the necessary knowledge to use the methods in a module without having to worry about how the module works internally. The implementation is the underlying code, algorithms and secrets used to achieve the output stated in the interface of the module. For example, the interface of a math module may define: \begin{verbatim}
+def sin(x)
+\end{verbatim} as a method that returns the sine of a value x in radians. A client can easily call this method and get the correct output values, they do not have to worry about how the value is being computed. In contrast, the implementation is the underlying algorithm/secret that is used to compute the sine of a value which is hidden from the client. The method may use a Taylor series approximation to compute sin(x) but a client does not to worry about this.
+
+\item The following Software Engineering principles should guide the design of a module's interface as follows:
+	\begin{enumerate}
+	
+		\item Abstraction
+			\begin{enumerate}
+					\item 
+			\end{enumerate}
+			
+		\item Anticipation of Change
+			\begin{enumerate}
+					\item 
+			\end{enumerate}
+		
+		\item Generality
+			\begin{enumerate}
+					\item 
+			\end{enumerate}
+			
+		\item Modularity
+			\begin{enumerate}
+					\item 
+			\end{enumerate}
+			
+		\item Separation of concerns
+			\begin{enumerate}
+					\item 
+			\end{enumerate}
+	\end{enumerate}
   
 \end{enumerate}
 

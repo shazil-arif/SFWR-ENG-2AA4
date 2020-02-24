@@ -1,18 +1,19 @@
 ## @file test_All.py
-#  @author Spencer Smith, Shazil Arif 
-#  @brief Tests implementation of python files for balancing chemical reactions.
-#  @date 02/21/2020
-#  @details Written to test student code.
-#           Avoids interacting with state variables to enforce information hiding.
+#  @author Shazil
+#  @brief test_All.py is used to test several modules used to balance chemical equations
+#  @date Feb 8th 2020
 
-from Set import *
-from MoleculeT import *
-from CompoundT import *
-from ReactionT import *
+import pytest
+from MoleculeT import MoleculeT
 from ChemTypes import ElementT
+from Set import Set
+from ElmSet import ElmSet
+from CompoundT import CompoundT
 from MolecSet import MolecSet
+from ReactionT import ReactionT
 
-from pytest import *
+## @brief Test methods from Set.py
+
 
 class TestSetADT:
 
@@ -50,7 +51,7 @@ class TestSetADT:
         assert not self.test_set.member(0)
 
     def test_remove_method_exception(self):
-        with raises(ValueError):
+        with pytest.raises(ValueError):
             self.test_set.rm(max(self.test_list) + 1)
 
     def test_remove_method(self):
@@ -108,7 +109,9 @@ class TestMoleculeT:
         assert self.molecule.num_atoms(self.elm) == self.elm_num
 
     def test_num_atom_with_wrong_element(self):
-        assert self.molecule.num_atoms(ElementT.O) == 0
+        # add one to self.elm to test with arbitrary element
+        # main idea is to use blackbox approach and minimize hardcoding
+        assert self.molecule.num_atoms(self.elm + 1) == 0
 
     def test_constit_elems(self):
         assert self.molecule.constit_elems().equals(ElmSet([self.elm]))
@@ -120,7 +123,7 @@ class TestMoleculeT:
     def test_equals_with_different_molecule(self):
         test_molec = MoleculeT(self.elm_num + 1, self.elm)
         assert not self.molecule.equals(test_molec)
-        
+
 # @brief Test CompoundT
 
 
@@ -130,7 +133,7 @@ class TestCompoundT:
         self.elm_num = 2
         self.elm = ElementT.H
         self.molecule = MoleculeT(self.elm_num, self.elm)
-        self.molecule_two = MoleculeT(1, ElementT.O)
+        self.molecule_two = MoleculeT(self.elm_num + 1, self.elm + 1)
         self.molec_set = MolecSet([self.molecule, self.molecule_two])
         self.compound = CompoundT(self.molec_set)
 
@@ -157,35 +160,55 @@ class TestCompoundT:
         test_compound = CompoundT(self.molec_set)
         assert self.compound.equals(test_compound)
 
- # @brief Test ReactionT
+# @brief Test ReactionT
 
 
 class TestReactionT:
     def setup_method(self):
-        #Example C_4 H_10 + O_2 = C O_2 + H_2 O
+        '''
+        Test the equation that looks like
 
-        # create left side
-        c4 = MoleculeT(4, ElementT.C)
-        h10 = MoleculeT(10, ElementT.H)
-        o2 = MoleculeT(2, ElementT.O)
-        L1 = CompoundT(MolecSet([c4, h10]))
-        L2 = CompoundT(MolecSet([o2]))
-        self.left = [L1, L2]
-        
-        # create right side
-        c1 = MoleculeT(1, ElementT.C)
-        h2 = MoleculeT(2, ElementT.H)
-        o1 = MoleculeT(1, ElementT.O)
-        R1 = CompoundT(MolecSet([c1, o2]))
-        R2 = CompoundT(MolecSet([h2, o1]))
-        self.right = [R1, R2]
-        
+        (a)NaOH + (b)H2SO4 -> (x)Na2SO4 + (y)H2O
+        Balanced equation is :
+        NaOH + (0.5)H2SO4 -> (0.5)Na2SO4 + H2O
+
+        '''
+
+        # create sodium hydroxide (NaOH - left side)
+        left_h = MoleculeT(1, ElementT.H)
+        left_na = MoleculeT(1, ElementT.Na)
+        left_o = MoleculeT(1, ElementT.O)
+        sodium_hydroxide = CompoundT(MolecSet([left_na, left_o, left_h]))
+
+        # create Sulfurice Acid (H2SO4 - left side)
+        left_h2 = MoleculeT(2, ElementT.H)
+        left_sulfur = MoleculeT(1, ElementT.S)
+        left_o4 = MoleculeT(4, ElementT.O)
+        sulfuric_acid = CompoundT(MolecSet([left_h2, left_sulfur, left_o4]))
+
+        # create Sodium sulfate (Na2SO4 - right side)
+        right_na2 = MoleculeT(2, ElementT.Na)
+        right_sulfur = MoleculeT(1, ElementT.S)
+        right_o4 = MoleculeT(4, ElementT.O)
+        sodium_sulfate = CompoundT(MolecSet([right_na2, right_sulfur, right_o4]))
+
+        # create water (H2O - right side)
+        right_h2 = MoleculeT(2, ElementT.H)
+        right_o = MoleculeT(1, ElementT.O)
+        water = CompoundT(MolecSet([right_h2, right_o]))
+
         # create Reaction
+        self.left = [sodium_hydroxide, sulfuric_acid]
+        self.right = [sodium_sulfate, water]
+        self.left_coeffs = [1, 0.5]
+        self.right_coeffs = [0.5, 1]
         self.reaction = ReactionT(self.left, self.right)
 
     def teardown_method(self):
         self.left = None
         self.right = None
+        self.left_coeffs = None
+        self.right_coeffs = None
         self.reaction = None
 
     def tet_get_lhs(self):
@@ -194,8 +217,11 @@ class TestReactionT:
     def test_get_rhs(self):
         assert self.is_equal_array(self.reaction.get_rhs(), self.right)
 
-    def test_balanced(self):
-        assert self.is_balanced(self.reaction)
+    def test_get_lhs_coeff(self):
+        assert self.is_equal_numbers_array(self.reaction.get_lhs_coeff(), self.left_coeffs)
+
+    def test_get_rhs_coeff(self):
+        assert self.is_equal_numbers_array(self.reaction.get_rhs_coeff(), self.right_coeffs)
 
     # utility function
     def is_equal_array(self, one, two):
@@ -210,24 +236,4 @@ class TestReactionT:
         for i in range(len(one)):
             if(abs(one[i] - two[i]) > 0.1):
                 return False
-        return True
-       
-    def is_balanced(self, reaction):
-        elms = ElmSet([])
-        for compound in reaction.get_lhs():
-            for e in compound.constit_elems().to_seq():
-                elms.add(e)
-        for e in elms.to_seq():
-            totL = 0
-            totR = 0
-            L = reaction.get_lhs()
-            R = reaction.get_rhs()
-            coeff_L = reaction.get_lhs_coeff()
-            coeff_R = reaction.get_rhs_coeff()            
-            for i in range(len(reaction.get_lhs())):
-                totL = totL + coeff_L[i]*L[i].num_atoms(e)
-            for i in range(len(reaction.get_rhs())):
-                totR = totR + coeff_R[i]*R[i].num_atoms(e)
-        if not((totL - totR)/totL <= 0.01): # relative error less than 1%
-            return False
         return True

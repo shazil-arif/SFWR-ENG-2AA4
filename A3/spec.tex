@@ -163,8 +163,8 @@ translate & $\mathbb{Z}$, $\mathbb{Z}$ & PointT & ~\\
 
 \subsubsection* {State Variables}
 
-$r$: \wss{What is the type of the state variables?}\\
-$c$: \wss{What is the type of the state variables?}
+$r$: \wss{What is the type of the state variables?} : $Z$\\
+$c$: \wss{What is the type of the state variables?} : $Z$\\
 
 \subsubsection* {State Invariant}
 
@@ -180,7 +180,13 @@ an existing object.
 
 PointT($row, col$):
 \begin{itemize}
-\item transition: \wss{What should the state transition be for the constructor?}
+\item transition: \wss{What should the state transition be for the constructor?}\\
+
+\begin{enumerate}
+\item $r := row$
+\item $c := col$
+\end{enumerate}
+
 \item output: $out := \mathit{self}$
 \item exception: None
 \end{itemize}
@@ -193,14 +199,18 @@ PointT($row, col$):
 
 \noindent col():
 \begin{itemize}
-\item \wss{What should go here?}
+\item \wss{What should go here?} output: $out := c$
 \item exception: None
 \end{itemize}
 
 \noindent translate($\Delta r$, $\Delta c$):
 \begin{itemize}
-\item \wss{What should go here?}
-\item exception: \wss{What should go here?}
+\item \wss{What should go here?} Transition : \begin{enumerate}
+\item $r := r + \Delta r$
+\item $c := c + \Delta c$
+\end{enumerate}
+\item output: $out := self$
+\item exception: \wss{What should go here?} None
 \end{itemize}
 
 \newpage
@@ -282,12 +292,17 @@ called once.
 
 Seq2D($S$, scl):
 \begin{itemize}
-\item transition: \wss{Fill in the transition.}
+\item transition: \wss{Fill in the transition.} \begin{enumerate}
+\item $s := S$
+\item $scale := scl$
+\end{enumerate}
 \item output: $\mathit{out} := \mathit{self}$
 \item exception: \wss{Fill in the exception.  One should be generated if the
     scale is less than zero, or the input sequence is empty, or the number of
     columns is zero in the first row, or the number of columns in any row is
-    different from the number of columns in the first row.}
+    different from the number of columns in the first row.}\\
+    
+    exc $:=$ (scl $<$ 0) $\lor$ (S = $<>$) $\lor$ ($| S[0] | = 0$) $\lor$ ($\exists (x \in S[ 1..|S|-1 ].  |x| \neq | S[0] |$))
 \end{itemize}
 
 \noindent set($p, v$):

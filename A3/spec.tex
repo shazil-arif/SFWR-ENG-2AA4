@@ -307,16 +307,18 @@ Seq2D($S$, scl):
 
 \noindent set($p, v$):
 \begin{itemize}
-\item transition: \wss{?}
+\item transition: \wss{?} $s[p.row()][p.col()] = v$
 \item exception: \wss{Generate an exception if the point lies outside of the
-    map.}
+    map.}\\
+    exc $:=$ (p.row() $ >= $ nRow) $\lor$ (p.col() $ >= $ nCol) $\lor$ (p.row() $ < $ 0) $\lor$ (p.col() $ < $ 0)
 \end{itemize}
 
 \noindent get($p$):
 \begin{itemize}
-\item output: \wss{?}
+\item output: \wss{?} $out := s[p.row()][p.col()]$
 \item exception: \wss{Generate an exception if the point lies outside of the
-    map.}
+    map.}\\
+    exc $:=$ (p.row() $ >= $ nRow) $\lor$ (p.col() $ >= $ nCol) $\lor$ (p.row() $ < $ 0) $\lor$ (p.col() $ < $ 0)
 \end{itemize}
 
 \noindent getNumRow():
@@ -340,23 +342,27 @@ Seq2D($S$, scl):
 \noindent count($t$: T):
 \begin{itemize}
 \item output: \wss{Count the number of times the value $t$ occurs in the 2D
-    sequence.}
+    sequence.}\\
+    out $:= (+x : s| t \in x : 1)$
 \item exception: None
 \end{itemize}
 
 \noindent countRow($t$: T, $i: \mathbb{N}$):
 \begin{itemize}
 \item output: \wss{Count the number of times the value $t$ occurs in row
-    $i$.}
+    $i$.}\\
+     out $:= (+x : s[i] | t \in x : 1)$
 \item exception: \wss{Generate an exception if the index is not a valid
-    row.}
+    row.}\\
+    $exc := (i < 0) \lor (i >=$ nRow)
 \end{itemize}
 
 \noindent area($t$: T):
 \begin{itemize}
 \item output: \wss{Return the total area in the grid taken up by cell value $t$.
     The length of each side of each cell in the grid is
-    scale.}
+    scale.}\\
+    $out :=$ count($t$) * $scale$
 \item exception: None
 \end{itemize}
 
@@ -365,14 +371,19 @@ Seq2D($S$, scl):
 \noindent validRow: $\mathbb{N} \rightarrow \mathbb{B}$\\
 \noindent \wss{returns true if the given natural number is a valid row
   number.}\\
+  validRow($r$) $\equiv r \geq 0 \land (r < $ nRow) \\
 
 \noindent validCol: $\mathbb{N} \rightarrow \mathbb{B}$\\
 \noindent \wss{returns true if the given natural number is a valid column
   number.}\\
+    validCol($c$) $\equiv (c \geq 0) (\land c < $ nCol) \\
+
 
 \noindent validPoint: $\mbox{PointT} \rightarrow \mathbb{B}$\\
 \noindent \wss{Returns true if the given point lies within the boundaries of the
   map.}\\
+    validPoint($p$) $\equiv$ validCol(p.col()) $\land$ validRow(p.row())
+
 
 \newpage
 

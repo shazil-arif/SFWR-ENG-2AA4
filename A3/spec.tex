@@ -8,6 +8,7 @@
 \usepackage{booktabs}
 \usepackage{multirow}
 \usepackage{multicol}
+\usepackage{xcolor}
 \usepackage{url}
 
 \oddsidemargin -10mm
@@ -141,7 +142,7 @@ N/A
 
 \subsubsection* {Exported Types}
 
-\wss{What should be written here?}
+\textcolor{blue}{PointT = ?}
 
 \subsubsection* {Exported Access Programs}
 
@@ -163,8 +164,8 @@ translate & $\mathbb{Z}$, $\mathbb{Z}$ & PointT & ~\\
 
 \subsubsection* {State Variables}
 
-$r$: \wss{What is the type of the state variables?} : $Z$\\
-$c$: \wss{What is the type of the state variables?} : $Z$\\
+$r$: \textcolor{blue}{$\mathbb{Z}$}\\
+$c$: \textcolor{blue}{$\mathbb{Z}$}\\
 
 \subsubsection* {State Invariant}
 
@@ -180,12 +181,7 @@ an existing object.
 
 PointT($row, col$):
 \begin{itemize}
-\item transition: \wss{What should the state transition be for the constructor?}\\
-
-\begin{enumerate}
-\item $r := row$
-\item $c := col$
-\end{enumerate}
+\item transition: \textcolor{blue}{$r := row, c := col$}
 
 \item output: $out := \mathit{self}$
 \item exception: None
@@ -199,18 +195,14 @@ PointT($row, col$):
 
 \noindent col():
 \begin{itemize}
-\item \wss{What should go here?} output: $out := c$
+\item \textcolor{blue}{output: $out := c$}
 \item exception: None
 \end{itemize}
 
 \noindent translate($\Delta r$, $\Delta c$):
 \begin{itemize}
-\item \wss{What should go here?} Transition : \begin{enumerate}
-\item $r := r + \Delta r$
-\item $c := c + \Delta c$
-\end{enumerate}
-\item output: $out := self$
-\item exception: \wss{What should go here?} None
+\item \textcolor{blue}{output: $out :=$ PointT($r + \Delta r$, $c + \Delta c$)}
+\item exception: \textcolor{blue}{None}
 \end{itemize}
 
 \newpage
@@ -292,33 +284,23 @@ called once.
 
 Seq2D($S$, scl):
 \begin{itemize}
-\item transition: \wss{Fill in the transition.} \begin{enumerate}
-\item $s := S$
-\item $scale := scl$
-\end{enumerate}
+\item \textcolor{blue}{transition: \begin{enumerate}\item $s := S$  \item $scale := scl$ \item $nRow := |S|$ \item $nCol := |S[0]|$\end{enumerate}}
+
 \item output: $\mathit{out} := \mathit{self}$
-\item exception: \wss{Fill in the exception.  One should be generated if the
-    scale is less than zero, or the input sequence is empty, or the number of
-    columns is zero in the first row, or the number of columns in any row is
-    different from the number of columns in the first row.}\\
-    
-    exc $:=$ (scl $<$ 0) $\lor$ (S = $<>$) $\lor$ ($| S[0] | = 0$) $\lor$ ($\exists (x \in S[ 1..|S|-1 ].  |x| \neq | S[0] |$))
+\item \textcolor{blue}{exception: \\
+exc $:=$ (scl $<$ 0) $\lor$ (S = $<>$) $\lor$ ($| S[0] | = 0$) $\lor$ ($\exists (x : $ Seq of T $| x \in S[ 1..|S|-1 ] : |x| \neq | S[0] |$)) $\implies$ IllegalArgumentException}
 \end{itemize}
 
 \noindent set($p, v$):
 \begin{itemize}
-\item transition: \wss{?} $s[p.row()][p.col()] = v$
-\item exception: \wss{Generate an exception if the point lies outside of the
-    map.}\\
-    exc $:=$ (p.row() $ >= $ nRow) $\lor$ (p.col() $ >= $ nCol) $\lor$ (p.row() $ < $ 0) $\lor$ (p.col() $ < $ 0)
+\item transition: \textcolor{blue}{$s[p.row()][p.col()] = v$}
+\item exception:\\ \textcolor{blue}{exc $:=$ (p.row() $ >= $ nRow) $\lor$ (p.col() $ >= $ nCol) $\lor$ (p.row() $ < $ 0) $\lor$ (p.col() $ < $ 0)$\implies$ IndexOutOfBoundsException}
 \end{itemize}
 
 \noindent get($p$):
 \begin{itemize}
-\item output: \wss{?} $out := s[p.row()][p.col()]$
-\item exception: \wss{Generate an exception if the point lies outside of the
-    map.}\\
-    exc $:=$ (p.row() $ >= $ nRow) $\lor$ (p.col() $ >= $ nCol) $\lor$ (p.row() $ < $ 0) $\lor$ (p.col() $ < $ 0)
+\item output: \textcolor{blue}{$out := s[p.row()][p.col()]$}
+\item exception:\\ \textcolor{blue}{exc $:=$ (p.row() $ >= $ nRow) $\lor$ (p.col() $ >= $ nCol) $\lor$ (p.row() $ < $ 0) $\lor$ (p.col() $ < $ 0) $\implies$ IndexOutOfBoundsException}
 \end{itemize}
 
 \noindent getNumRow():
@@ -341,48 +323,33 @@ Seq2D($S$, scl):
 
 \noindent count($t$: T):
 \begin{itemize}
-\item output: \wss{Count the number of times the value $t$ occurs in the 2D
-    sequence.}\\
-    out $:= (+x : s| t \in x : 1)$
+\item \textcolor{blue}{output: out $:= (+i : \mathbb{N} | i \in [0..|s|-1] : $ countRow($t$,$i$))}
 \item exception: None
 \end{itemize}
 
 \noindent countRow($t$: T, $i: \mathbb{N}$):
 \begin{itemize}
-\item output: \wss{Count the number of times the value $t$ occurs in row
-    $i$.}\\
-     out $:= (+x : s[i] | t \in x : 1)$
-\item exception: \wss{Generate an exception if the index is not a valid
-    row.}\\
-    $exc := (i < 0) \lor (i >=$ nRow)
+\item \textcolor{blue}{output: out $:= (+x : $ T $| x \in s[i] \land x = t : 1)$}
+\item \textcolor{blue}{exception: exc $ := \lnot$ validRow($i$) $\implies$ IndexOutOfBoundsException}
 \end{itemize}
 
 \noindent area($t$: T):
 \begin{itemize}
-\item output: \wss{Return the total area in the grid taken up by cell value $t$.
-    The length of each side of each cell in the grid is
-    scale.}\\
-    $out :=$ count($t$) * $scale$
+\item \textcolor{blue}{output: $out :=$ count($t$) $ * (scale * scale)$}
 \item exception: None
 \end{itemize}
 
 \subsection*{Local Functions}
 
 \noindent validRow: $\mathbb{N} \rightarrow \mathbb{B}$\\
-\noindent \wss{returns true if the given natural number is a valid row
-  number.}\\
-  validRow($r$) $\equiv r \geq 0 \land (r < $ nRow) \\
+\noindent \textcolor{blue}{validRow($r$) $\equiv r \geq 0 \land (r < $ nRow)} \\
 
 \noindent validCol: $\mathbb{N} \rightarrow \mathbb{B}$\\
-\noindent \wss{returns true if the given natural number is a valid column
-  number.}\\
-    validCol($c$) $\equiv (c \geq 0) (\land c < $ nCol) \\
+\noindent \textcolor{blue}{validCol($c$) $\equiv (c \geq 0) \land (c < $ nCol)} \\
 
 
 \noindent validPoint: $\mbox{PointT} \rightarrow \mathbb{B}$\\
-\noindent \wss{Returns true if the given point lies within the boundaries of the
-  map.}\\
-    validPoint($p$) $\equiv$ validCol(p.col()) $\land$ validRow(p.row())
+\noindent \textcolor{blue}{validPoint($p$) $\equiv$ validCol(p.col()) $\land$ validRow(p.row())}
 
 
 \newpage
@@ -391,7 +358,8 @@ Seq2D($S$, scl):
 
 \subsection* {Template Module}
 
-\wss{Instantiate the generic ADT Seq2D(T) with the type LanduseT}
+\noindent \textcolor{blue}{LanduseMap is Seq2D(LanduseT)}
+
 
 \newpage
 
@@ -421,34 +389,36 @@ ascendingRows & & $\mathbb{B}$ & \\
 
 \subsubsection* {Access Routine Semantics}
 
-\noindent total():
+\noindent total(): 
 \begin{itemize}
-\item output: \wss{Total of all the values in all of the cells.}
+\item \textcolor{blue}{output : out $:= +(x, y : \mathbb{N} |$ validRow($x$) $\land$ validCol($y$) : $s[x][y]$)}
 \item exception: None
 \end{itemize}
 
 \noindent max():
 \begin{itemize}
-\item output: \wss{Find the maximum value in the 2d grid of integers}
+\item \textcolor{blue}{output: out $:=$ $M$ such that $\forall (x : $ Seq of $\mathbb{Z}$ $| x \in s : \forall (y : \mathbb{Z} | y \in x : M \geq y )) $}
 \item exception: None
 \end{itemize}
 
 \noindent ascendingRows():
 \begin{itemize}
-\item output: \wss{Returns True if the sum of all values in each row increases
-    as the row number increases, otherwise, returns False.}
+\item \textcolor{blue}{output:out $:= \forall (i : \mathbb{N} | i \in [0..|s|-2] : sum(s[i]) < sum(s[i+1])) $}
 \item exception: None
 \end{itemize}
 
 \subsection*{Local Functions}
 
 \noindent validRow: $\mathbb{N} \rightarrow \mathbb{B}$\\
-\noindent \wss{returns true if the given natural number is a valid row
-  number.}\\
+\noindent \textcolor{blue}{validRow($n$) $\equiv$ ($n \geq 0$) $\land$ ($n < $ nRow)}\\
 
 \noindent validCol: $\mathbb{N} \rightarrow \mathbb{B}$\\
-\noindent \wss{returns true if the given natural number is a valid column
-  number.}\\
+\noindent \textcolor{blue}{validCol($c$) $\equiv$ ($c \geq 0$) $\land$ ($c < $ nCol)}\\
+  
+\noindent sum: Seq of $\mathbb{Z} \rightarrow \mathbb{Z}$\\
+\noindent \textcolor{blue}{sum($s$) $\equiv$ $(+x : \mathbb{Z} | x \in s: x)$}
+
+
 
 \newpage
 
@@ -476,7 +446,13 @@ In addition to your critique, please address the following questions:
   providing an interface?
 \item The qualities of good module interface push the design of the interface in
   different directions. Why is it rarely possible to achieve a module interface
-  that simultaneously is essential, minimal and general?
+  that simultaneously is essential, minimal and general?\\
+  
+  A module is essential if it has no redundant features. This means there are no methods/routines, state variables and invariant that can be removed. A module is minimal if for each routine we have as few state transitions as possible and different services/transitions are independent of one another. A module is general if it is designed without a specific use in mind but rather address a broader domain. For example, consider the scipy library in python. It is not designed to allow users to do matrix operations or solve systems of differential equations. It addresses the general problem of $emph{Scientific Computing}$ and working with matrices and differential equations falls under these. What makes the scipy library general is that there is no specific use for an ODE solver. A client may use it solve a spring-mass system, an electric circuit or even calculate the position of planets but scipy does not enforce any of this, it simply requires a generic set of parameters such as initial conditions, a list of functions etc. 
+  
+  It is rarely possible to achieve a module interface that simultaneously meets the criteria of being essential, minimal and general.
+  
+  
 \end{enumerate}
 
 \end {document}

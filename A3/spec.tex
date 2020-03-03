@@ -206,7 +206,7 @@ PointT($row, col$):
 
 \noindent translate($\Delta r$, $\Delta c$):
 \begin{itemize}
-\item \textcolor{blue}{output: $out :=$ PointT($r + \Delta r$, $c + \Delta c$)}
+\item \textcolor{blue}{output: $out := $ new PointT($r + \Delta r$, $c + \Delta c$)}
 \item exception: \textcolor{blue}{None}
 \end{itemize}
 
@@ -402,7 +402,7 @@ ascendingRows & & $\mathbb{B}$ & \\
 
 \noindent max():
 \begin{itemize}
-\item \textcolor{blue}{output: out $:=$ $M$ such that $\forall (x : $ Seq of $\mathbb{Z}$ $| x \in s : \forall (y : \mathbb{Z} | y \in x : M \geq y )) $}
+\item \textcolor{blue}{output: out $:=$ $M$ such that $\forall (x : $ Seq of $\mathbb{Z}$ $| x \in s : \forall (y : \mathbb{Z} | y \in x : M \geq y ))  \land (\exists i : \mathbb{N} | validRow(i) : M \in s[i] $)}
 \item exception: None
 \end{itemize}
 
@@ -501,9 +501,7 @@ However, for the enum object even if two objects have the same value but referen
   different directions. Why is it rarely possible to achieve a module interface
   that simultaneously is essential, minimal and general?\\
   
-  A module is essential if it has no redundant features. This means there are no methods/routines, state variables and invariant that can be removed. A module is minimal if for each routine we have as few state transitions as possible and different services/transitions are independent of one another. A module is general if it is designed without a specific use in mind but rather address a broader domain. For example, consider the scipy library in python. It is not designed to allow users to do matrix operations or solve systems of differential equations. It addresses the general problem of $emph{Scientific Computing}$ and working with matrices and differential equations falls under these. What makes the scipy library general is that there is no specific use for an ODE solver. A client may use it solve a spring-mass system, an electric circuit or even calculate the position of planets but scipy does not enforce any of this, it simply requires a generic set of parameters such as initial conditions, a list of functions etc. 
-  
-  It is rarely possible to achieve a module interface that simultaneously meets the criteria of being essential, minimal and general.
+  A module is essential if it has no redundant features. This means there are no methods/routines, state variables and invariant that can be removed. A module is minimal if for each routine we have as few state transitions as possible and different services/transitions are independent of one another. A module is general if it is designed without a specific use in mind but rather address a broader domain. Keeping this in mind, It is rarely possible to achieve a module interface that simultaneously meets the criteria of being essential, minimal and general. This is because a general module will need to offer different functionality and be flexible (work with different types, work with different input formats (CSV vs JSON file) etc.). To offer these different features there will need to be several methods/routines that are almost similar but differ slightly (e.g parsing a JSON file vs a CSV file). In order to provide a client different functionality and make the module more flexible often there will need to be an excess number of state transitions. For example, a client may want to return the results of reading a JSON file as a single string or as a Dictionary of Key, value pairs, to offer this extra flexibility and provide both we need to have state transitions for both of these and a result the module may not always be minimal. Lastly, due to this addition of several methods to achieve and provide a range of features the module will usually not always be essential either. There may be methods that can be removed and the specification is still matched but having them present possbily improves the code quality of the module. 
   
   
 \end{enumerate}

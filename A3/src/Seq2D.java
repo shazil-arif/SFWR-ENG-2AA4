@@ -105,6 +105,7 @@ public class Seq2D<T>{
     /**
     * @brief count the occurences of a value in the current 2D sequence
     * @param t the value to count the occurences for
+    * @return the number of occurences of t in the current 2D sequence
     */
     public int count(T t){
         int count = 0;
@@ -118,7 +119,8 @@ public class Seq2D<T>{
     * @brief count the occurences of a value in the current 2D sequence in a particular row
     * @param t the value to search for
     * @param i the row index to search t 
-    * @throws IllegalArgumentException if the point lies outside of the map, i.e the row and column of the point are out of bounds
+    * @return the count of the occurences of parameter t in row i
+    * @throws IllegalArgumentException if the row index i is out of bounds
     */
     public int countRow(T t, int i){
         if(!valid_row(i)) throw new IndexOutOfBoundsException("Invalid row index");
@@ -131,6 +133,15 @@ public class Seq2D<T>{
     }
 
     /**
+    * @brief return the area taken up by a particular value t
+    * @param t the value to calculate the area taken up for
+    * @throws IllegalArgumentException if the row index i is out of bounds
+    */
+    public double area(T t){
+        return count(t)*scale;
+    }
+
+    /**
      * @brief private helper method to validate a row numer
      * @param row
      * @return boolean indicating if the row number is valid
@@ -138,19 +149,20 @@ public class Seq2D<T>{
     private boolean valid_row(int row){
         return row >= 0 && row < n_row;
     }
-     /** CHANGE
-     * @brief private helper method to valid a row numer
-     * @param row
-     * @return boolean indicating if the row number is valid
+
+     /** 
+     * @brief private helper method to valid a column number
+     * @param col
+     * @return boolean indicating if the column number is valid (i.e lies in the 2D sequences bounds)
      */
     private boolean valid_col(int col){
         return col >= 0 && col < n_col;
     }
 
-     /** CHANGE
-     * @brief private helper method to valid a row numer
-     * @param row
-     * @return boolean indicating if the row number is valid
+     /** 
+     * @brief private helper method to valid a PointT object
+     * @param p
+     * @return boolean indicating if the column number is valid (i.e lies in the 2D sequences bounds)
      */
     private boolean valid_point(PointT p){
         return valid_row(p.row()) && valid_col(p.col());

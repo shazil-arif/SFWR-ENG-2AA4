@@ -13,10 +13,10 @@ import java.util.ArrayList;
 public class Seq2D<T>{
 
     //state variables
-    private ArrayList<ArrayList<T>> s;
-    private double scale;
-    private int n_row;
-    private int n_col;
+    protected ArrayList<ArrayList<T>> s;
+    protected double scale;
+    protected int n_row;
+    protected int n_col;
 
 
     /**
@@ -143,7 +143,7 @@ public class Seq2D<T>{
 
     /**
      * @brief private helper method to validate a row numer
-     * @param row
+     * @param row the row number to validate
      * @return boolean indicating if the row number is valid
      */
     private boolean valid_row(int row){
@@ -152,7 +152,7 @@ public class Seq2D<T>{
 
      /** 
      * @brief private helper method to valid a column number
-     * @param col
+     * @param col the column number to validate
      * @return boolean indicating if the column number is valid (i.e lies in the 2D sequences bounds)
      */
     private boolean valid_col(int col){
@@ -161,7 +161,7 @@ public class Seq2D<T>{
 
      /** 
      * @brief private helper method to valid a PointT object
-     * @param p
+     * @param p the PointT object to validate
      * @return boolean indicating if the column number is valid (i.e lies in the 2D sequences bounds)
      */
     private boolean valid_point(PointT p){

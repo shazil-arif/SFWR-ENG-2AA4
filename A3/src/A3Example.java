@@ -8,10 +8,10 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import src.LuT;
-import src.PointT;
-import src.LanduseMapT;
-import src.DemT;
+// import LuT;
+// import PointT;
+// import LanduseMapT;
+// import DemT;
 
 public class A3Example
 {

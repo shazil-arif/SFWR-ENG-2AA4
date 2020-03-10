@@ -1,5 +1,3 @@
-import javafx.scene.effect.Light.Point;
-
 /*
 *  @file PointT.java
 *  Author: Shazil Arif

@@ -8,7 +8,7 @@
 # Assumes CLASSPATH has been set for Junit
 
 JFLAGS = -g
-JCLASS = -cp ./src:.:$(CLASSPATH):./src/junit-4.5.jar
+JCLASS = -cp ./src:.:$(CLASSPATH):/src/junit-4.5.jar
 #JCLASS = -cp ./src:.:$(CLASSPATH):/usr/share/java/junit4-4.5.jar # on mills
 JC = javac
 JVM = java

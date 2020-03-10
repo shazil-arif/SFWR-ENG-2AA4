@@ -103,6 +103,34 @@ public class Seq2D<T>{
     }
 
     /**
+    * @brief count the occurences of a value in the current 2D sequence
+    * @param t the value to count the occurences for
+    */
+    public int count(T t){
+        int count = 0;
+        for(int i = 0; i < s.size(); i++){
+            count += countRow(t, i);
+        }
+        return count;
+    }
+
+    /**
+    * @brief count the occurences of a value in the current 2D sequence in a particular row
+    * @param t the value to search for
+    * @param i the row index to search t 
+    * @throws IllegalArgumentException if the point lies outside of the map, i.e the row and column of the point are out of bounds
+    */
+    public int countRow(T t, int i){
+        if(!valid_row(i)) throw new IndexOutOfBoundsException("Invalid row index");
+
+        int count = 0;
+        for(int j = 0; j < s.get(i).size(); j++){
+            if(s.get(i).get(j) == t) count++;
+        }
+        return count;
+    }
+
+    /**
      * @brief private helper method to validate a row numer
      * @param row
      * @return boolean indicating if the row number is valid

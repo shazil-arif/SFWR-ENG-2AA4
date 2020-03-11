@@ -6,8 +6,9 @@
 */
 
 import java.util.ArrayList;
+
 /** 
-* @brief Seq2D represents a generic 2D sequence parametrized over any type
+* @brief Seq2D provides an ADT to repesent a generic 2D sequence parametrized over any type
 */
 
 public class Seq2D<T>{
@@ -33,20 +34,24 @@ public class Seq2D<T>{
         }
 
         //check remaining exceptions
+        int length = S.get(0).size();
         for(int i = 1; i < S.size(); i++){
-            if(S.get(i).size()!=S.size()){
+            if(S.get(i).size()!=length){
                 throw new IllegalArgumentException("Illegal Argument to Seq2D");
             }
         }
 
+        s = new ArrayList<ArrayList<T>>();
+
+        //copy input sequence to state variable s
         for(int i = 0; i < S.size(); i++){
             ArrayList<T> temp = new ArrayList<T>();
-            s.add(temp);
             for(int j = 0; j < S.get(i).size(); j++){
-                s.get(i).add(S.get(i).get(j));
+                temp.add(S.get(i).get(j));
             }
+            s.add(temp);
         }
-        scl = scale;
+        scale = scl;
         n_row = S.size();
         n_col = S.get(0).size();
     }
@@ -58,12 +63,10 @@ public class Seq2D<T>{
     * @throws IllegalArgumentException if the point lies outside of the map, i.e the row and column of the point are out of bounds
     */
     public void set(PointT p, T v){
-        if(valid_point(p)){
+        if(valid_point(p))
             s.get(p.row()).set(p.col(), v);
-        }
-        else{
+        else
             throw new IndexOutOfBoundsException("The given point lies outside of the 2D sequence");
-        }
     }
 
     /**
@@ -72,35 +75,29 @@ public class Seq2D<T>{
     * @throws IllegalArgumentException if the point lies outside of the map, i.e the row and column of the point are out of bounds
     */
     public T get(PointT p){
-        if(valid_point(p)){
+        if(valid_point(p))
             return s.get(p.row()).get(p.col());
-        }
-        else{
+        else
             throw new IndexOutOfBoundsException("The given point lies outside of the 2D sequence");
-        }
-
     }
 
     /**
     * @brief getter method for the number of rows in an instance of Seq2D
+    * @return the number of rows in the current Seq2D object
     */
-    public int getNumRow(){
-        return n_row;
-    }
+    public int getNumRow(){ return n_row; }
 
     /**
     * @brief getter method for the number of columns in an instance of Seq2D
+    * @return the number of columns in the current Seq2D object
     */
-    public int getNumCol(){
-        return n_col;
-    }
+    public int getNumCol(){ return n_col; }
 
     /**
     * @brief getter method for the scale in an instance of Seq2D
+    * @return the scale in the current Seq2D object
     */
-    public double getScale(){
-        return scale;
-    }
+    public double getScale(){ return scale; }
 
     /**
     * @brief count the occurences of a value in the current 2D sequence
@@ -134,38 +131,32 @@ public class Seq2D<T>{
 
     /**
     * @brief return the area taken up by a particular value t
+    * @details assumes each cell is a square and applies area of a square accordingly
     * @param t the value to calculate the area taken up for
-    * @throws IllegalArgumentException if the row index i is out of bounds
     */
-    public double area(T t){
-        return count(t)*scale;
-    }
+    public double area(T t){ return count(t)*scale*scale; }
 
     /**
      * @brief private helper method to validate a row numer
      * @param row the row number to validate
      * @return boolean indicating if the row number is valid
      */
-    private boolean valid_row(int row){
-        return row >= 0 && row < n_row;
-    }
+    private boolean valid_row(int row) { return row >= 0 && row < n_row; }
 
      /** 
      * @brief private helper method to valid a column number
      * @param col the column number to validate
      * @return boolean indicating if the column number is valid (i.e lies in the 2D sequences bounds)
      */
-    private boolean valid_col(int col){
-        return col >= 0 && col < n_col;
-    }
+    private boolean valid_col(int col){ return col >= 0 && col < n_col; }
 
      /** 
      * @brief private helper method to valid a PointT object
      * @param p the PointT object to validate
      * @return boolean indicating if the column number is valid (i.e lies in the 2D sequences bounds)
      */
-    private boolean valid_point(PointT p){
-        return valid_row(p.row()) && valid_col(p.col());
+    private boolean valid_point(PointT p){ 
+        return valid_row(p.row()) && valid_col(p.col()); 
     }
 
 }

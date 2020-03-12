@@ -58,6 +58,8 @@ public class DemT extends Seq2D<Integer>{
     * @return the max value
     */
     public boolean ascending_rows(){
+        if(s.size() == 1)
+            return false;
         for(int i = 0; i < s.size()-1; i++){ 
             if(row_sum(i+1) <= row_sum(i)) 
                 return false;

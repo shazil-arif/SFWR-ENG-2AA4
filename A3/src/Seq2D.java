@@ -51,6 +51,7 @@ public class Seq2D<T>{
             }
             s.add(temp);
         }
+        //set remaining state variables
         scale = scl;
         n_row = S.size();
         n_col = S.get(0).size();

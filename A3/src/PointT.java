@@ -40,5 +40,7 @@ public class PointT{
     * @param delta_c the amount to translate the col value by
     * @return a new PointT object with the translated/shifted over coordinates
     */
-    public PointT translate(int delta_r, int delta_c) { return new PointT(r + delta_r, c + delta_c); }
+    public PointT translate(int delta_r, int delta_c) { 
+        return new PointT(r + delta_r, c + delta_c); 
+    }
 }

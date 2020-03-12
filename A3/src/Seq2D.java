@@ -144,14 +144,14 @@ public class Seq2D<T>{
     private boolean valid_row(int row) { return row >= 0 && row < n_row; }
 
      /** 
-     * @brief private helper method to valid a column number
+     * @brief private helper method to validate a column number
      * @param col the column number to validate
      * @return boolean indicating if the column number is valid (i.e lies in the 2D sequences bounds)
      */
     private boolean valid_col(int col){ return col >= 0 && col < n_col; }
 
      /** 
-     * @brief private helper method to valid a PointT object
+     * @brief private helper method to validate a PointT object
      * @param p the PointT object to validate
      * @return boolean indicating if the column number is valid (i.e lies in the 2D sequences bounds)
      */

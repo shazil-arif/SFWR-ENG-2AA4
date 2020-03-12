@@ -13,8 +13,8 @@ public class TestDemT{
     private DemT s;
     private double scale;
     private int max;
-    ArrayList<ArrayList<Integer>> s_seq;
-    private int sum = 90;
+    ArrayList<ArrayList<Integer>> temp_seq;
+    private int total;
 
     @Before
     public void setUp(){
@@ -30,19 +30,33 @@ public class TestDemT{
 
         //set up arrays for each row
 
-        s_seq = new  ArrayList<ArrayList<Integer>>();
-        ArrayList<Integer> temp = new ArrayList<Integer>(Arrays.asList(2,4,5,9));
-        s_seq.add(temp);
-        temp = new ArrayList<Integer>(Arrays.asList(9,20,89,10));
-        s_seq.add(temp);
-        temp = new ArrayList<Integer>(Arrays.asList(9,-1,90,12));
-        s_seq.add(temp);
-        temp = new ArrayList<Integer>(Arrays.asList(12,1,1099,32));
-        s_seq.add(temp);
+        temp_seq = new  ArrayList<ArrayList<Integer>>();
+        ArrayList<Integer> temp_one = new ArrayList<Integer>(Arrays.asList(2,4,5,9));
+        temp_seq.add(temp_one);
+        ArrayList<Integer> temp_two = new ArrayList<Integer>(Arrays.asList(9,20,89,10));
+        temp_seq.add(temp_two);
+        ArrayList<Integer> temp_three = new ArrayList<Integer>(Arrays.asList(9,-1,90,12));
+        temp_seq.add(temp_three);
+        ArrayList<Integer> temp_four = new ArrayList<Integer>(Arrays.asList(12,1,1099,32));
+        temp_seq.add(temp_four);
 
-        //initialize new DemT object
+        //initialize new DemT object with a scale of 2
         scale = 2;
-        s = new DemT(s_seq,scale);
+        s = new DemT(temp_seq,scale);
+
+        ArrayList<ArrayList<Integer>> all_rows = new ArrayList<ArrayList<Integer>>();
+        all_rows.add(temp_one);
+        all_rows.add(temp_two);
+        all_rows.add(temp_three);
+        all_rows.add(temp_four);
+
+
+        total = 0;
+        for(int i = 0; i < all_rows.size(); i++){
+            for(int j = 0; j < all_rows.get(i).size(); j++){
+                total += all_rows.get(i).get(j);
+            }
+        }
         
     }
     @After
@@ -52,8 +66,7 @@ public class TestDemT{
 
     @Test
     public void testTotal(){
-
-
+        assert(s.total() == total);
     }
 
     @Test

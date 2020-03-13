@@ -31,13 +31,13 @@ public class TestDemT{
         //set up arrays for each row
 
         temp_seq = new  ArrayList<ArrayList<Integer>>();
-        ArrayList<Integer> temp_one = new ArrayList<Integer>(Arrays.asList(2,4,5,9));
+        ArrayList<Integer> temp_one = new ArrayList<Integer>(Arrays.asList(new Integer(2),new Integer(4),new Integer(5),new Integer(9)));
         temp_seq.add(temp_one);
-        ArrayList<Integer> temp_two = new ArrayList<Integer>(Arrays.asList(9,20,89,10));
+        ArrayList<Integer> temp_two = new ArrayList<Integer>(Arrays.asList(new Integer(9),new Integer(20),new Integer(89),new Integer(10)));
         temp_seq.add(temp_two);
-        ArrayList<Integer> temp_three = new ArrayList<Integer>(Arrays.asList(9,-1,90,12));
+        ArrayList<Integer> temp_three = new ArrayList<Integer>(Arrays.asList(new Integer(9),new Integer(-1),new Integer(90),new Integer(12)));
         temp_seq.add(temp_three);
-        ArrayList<Integer> temp_four = new ArrayList<Integer>(Arrays.asList(12,1,1099,32));
+        ArrayList<Integer> temp_four = new ArrayList<Integer>(Arrays.asList(new Integer(12),new Integer(1),new Integer(1099),new Integer(32)));
         temp_seq.add(temp_four);
 
         //initialize new DemT object with a scale of 2

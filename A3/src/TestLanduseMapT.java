@@ -10,5 +10,22 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class TestLanduseMapT{
+    private Seq2D<LuT> s;
 
+    // @Before
+    // public void setUp(){
+        
+    //     ArrayList<ArrayList<LuT>> map = new ArrayList<ArrayList<LuT>>();
+    //     map.add(new ArrayList<LuT>(Arrays.asList(LuT.R, LuT.C, LuT.R)));
+    //     map.add(new ArrayList<LuT>(Arrays.asList(LuT.T, LuT.A, LuT.A)));
+
+    // }
+    // @After
+    // public void tearDown(){
+
+    // }
+    @Test
+    public void test(){
+        assertTrue(true);
+    }
 }

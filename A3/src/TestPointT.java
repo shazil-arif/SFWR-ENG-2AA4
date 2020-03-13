@@ -32,13 +32,13 @@ public class TestPointT{
     @Test
     public void testRow(){
         //test getter method for the row
-        assertTrue(p.row() == row);
+        assertEquals(p.row(),row);
     }
 
     @Test
     public void testCol(){
         //test getter method for the column
-        assertTrue(p.col() == col);
+        assertEquals(p.col() == col);
     }
     public void testTranslate(){
         //test translate method

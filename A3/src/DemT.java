@@ -6,6 +6,7 @@
 */
 
 import java.util.ArrayList;
+import org.junit.*;
 
 /** 
 * @brief DemT contains an ADT for represent a 2D sequence of type Integer

@@ -24,7 +24,7 @@ public class Seq2D<T>{
     * @brief Constructor method for Seq2D
     * @param S the input sequence of rows
     * @param scl the scale/dimension of a side of each cell
-    * @throws IllegalArgumentException if the scale is less than 0, the input sequence is empty, the length of th
+    * @throws IllegalArgumentException if the scale is less than or equal to 0, the input sequence is empty, the length of the
     * first sequence is 0 or the length of any row is not equal to the length of the first row
     */
     public Seq2D(ArrayList<ArrayList<T>> S, double scl){

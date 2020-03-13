@@ -18,6 +18,8 @@ public class DemT extends Seq2D<Integer>{
      * @brief constructor method for DemT, identical to Seq2D
      * @param S the input sequence of sequences of rows
      * @param scl the scale 
+     * @throws IllegalArgumentException if the scale is less than or equal to 0, the input sequence is empty, the length of the
+     * first sequence is 0 or the length of any row is not equal to the length of the first row
      */
     public DemT(ArrayList<ArrayList<Integer>> S, double scl){
         super(S,scl); 
@@ -54,8 +56,9 @@ public class DemT extends Seq2D<Integer>{
     }
 
     /**
-    * @brief find the maximum value in the DemT object
-    * @return the max value
+    * @brief determin whether the sum of the values in each row is strictly increasing
+    * @details will return false if there is only one row in the DemT object
+    * @return boolean indicating the result
     */
     public boolean ascending_rows(){
         if(s.size() == 1)

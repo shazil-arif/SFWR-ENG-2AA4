@@ -57,25 +57,32 @@ public class TestDemT{
                 total += all_rows.get(i).get(j);
             }
         }
+
+        max = 1099;
         
     }
-    @After
-    public void tearDown(){
-       
-    }
+    // @After
+    // public void tearDown(){
+    //     s = null;
+    //     scale = 0;
+    //     total = 0;
+    //     max = 0;
+    //     temp_seq = null;
+    // }
 
     @Test
     public void testTotal(){
-        assert(s.total() == total);
+        assertTrue(s.total() == total);
     }
 
     @Test
     public void testMax(){
+        assertTrue(s.max() == max);
 
     }
 
     @Test
     public void testAscendingRows(){
-
+        assertTrue(s.ascending_rows()==false);
     }
 }

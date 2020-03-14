@@ -127,44 +127,48 @@ public class TestLanduseMapT{
     
     @Test
     public void testCount() {
-    	int count = 0;
     	LuT test_landtype = LuT.T;
     	LanduseMapT test = new LanduseMapT(test_seq,20);
-    	for(int i = 0; i < test_seq.size(); i++) {
-    		for(int j = 0; j < test_seq.get(i).size(); j++) {
-    			if(test_seq.get(i).get(j)==test_landtype) count++;
-    		}
-    	}
-    	assertEquals(test.count(test_landtype),count);
-    	
+    	assertEquals(test.count(test_landtype),count_T);
     }
     
     @Test
     public void testCountRow() {
-    	int count = 0;
+    	//count the number of occurrences of T in second row
     	int row = 1;
     	LuT test_landtype = LuT.T;
-    	for(int i = 0; i < test_seq.get(row).size(); i++) {
-    		if(test_seq.get(row).get(i) == test_landtype) count++;
-    	}
-    	
     	LanduseMapT test = new LanduseMapT(test_seq,20); //create the instance
-    	assertEquals(test.countRow(test_landtype, row),count);
+    	assertEquals(test.countRow(test_landtype, row),count_T-1);
+    }
+    
+    
+    @Test(expected=IndexOutOfBoundsException.class)
+    public void testCountRowExceptionWithNegativeNumber() {
+    	//test count row with a invalid row number
+    	int row = -1;
+    	LuT test_landtype = LuT.T;
+    	LanduseMapT test = new LanduseMapT(test_seq,20); //create the instance
+    	assertEquals(test.countRow(test_landtype, row),count_T-1); //this should throw an error
+    }
+    
+    @Test(expected=IndexOutOfBoundsException.class)
+    public void testCountRowExceptionWithNumberGreaterThanSequenceSize() {
+    	//test count row with a invalid row number
+    	int row = test_seq.size();
+    	LuT test_landtype = LuT.T;
+    	LanduseMapT test = new LanduseMapT(test_seq,20); //create the instance
+    	assertEquals(test.countRow(test_landtype, row),count_T-1); //this should throw an error since 'row' parameter is invalid row number to countrow()
     }
     
     @Test
     public void testArea() {
-    	int count = 0;
-    	int row = 1;
     	LuT test_landtype = LuT.T;
-    	for(int i = 0; i < test_seq.get(row).size(); i++) {
-    		if(test_seq.get(row).get(i) == test_landtype) count++;
-    	}
-    	
-    	LanduseMapT test = new LanduseMapT(test_seq,20); //create the instance
     	double scale = 20;
-    	double area = 20*count; //represents area taken up by cell values containing enum type T from LuT
+    	LanduseMapT test = new LanduseMapT(test_seq,scale); //create the instance
+    	double area = scale*scale*count_T; //represents area taken up by cell values containing enumerated type T from LuT
     	assertTrue(test.area(test_landtype)==area);
+    	
+    	//to add, tolerance for decimal point areas
     }
     
 }

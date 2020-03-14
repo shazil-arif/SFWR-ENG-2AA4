@@ -61,4 +61,46 @@ public class TestLanduseMapT{
     	LanduseMapT test = new LanduseMapT(test_seq,10); //this should throw an error since the last row just added is not the same size as first row
     }
     
+    @Test
+    public void testGet() {
+    	PointT point = new PointT(0,0); //first entry in the test sequences
+    	LanduseMapT test = new LanduseMapT(test_seq,20);
+    	assertEquals(test.get(point),test_seq.get(0).get(0)); //compare to test sequence
+    }
+    
+    @Test(expected=IllegalArgumentException.class)
+    public void testGetExceptionWithNegativeCoordinates() {
+    	PointT point = new PointT(-1,-1); //create a point object with negative values that are not valid
+    	LanduseMapT test = new LanduseMapT(test_seq,20);
+    	test.get(point); //this should throw in error since the row and column values are negative
+    }
+    
+    @Test(expected=IllegalArgumentException.class)
+    public void testGetExceptionWithCoordinatesOutofBounds() {
+    	PointT point = new PointT(test_seq.size(),test_seq.get(0).size()); //first entry in the test sequences
+    	LanduseMapT test = new LanduseMapT(test_seq,20);
+    	test.get(point); //this should throw an error since the row and column indices are equal to the lengths respectively
+    }
+    
+    
+    @Test
+    public void testSet() {
+    	PointT point = new PointT(0,0); //first entry in the test sequences
+    	LanduseMapT test = new LanduseMapT(test_seq,20);
+    	assertEquals(test.get(point),test_seq.get(0).get(0)); //compare to test sequence
+    }
+    
+    @Test(expected=IllegalArgumentException.class)
+    public void tesSetExceptionWithNegativeCoordinates() {
+    	PointT point = new PointT(-1,-1); //create a point object with negative values that are not valid
+    	LanduseMapT test = new LanduseMapT(test_seq,20);
+    	test.get(point); //this should throw in error since the row and column values are negative
+    }
+    
+    @Test(expected=IllegalArgumentException.class)
+    public void testSetExceptionWithCoordinatesOutofBounds() {
+    	PointT point = new PointT(test_seq.size(),test_seq.get(0).size()); //first entry in the test sequences
+    	LanduseMapT test = new LanduseMapT(test_seq,20);
+    	test.get(point); //this should throw an error since the row and column indices are equal to the lengths respectively
+    }
 }

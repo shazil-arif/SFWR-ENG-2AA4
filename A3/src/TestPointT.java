@@ -5,6 +5,7 @@
 *  Revised: March 12th 2020
 */
 import org.junit.*;
+import static org.junit.Assert.*;
 public class TestPointT{
     private int row;
     private int col;
@@ -38,7 +39,7 @@ public class TestPointT{
     @Test
     public void testCol(){
         //test getter method for the column
-        assertEquals(p.col() == col);
+        assertEquals(p.col(),col);
     }
     public void testTranslate(){
         //test translate method

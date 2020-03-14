@@ -8,6 +8,7 @@
 import org.junit.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import static org.junit.Assert.*;
 
 public class TestLanduseMapT{
     private Seq2D<LuT> s;

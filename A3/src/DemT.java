@@ -57,7 +57,7 @@ public class DemT extends Seq2D<Integer>{
     }
 
     /**
-    * @brief determin whether the sum of the values in each row is strictly increasing
+    * @brief determine whether the sum of the values in each row is strictly increasing
     * @details will return false if there is only one row in the DemT object
     * @return boolean indicating the result
     */
@@ -81,6 +81,7 @@ public class DemT extends Seq2D<Integer>{
         int count = 0;
         for(int i = 0; i < s.get(r).size(); i++)    
             count += s.get(r).get(i);
+        System.out.println(count);
         return count;
     }
 }

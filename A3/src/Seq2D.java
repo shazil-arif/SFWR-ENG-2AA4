@@ -8,7 +8,7 @@
 import java.util.ArrayList;
 
 /** 
-* @brief Seq2D provides an ADT to repesent a generic 2D sequence parametrized over any type
+* @brief Seq2D provides an ADT to represents a generic 2D sequence parameterized over any type
 */
 
 public class Seq2D<T>{
@@ -60,19 +60,6 @@ public class Seq2D<T>{
     /**
     * @brief setter method for Seq2D, set a value at a given point
     * @param p the point to set the value at
-    * @param v the value to set
-    * @throws IllegalArgumentException if the point lies outside of the map, i.e the row and column of the point are out of bounds
-    */
-    public void set(PointT p, T v){
-        if(valid_point(p))
-            s.get(p.row()).set(p.col(), v);
-        else
-            throw new IndexOutOfBoundsException("The given point lies outside of the 2D sequence");
-    }
-
-    /**
-    * @brief setter method for Seq2D, set a value at a given point
-    * @param p the point to set the value at
     * @throws IllegalArgumentException if the point lies outside of the map, i.e the row and column of the point are out of bounds
     */
     public T get(PointT p){
@@ -81,6 +68,19 @@ public class Seq2D<T>{
         else
             throw new IndexOutOfBoundsException("The given point lies outside of the 2D sequence");
     }
+    
+    /**
+     * @brief setter method for Seq2D, set a value at a given point
+     * @param p the point to set the value at
+     * @param v the value to set
+     * @throws IllegalArgumentException if the point lies outside of the map, i.e the row and column of the point are out of bounds
+     */
+     public void set(PointT p, T v){
+         if(valid_point(p))
+             s.get(p.row()).set(p.col(), v);
+         else
+             throw new IndexOutOfBoundsException("The given point lies outside of the 2D sequence");
+     }
 
     /**
     * @brief getter method for the number of rows in an instance of Seq2D
@@ -101,9 +101,9 @@ public class Seq2D<T>{
     public double getScale(){ return scale; }
 
     /**
-    * @brief count the occurences of a value in the current 2D sequence
-    * @param t the value to count the occurences for
-    * @return the number of occurences of t in the current 2D sequence
+    * @brief count the number of occurrences of a value in the current 2D sequence
+    * @param t the value to count the occurrences for
+    * @return the number of occurrences of t in the current 2D sequence
     */
     public int count(T t){
         int count = 0;
@@ -114,10 +114,10 @@ public class Seq2D<T>{
     }
 
     /**
-    * @brief count the occurences of a value in the current 2D sequence in a particular row
+    * @brief count the occurrences of a value in the current 2D sequence in a particular row
     * @param t the value to search for
     * @param i the row index to search t 
-    * @return the count of the occurences of parameter t in row i
+    * @return the count of the occurrences of parameter t in row i
     * @throws IllegalArgumentException if the row index i is out of bounds
     */
     public int countRow(T t, int i){
@@ -138,7 +138,7 @@ public class Seq2D<T>{
     public double area(T t){ return count(t)*scale*scale; }
 
     /**
-     * @brief private helper method to validate a row numer
+     * @brief private helper method to validate a row number
      * @param row the row number to validate
      * @return boolean indicating if the row number is valid
      */

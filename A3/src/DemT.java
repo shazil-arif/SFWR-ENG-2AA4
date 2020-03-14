@@ -81,7 +81,6 @@ public class DemT extends Seq2D<Integer>{
         int count = 0;
         for(int i = 0; i < s.get(r).size(); i++)    
             count += s.get(r).get(i);
-        System.out.println(count);
         return count;
     }
 }

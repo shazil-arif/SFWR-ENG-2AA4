@@ -68,26 +68,21 @@ public class TestDemT{
      * brief: Test total method
      */
     @Test
-    public void testTotal(){
-        assertTrue(s.total() == total);
-    }
+    public void testTotal(){ assertTrue(s.total() == total); }
 
     /**
      * brief: Test max method
      */
     @Test
-    public void testMax(){
-        assertTrue(s.max() == max);
-
-    }
+    public void testMax(){ assertTrue(s.max() == max); }
 
     /**
      * brief: Test ascending rows method when return value should be false
      */
-//    @Test
-//    public void testAscendingRowsFalse(){
-//        assertTrue(s.ascending_rows()==false);
-//    }
+    @Test
+    public void testAscendingRowsFalse(){ 
+    	assertTrue(!s.ascending_rows());
+    }
     
     /**
      * brief: Test ascending rows method when return value should be true
@@ -108,12 +103,25 @@ public class TestDemT{
         temp_seq.add(temp_one);
         ArrayList<Integer> temp_two = new ArrayList<Integer>(Arrays.asList(new Integer(9),new Integer(20),new Integer(89),new Integer(10)));
         temp_seq.add(temp_two);
-        ArrayList<Integer> temp_three = new ArrayList<Integer>(Arrays.asList(new Integer(9),new Integer(-1),new Integer(90),new Integer(12)));
+        ArrayList<Integer> temp_three = new ArrayList<Integer>(Arrays.asList(new Integer(9),new Integer(20),new Integer(100),new Integer(45)));
         temp_seq.add(temp_three);
         ArrayList<Integer> temp_four = new ArrayList<Integer>(Arrays.asList(new Integer(12),new Integer(1),new Integer(1099),new Integer(32)));
         temp_seq.add(temp_four);
         
         DemT p = new DemT(temp_seq,scale);
         assertTrue(p.ascending_rows());
+    }
+    
+    /**
+     * brief: Test ascending rows method when return value should be false when there is only one row
+     */
+    @Test
+    public void testAscendingRowsWithOneRow() {
+    	//create a single row and instantiate a DemT object with it
+    	ArrayList<ArrayList<Integer>> temp = new ArrayList<ArrayList<Integer>>();
+    	ArrayList<Integer> temp_two = new ArrayList<Integer>(Arrays.asList(new Integer(1), new Integer(2), new Integer(3)));
+    	temp.add(temp_two);
+    	DemT test = new DemT(temp,scale);
+    	assertTrue(!test.ascending_rows());
     }
 }

@@ -87,20 +87,67 @@ public class TestLanduseMapT{
     public void testSet() {
     	PointT point = new PointT(0,0); //first entry in the test sequences
     	LanduseMapT test = new LanduseMapT(test_seq,20);
-    	assertEquals(test.get(point),test_seq.get(0).get(0)); //compare to test sequence
+    	test.set(point, LuT.T);
+    	assertEquals(test.get(point),LuT.T); //compare to test sequence
     }
     
     @Test(expected=IllegalArgumentException.class)
     public void tesSetExceptionWithNegativeCoordinates() {
     	PointT point = new PointT(-1,-1); //create a point object with negative values that are not valid
     	LanduseMapT test = new LanduseMapT(test_seq,20);
-    	test.get(point); //this should throw in error since the row and column values are negative
+    	test.set(point, LuT.T); //this should throw in error since the row and column values are negative
     }
     
     @Test(expected=IllegalArgumentException.class)
     public void testSetExceptionWithCoordinatesOutofBounds() {
     	PointT point = new PointT(test_seq.size(),test_seq.get(0).size()); //first entry in the test sequences
     	LanduseMapT test = new LanduseMapT(test_seq,20);
-    	test.get(point); //this should throw an error since the row and column indices are equal to the lengths respectively
+    	test.set(point, LuT.T); //this should throw in error since the row and column values are to the lengths respectively
     }
+    
+    @Test
+    public void testGetNumRow() {
+    	LanduseMapT test = new LanduseMapT(test_seq,20);
+    	assertEquals(test.getNumRow(),test_seq.size());
+    }
+    @Test
+    public void testGetNumCol() {
+    	LanduseMapT test = new LanduseMapT(test_seq,20);
+    	assertEquals(test.getNumRow(),test_seq.get(0).size());
+    }
+    
+    @Test
+    public void testGetScale() {
+    	double scale = 20;
+    	LanduseMapT test = new LanduseMapT(test_seq,scale);
+    	assertTrue(test.getScale()==scale);
+    }
+    
+    @Test
+    public void testCount() {
+    	int count = 0;
+    	LuT test_landtype = LuT.T;
+    	LanduseMapT test = new LanduseMapT(test_seq,20);
+    	for(int i = 0; i < test_seq.size(); i++) {
+    		for(int j = 0; j < test_seq.get(i).size(); j++) {
+    			if(test_seq.get(i).get(j)==test_landtype) count++;
+    		}
+    	}
+    	assertEquals(test.count(test_landtype),count);
+    	
+    }
+    
+    @Test
+    public void testCountRow() {
+    	int count = 0;
+    	int row = 1;
+    	LuT test_landtype = LuT.T;
+    	for(int i = 0; i < test_seq.get(row).size(); i++) {
+    		if(test_seq.get(row).get(i) == test_landtype) count++;
+    	}
+    	
+    	LanduseMapT test = new LanduseMapT(test_seq,20); //create the instance
+    	assertEquals(test.countRow(test_landtype, row),count);
+    }
+    
 }

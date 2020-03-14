@@ -66,7 +66,7 @@ public class Seq2D<T>{
         if(valid_point(p))
             return s.get(p.row()).get(p.col());
         else
-            throw new IndexOutOfBoundsException("The given point lies outside of the 2D sequence");
+            throw new IndexOutOfBoundsException("The given point lies outside of the 2D sequence!");
     }
     
     /**
@@ -79,7 +79,7 @@ public class Seq2D<T>{
          if(valid_point(p))
              s.get(p.row()).set(p.col(), v);
          else
-             throw new IndexOutOfBoundsException("The given point lies outside of the 2D sequence");
+             throw new IndexOutOfBoundsException("The given point lies outside of the 2D sequence!");
      }
 
     /**

@@ -81,7 +81,7 @@ public class TestDemT{
      */
     @Test
     public void testAscendingRowsFalse(){ 
-    	assertTrue(!s.ascending_rows());
+    	assertTrue(!s.ascendingRows());
     }
     
     /**
@@ -109,7 +109,7 @@ public class TestDemT{
         temp_seq.add(temp_four);
         
         DemT p = new DemT(temp_seq,scale);
-        assertTrue(p.ascending_rows());
+        assertTrue(p.ascendingRows());
     }
     
     /**
@@ -122,6 +122,6 @@ public class TestDemT{
     	ArrayList<Integer> temp_two = new ArrayList<Integer>(Arrays.asList(new Integer(1), new Integer(2), new Integer(3)));
     	temp.add(temp_two);
     	DemT test = new DemT(temp,scale);
-    	assertTrue(!test.ascending_rows());
+    	assertTrue(!test.ascendingRows());
     }
 }

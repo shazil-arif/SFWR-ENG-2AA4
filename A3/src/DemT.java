@@ -61,7 +61,7 @@ public class DemT extends Seq2D<Integer>{
     * @details will return false if there is only one row in the DemT object
     * @return boolean indicating the result
     */
-    public boolean ascending_rows(){
+    public boolean ascendingRows(){
         if(s.size() == 1)
             return false;
         for(int i = 0; i < s.size()-1; i++){ 

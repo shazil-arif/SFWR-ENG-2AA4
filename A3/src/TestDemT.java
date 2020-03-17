@@ -1,8 +1,8 @@
 /** 
 *  @file TestDemT.java
-*  Author: Shazil Arif
-*  Description: TestDemT is used to test module DemT
-*  Revised: March 10th 2020
+*  @author: Shazil Arif
+*  @brief: TestDemT is used to test module DemT
+*  @date: March 16th 2020
 */
 
 import org.junit.*;
@@ -68,13 +68,17 @@ public class TestDemT{
      * brief: Test total method
      */
     @Test
-    public void testTotal(){ assertTrue(s.total() == total); }
+    public void testTotal(){ 
+        assertTrue(s.total() == total); 
+    }
 
     /**
      * brief: Test max method
      */
     @Test
-    public void testMax(){ assertTrue(s.max() == max); }
+    public void testMax(){ 
+        assertTrue(s.max() == max); 
+    }
 
     /**
      * brief: Test ascending rows method when return value should be false

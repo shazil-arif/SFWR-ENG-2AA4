@@ -1,15 +1,14 @@
 /** 
 *  @file DemT.java
-*  Author: Shazil Arif
-*  Description: DemT is a Seq2D of type Integer
-*  Revised: March 10th 2020
+*  @Author: Shazil Arif
+*  @details: DemT is a Seq2D of type Integer
+*  @date: March 16th 2020
 */
 
 import java.util.ArrayList;
-import org.junit.*;
 
 /** 
-* @brief DemT contains an ADT for represent a 2D sequence of type Integer
+* @brief DemT contains an ADT to represent a 2D sequence of type Integer
 * @details extends from Seq2D
 */
 
@@ -17,17 +16,17 @@ public class DemT extends Seq2D<Integer>{
 
     /**
      * @brief constructor method for DemT, identical to Seq2D
-     * @param S the input sequence of sequences of rows
-     * @param scl the scale 
+     * @param S the input sequence of rows
+     * @param scl the scale/dimension of a side of each cell
      * @throws IllegalArgumentException if the scale is less than or equal to 0, the input sequence is empty, the length of the
-     * first sequence is 0 or the length of any row is not equal to the length of the first row
+     * first row in the sequence is 0 or the length of any row is not equal to the length of the first row
      */
     public DemT(ArrayList<ArrayList<Integer>> S, double scl){
         super(S,scl); 
     }
 
     /**
-    * @brief sum up the total of all values in the current DemT object
+    * @brief sum up all values in the current DemT object
     * @return the sum of all the values
     */
     public int total(){
@@ -57,7 +56,7 @@ public class DemT extends Seq2D<Integer>{
     }
 
     /**
-    * @brief determine whether the sum of the values in each row is strictly increasing
+    * @brief determine whether the sum of all values in each row is strictly increasing
     * @details will return false if there is only one row in the DemT object
     * @return boolean indicating the result
     */

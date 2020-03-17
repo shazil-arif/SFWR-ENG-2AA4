@@ -1,8 +1,8 @@
 /** 
 *  @file TestLanduseMapT.java
-*  Author: Shazil Arif
-*  Description: TestLanduseMapT is used to test module LanduseMapT
-*  Revised: March 10th 2020
+*  @author: Shazil Arif
+*  @brief: TestLanduseMapT is used to test module LanduseMapT
+*  @date: March 16th 2020
 */
 
 import org.junit.*;
@@ -31,18 +31,18 @@ public class TestLanduseMapT{
     @Test (expected=IllegalArgumentException.class)
     public void testConstructorExceptionForScaleLessThanZero(){	
     	double scale = -5;
-    	LanduseMapT test = new LanduseMapT(test_seq,scale); //this should throw an error in the constructor since the scale is less than 0
+    	LanduseMapT test = new LanduseMapT(test_seq,scale); //this should throw an error in the constructor since the scale is negative
   
     }
     @Test (expected=IllegalArgumentException.class)
     public void testConstructorExceptionForScaleEqualZero(){
-    	LanduseMapT test = new LanduseMapT(test_seq,0); //this should throw an error in the constructor since the scale is less than 0
+    	LanduseMapT test = new LanduseMapT(test_seq,0); //this should throw an error in the constructor since the scale is 0
     }
     
     @Test (expected=IllegalArgumentException.class)
     public void testConstructorExceptionForEmptyInput(){
     	test_seq.clear(); //empty the sequence for this test
-    	LanduseMapT test = new LanduseMapT(test_seq,10); //this should throw an error in the constructor since the scale is less than 0
+    	LanduseMapT test = new LanduseMapT(test_seq,10); //this should throw an error in the constructor since the input sequence is empty
     }
     
     @Test(expected=IllegalArgumentException.class)

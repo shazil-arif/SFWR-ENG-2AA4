@@ -1,8 +1,8 @@
 /** 
 *  @file LuT.java
-*  Author: Shazil Arif
-*  Description: LuT contains an enumeration for different uses/types for Seq2D specifically for LanduseMapT
-*  Revised: March 10th 2020
+*  @author: Shazil Arif
+*  @brief: LuT contains an enumeration for different uses/types for Seq2D specifically for LanduseMapT
+*  @date: March 16th 2020
 */
 
 public enum LuT{

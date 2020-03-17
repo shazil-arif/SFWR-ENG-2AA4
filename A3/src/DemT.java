@@ -1,8 +1,8 @@
 /** 
 *  @file DemT.java
-*  @Author: Shazil Arif
-*  @details: DemT is a Seq2D of type Integer
-*  @date: March 16th 2020
+*  @author Shazil Arif
+*  @brief DemT is a Seq2D of type Integer
+*  @date March 16th 2020
 */
 
 import java.util.ArrayList;

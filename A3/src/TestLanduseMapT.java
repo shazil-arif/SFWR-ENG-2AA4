@@ -1,8 +1,8 @@
 /** 
 *  @file TestLanduseMapT.java
-*  @author: Shazil Arif
-*  @brief: TestLanduseMapT is used to test module LanduseMapT
-*  @date: March 16th 2020
+*  @author Shazil Arif
+*  @brief TestLanduseMapT is used to test module LanduseMapT
+*  @date March 16th 2020
 */
 
 import org.junit.*;

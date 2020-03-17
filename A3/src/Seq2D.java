@@ -1,8 +1,8 @@
 /**
 *  @file Seq2D.java
-*  @author: Shazil Arif
-*  @brief: Seq2D is a module used to represent a generic 2D sequence 
-*  @date: March 16th 2020
+*  @author Shazil Arif
+*  @brief Seq2D is a module used to represent a generic 2D sequence 
+*  @date March 16th 2020
 */
 
 import java.util.ArrayList;

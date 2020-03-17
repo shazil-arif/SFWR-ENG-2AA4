@@ -1,8 +1,8 @@
 /** 
 *  @file TestDemT.java
-*  @author: Shazil Arif
-*  @brief: TestDemT is used to test module DemT
-*  @date: March 16th 2020
+*  @author Shazil Arif
+*  @brief TestDemT is used to test module DemT
+*  @date March 16th 2020
 */
 
 import org.junit.*;
@@ -126,6 +126,6 @@ public class TestDemT{
     	ArrayList<Integer> temp_two = new ArrayList<Integer>(Arrays.asList(new Integer(1), new Integer(2), new Integer(3)));
     	temp.add(temp_two);
     	DemT test = new DemT(temp,scale);
-    	assertTrue(!test.ascendingRows());
+    	assertTrue(!test.ascendingRows()); //expected is false since there is only one row in the map
     }
 }

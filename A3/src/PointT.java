@@ -1,8 +1,8 @@
 /** 
 *  @file PointT.java
-*  @author: Shazil Arif
-*  @brief: PointT is a a module used to represent a point in 2D space
-*  @date: March 16th 2020
+*  @author Shazil Arif
+*  @brief PointT is a a module used to represent a point in 2D space
+*  @date March 16th 2020
 */
 
 /**

@@ -1,8 +1,8 @@
 /** 
 *  @file LanduseMapT.java
-*  @author: Shazil Arif
-*  @details: LanduseMapT extends Seq2D and is parameterized with type LuT
-*  @date: March 12th 2020
+*  @author Shazil Arif
+*  @brief LanduseMapT extends Seq2D and is parameterized with type LuT
+*  @date March 12th 2020
 */
 
 import java.util.ArrayList;

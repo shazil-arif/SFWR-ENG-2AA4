@@ -62,8 +62,7 @@ public class Board<T>{
              throw new IndexOutOfBoundsException("The given point lies outside of the Board!");
      }
      
-     
-     
+      
      /**
       * @brief private helper method to validate a row number
       * @param row the row index to validate

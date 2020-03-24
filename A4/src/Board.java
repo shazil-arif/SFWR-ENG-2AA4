@@ -4,7 +4,6 @@
 *  @brief Board is a module used to represent a generic playable game board
 *  @date March 16th 2020
 */
-
 import java.util.ArrayList;
 
 /** 
@@ -14,7 +13,7 @@ import java.util.ArrayList;
 public class Board<T>{
 
     //state variables
-    protected ArrayList<ArrayList<T>> s;
+    protected ArrayList<ArrayList<T>> s; //represents the board
     protected int n_row;
     protected int n_col;
     
@@ -25,8 +24,8 @@ public class Board<T>{
      * @param col the number of columns desired in the board
      * @throws IllegalArgumentException if the parameter row or parameter col is less than or equal to 0
      */
-    public Board(int row, int col)
-    	if(row <= 0 || col <= 0) {
+    public Board(int row, int col) {
+    	if(row <= 0 || col <= 0)
     		throw new IllegalArgumentException("Number of rows and columns have to be positive!");
     	n_row = row;
     	n_col = col;
@@ -36,34 +35,56 @@ public class Board<T>{
     	}
     }
     
-    public void set(int row, int col, T v) {
-    	if(validPoint(row,col)) {
-    		s.get(row).get(col);
+    /**
+     * @brief setter method for Board, get a value at a given point
+     * @param p PointT object indicating the position to get
+     * @return the value at point p
+     * @throws IndexOutBoundsException if PointT object lies outside of the Board, i.e the row or column lie outside of the Boards dimensions
+     */
+    public void set(PointT p, T v) {
+    	if(validPoint(p)) {
+    		s.get(p.row()).set(p.col(), v);
     	}
-    	
-    	
+    	else 
+    		throw new IndexOutOfBoundsException("The given point lies outside of the Board!");
     }
     
     /**
      * @brief getter method for Board, get a value at a given point
-     * @param row row index to access
-     * @param col column index to access
+     * @param p PointT object indicating the position to get
      * @return the value at point p
-     * @throws IndexOutBoundsException if the point lies outside of the map, i.e the row and column of the point are out of bounds
+     * @throws IndexOutBoundsException if PointT object lies outside of the Board, i.e the row or column lie outside of the Boards dimensions
      */
-     public T get(int row, int col){
-         if(!validPoint(row,col))
-             return s.get(row).get(col);
+     public T get(PointT p){
+         if(!validPoint(p))
+             return s.get(p.row()).get(p.col());
          else
              throw new IndexOutOfBoundsException("The given point lies outside of the Board!");
      }
-    
-    public int getRow() {return n_row;}
-    public int getCol() {return n_col; }
-    
-    private boolean validPoint(int row, int col) {
-    	if(row < n_row && row >=0 && col < n_col && col >=0) return true;
-    	return false;
-    }
+     
+     
+     
+     /**
+      * @brief private helper method to validate a row number
+      * @param row the row index to validate
+      * @return boolean indicating if the row number is valid
+      */
+     private boolean validRow(int row) { return row >= 0 && row < n_row; }
+
+      /** 
+      * @brief private helper method to validate a column number
+      * @param col the column index to validate
+      * @return boolean indicating if the column number is valid (i.e lies in the 2D sequence bounds)
+      */
+     private boolean validCol(int col){ return col >= 0 && col < n_col; }
+
+      /** 
+      * @brief helper method to validate a PointT object
+      * @param p the PointT object to validate
+      * @return boolean indicating if the column number is valid (i.e lies in the 2D sequence bounds)
+      */
+     public boolean validPoint(PointT p){ 
+         return validRow(p.row()) && validCol(p.col()); 
+     }
     
 }

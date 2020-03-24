@@ -62,6 +62,17 @@ public class Board<T>{
              throw new IndexOutOfBoundsException("The given point lies outside of the Board!");
      }
      
+     /**
+      * @brief getter method for the number of rows in the current Board object
+      * @return the number of rows in the current Board
+      */
+      public int getNumRow(){ return n_row; }
+
+      /**
+      * @brief getter method for the number of columns in the current Board object
+      * @return the number of columns in the current Board object
+      */
+      public int getNumCol(){ return n_col; }
       
      /**
       * @brief private helper method to validate a row number

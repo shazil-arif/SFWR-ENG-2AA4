@@ -6,13 +6,12 @@
 *  @date April 1st 2020
 */
 
-import java.util.Random;
 
 /** 
-* @brief LanduseMapT provides an ADT to a 2D TwoDots game board parameterized by the type Colors
-* @details extends from Board
+* @brief TwoDotsBoard provides an ADT to represent a TwoDots game board parameterized by the type Colors
+* @details extends from Board class
 */
-public class TwoDotsBoard extends Board<Colors>{
+public class TwoDotsBoard extends Board<Color>{
 
 	/**
      * @brief Constructor method for TwoDotsBoard
@@ -25,7 +24,7 @@ public class TwoDotsBoard extends Board<Colors>{
 		super(row, col);
 		for(int i = 0; i < n_row; i++) {
 			for(int j = 0; j < n_col; j++) {
-				Colors random_color = randomColor();
+				Color random_color = Color.randomColor();
 				s.get(i).add(random_color);
 			}
 		}
@@ -37,14 +36,22 @@ public class TwoDotsBoard extends Board<Colors>{
 			if(!validPoint(move))
 				 return false; 
 		 }
+		
+		//then check if the sequence represents a valid path
 		return isValidPath(moves);
     }
 	
-	public static Colors randomColor(){
-		Random rnd = new Random();
-        int x = rnd.nextInt(Colors.values().length);
-        return Colors.values()[x];
-    }
+	/**
+	 * @brief setter method to update a sequence of cells on the Board that have been removed
+	 * @param moves sequence of BoardMoves containing the cells on the Board to update
+	 */
+	public void updateBoard(BoardMoves moves) {
+		for (PointT move : moves) {
+			Color rnd_color = Color.randomColor();
+			s.get(move.row()).set(move.col(), rnd_color);
+		}
+		
+	}
 	
 	public boolean isPlayable() {
 		return true;
@@ -53,9 +60,8 @@ public class TwoDotsBoard extends Board<Colors>{
 	/**
 	 * @brief private helper method to check if a given BoardMoves sequence represents a valid move on the Two Dots Board, i.e check if it is a valid path
 	 * @param moves the sequence to validate
-	 * @return boolean indicating 
+	 * @return boolean indicating if the given sequence represents a valid path
 	 */
-	
 	private boolean isValidPath(BoardMoves moves) {
 		
 		//allow to move horizontally and vertically
@@ -69,13 +75,17 @@ public class TwoDotsBoard extends Board<Colors>{
 			int j = moves.get(curr).col();
 			
 			PointT neighbor = moves.get(curr+1); //the next move
-			Colors neighbor_color = s.get(neighbor.row()).get(neighbor.col()); //color of next move
-			Colors current_color = s.get(i).get(j); 
+			Color neighbor_color = s.get(neighbor.row()).get(neighbor.col()); //color of next move
+			Color current_color = s.get(i).get(j); 
 			
 			//check if neighbor is reachable from current cell in Board
 			for(int k = 0; k < x.length; k++) {
+				
+				//first check if neighboring cell indices are within bounds, create a point for this
+				PointT temp = new PointT(i+x[k],j+y[k]);
+				
 				//if not reachable this set of moves is invalid
-				if(!(i+x[k] == neighbor.row() && j + y[k] == neighbor.col() && current_color == neighbor_color))
+				if(!(validPoint(temp) && current_color == neighbor_color))
 					return false;
 			}
 			

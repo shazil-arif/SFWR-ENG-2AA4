@@ -5,9 +5,9 @@
 *  @date April 1st 2020
 */
 
+import java.util.Random;
 
-
-public enum Colors{
+public enum Color{
 	/**
 	 * 0/R - Red
 	 * 1/G - Green
@@ -16,4 +16,12 @@ public enum Colors{
 	 * 4/O - Orange
 	 */
     R,G,B,P,O;
+	
+	public static Color randomColor(){
+		Random rnd = new Random();
+	    int index = rnd.nextInt(Color.values().length);
+	    return Color.values()[index];
+	}
 }
+
+

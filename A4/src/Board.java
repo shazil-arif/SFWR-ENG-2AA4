@@ -37,6 +37,15 @@ public class Board<T>{
     }
     
     /**
+     * @brief second constructor for Board, this constructor should be used when a randomized board is not desired
+     * @param s input sequence of rows representing the board to instantiate
+     */
+    public Board(ArrayList<ArrayList<T>> s) {
+    	this.s = s; //todo , deep copy parameter s to state variable list
+		
+	}
+    
+    /**
      * @brief setter method for Board, get a value at a given point
      * @param p PointT object indicating the position to get
      * @return the value at point p
@@ -63,6 +72,22 @@ public class Board<T>{
              throw new IndexOutOfBoundsException("The given point lies outside of the Board!");
      }
      
+     
+     /**
+ 	 * @brief get a list of all points on the board
+ 	 * @return BoardMoves sequence containing all points on the board
+ 	 */
+ 	 public BoardMoves getAllPoints() {
+ 		 //TODO, remove?
+ 		 BoardMoves b = new BoardMoves();
+ 		 for(int i = 0; i < n_row; i++) {
+ 			 for(int j = 0; j < n_col; j++) {
+ 				 PointT temp = new PointT(i,j);
+ 				 b.add(temp);
+ 			 }
+ 		}
+ 		return b;
+ 	 }
      /**
       * @brief getter method for the number of rows in the current Board object
       * @return the number of rows in the current Board

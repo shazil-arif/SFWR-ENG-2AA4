@@ -6,6 +6,8 @@
 *  @date April 1st 2020
 */
 
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /** 
 * @brief TwoDotsBoard provides an ADT to represent a TwoDots game board parameterized by the type Colors
@@ -22,13 +24,25 @@ public class TwoDotsBoard extends Board<Color>{
      */
 	public TwoDotsBoard(int row, int col) {
 		super(row, col);
-		for(int i = 0; i < n_row; i++) {
-			for(int j = 0; j < n_col; j++) {
-				Color random_color = Color.randomColor();
-				s.get(i).add(random_color);
-			}
-		}
+		//ArrayList<ArrayList<Color>> p = new ArrayList<ArrayList<Color>>();
+		s = new ArrayList<ArrayList<Color>>();
+
+		s.add(new ArrayList<Color>(Arrays.asList(Color.R,Color.G,Color.R,Color.G,Color.R,Color.B)));
+		s.add(new ArrayList<Color>(Arrays.asList(Color.G,Color.R,Color.G,Color.B,Color.G,Color.P)));
+		s.add(new ArrayList<Color>(Arrays.asList(Color.B,Color.O,Color.B,Color.R,Color.O,Color.B)));
+		s.add(new ArrayList<Color>(Arrays.asList(Color.O,Color.G,Color.O,Color.P,Color.B,Color.G)));
+		s.add(new ArrayList<Color>(Arrays.asList(Color.P,Color.B,Color.P,Color.O,Color.G,Color.O)));
+		s.add(new ArrayList<Color>(Arrays.asList(Color.R,Color.P,Color.B,Color.R,Color.P,Color.R)));
+
+		
+//		for(int i = 0; i < n_row; i++) {
+//			for(int j = 0; j < n_col; j++) {
+//				Color random_color = Color.randomColor();
+//				s.get(i).add(random_color);
+//			}
+//		}
 	}
+	
 	
 	public boolean validateMoves(BoardMoves moves) {
 		//first check if each move is a valid point on the board
@@ -53,8 +67,17 @@ public class TwoDotsBoard extends Board<Color>{
 		
 	}
 	
-	public boolean isPlayable() {
-		return true;
+	public void isPlayable() {
+		//BoardMoves all_points = getAllPoints();
+		boolean[][] visited = new boolean[n_row][n_col];
+		DFS(visited,new PointT(0,0), s.get(0).get(0));
+		//return isValidPath(all_points);
+	}
+	
+	private boolean DFS(boolean[][] visited, PointT p, Color target) {
+		if(visited[p.row()][p.col()]==false) return;
+		if(s.get(p.row()).get(p.col()) == target) return true;
+		
 	}
 	
 	/**
@@ -80,7 +103,7 @@ public class TwoDotsBoard extends Board<Color>{
 			
 			//check if neighbor is reachable from current cell in Board
 			for(int k = 0; k < x.length; k++) {
-				
+				System.out.println("testing");
 				//first check if neighboring cell indices are within bounds, create a point for this
 				PointT temp = new PointT(i+x[k],j+y[k]);
 				
@@ -94,5 +117,11 @@ public class TwoDotsBoard extends Board<Color>{
 		return true;
 		
 	}
-
+	public static void main(String[] args) {
+		TwoDotsBoard b = new TwoDotsBoard(6,6);
+		BoardView v = new BoardView();
+		BoardController c = new BoardController(b,v);
+		c.updateView();
+		c.isPlayable();
+	}
 }

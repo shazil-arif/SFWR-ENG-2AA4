@@ -26,14 +26,16 @@ public class BoardView {
 			String line = String.format(" | %d |",i+1);  
 			System.out.print(line);			
 		}
+		
 		System.out.println();
+		
 		for(int i = 0; i < board.getNumRow(); i++) {
 			String line = String.format(" | %d |",i+1);  
 			System.out.print(line);
 			for(int j = 0; j < board.getNumCol(); j++) {
 				Color out = board.get(new PointT(i,j));
 				String out_line = String.format("   %s  ",out);
-				out_line = colors.get(out) + out_line + ANSI_RESET;
+				//out_line = colors.get(out) + out_line + ANSI_RESET;
 				System.out.print(out_line);
 
 			}

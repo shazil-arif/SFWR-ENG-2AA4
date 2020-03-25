@@ -41,9 +41,9 @@ doc:
 test: src/$(MAIN).class
 	$(JVM) $(JCLASS) org.junit.runner.JUnitCore $(MAIN)
 
-dots: src/BoardView.java
-	$(JC) $(JCLASS) $(JFLAGS) src/BoardView.java
-	$(JVM) $(JCLASS) BoardView
+dots: src/TwoDotsBoard.java
+	$(JC) $(JCLASS) $(JFLAGS) src/TwoDotsBoard.java
+	$(JVM) $(JCLASS) TwoDotsBoard
 
 clean:
 	rm -rf html

@@ -2,16 +2,14 @@ import java.util.Dictionary;
 import java.util.Hashtable;
 
 public class BoardView {
-	public static final String ANSI_RESET = "\u001B[0m";
-	public static final String ANSI_BLACK = "\u001B[30m";
-	public static final String ANSI_RED = "\u001B[31m";
-	public static final String ANSI_GREEN = "\u001B[32m";
-	public static final String ANSI_BLUE = "\u001B[34m";
-	public static final String ANSI_PURPLE = "\u001B[35m";
-	public static final String ANSI_YELLOW = "\u001B[33m";
-	
-	// Initializing a Dictionary 
-    Dictionary<Color,String> colors = new Hashtable<Color,String>(); 
+	//source: https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
+	private static final String ANSI_RESET = "\u001B[0m";
+	private static final String ANSI_RED = "\u001B[31m";
+	private static final String ANSI_GREEN = "\u001B[32m";
+	private static final String ANSI_BLUE = "\u001B[34m";
+	private static final String ANSI_PURPLE = "\u001B[35m";
+	private static final String ANSI_YELLOW = "\u001B[33m";
+	private static final Dictionary<Color,String> colors = new Hashtable<Color,String>(); 
     
          
 	public void printBoard(TwoDotsBoard board) {
@@ -20,7 +18,7 @@ public class BoardView {
 		colors.put(Color.G,ANSI_GREEN);
 		colors.put(Color.B,ANSI_BLUE);
 		colors.put(Color.P,ANSI_PURPLE);
-		colors.put(Color.O,ANSI_YELLOW);
+		colors.put(Color.O,ANSI_YELLOW); //using yellow for orange for now
 
 		
 		System.out.print(" | 0 |");

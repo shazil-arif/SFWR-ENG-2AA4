@@ -41,7 +41,7 @@ doc:
 test: src/$(MAIN).class
 	$(JVM) $(JCLASS) org.junit.runner.JUnitCore $(MAIN)
 
-expt: src/BoardView.java
+dots: src/BoardView.java
 	$(JC) $(JCLASS) $(JFLAGS) src/BoardView.java
 	$(JVM) $(JCLASS) BoardView
 

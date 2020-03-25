@@ -22,6 +22,7 @@ public class Board<T>{
      * @brief Constructor method for Board
      * @param row the number of rows desired in the board
      * @param col the number of columns desired in the board
+     * @details the Boards cells are not initialized to anything, only the corresponding number of rows are added
      * @throws IllegalArgumentException if the parameter row or parameter col is less than or equal to 0
      */
     public Board(int row, int col) {

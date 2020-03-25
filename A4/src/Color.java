@@ -8,13 +8,6 @@
 import java.util.Random;
 
 public enum Color{
-	/**
-	 * 0/R - Red
-	 * 1/G - Green
-	 * 2/B - Blue
-	 * 3/P - Purple
-	 * 4/O - Orange
-	 */
     R,G,B,P,O;
 	
 	public static Color randomColor(){

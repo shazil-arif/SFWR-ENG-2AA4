@@ -56,7 +56,7 @@ public class Board<T>{
      * @throws IndexOutBoundsException if PointT object lies outside of the Board, i.e the row or column lie outside of the Boards dimensions
      */
      public T get(PointT p){
-         if(!validPoint(p))
+         if(validPoint(p))
              return s.get(p.row()).get(p.col());
          else
              throw new IndexOutOfBoundsException("The given point lies outside of the Board!");

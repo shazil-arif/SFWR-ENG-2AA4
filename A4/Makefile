@@ -8,8 +8,8 @@
 # Assumes CLASSPATH has been set for Junit
 
 JFLAGS = -g
-#JCLASS = -cp ./src:.:$(CLASSPATH):/C:/Shazil/2AA4/arifs2/A3/src/junit4-4.5.jar
-JCLASS = -cp ./src:.:$(CLASSPATH):/usr/share/java/junit4-4.5.jar # on mills
+JCLASS = -cp ./src;.;%CLASSPATH%;/C:/Shazil/2AA4/arifs2/A3/src/junit-4.5.jar
+#JCLASS = -cp ./src:.:$(CLASSPATH):/usr/share/java/junit4-4.5.jar # on mills
 JC = javac
 JVM = java
 .SUFFIXES: .java .class
@@ -17,16 +17,16 @@ JVM = java
 	$(JC) $(JFLAGS) $(JCLASS) $*.java
 
 CLASSES = \
-	src/LuT.java \
+	src/Board.java \
 	src/PointT.java \
-	src/Seq2D.java \
-        src/LanduseMapT.java \
-        src/DemT.java \
-        src/TestPointT.java \
-        src/TestLanduseMapT.java \
-        src/TestDemT.java \
-        src/TestPointT.java \
-	src/AllTests.java \
+	src/TwoDotsBoard.java \
+        src/Strategy.java \
+        src/TimedStrategy.java \
+        src/MovesStrategy.java \
+        src/Color.java \
+        src/BoardMoves.java \
+        src/BoardController.java \
+	src/BoardView.java \
 
 MAIN = AllTests
 
@@ -41,9 +41,9 @@ doc:
 test: src/$(MAIN).class
 	$(JVM) $(JCLASS) org.junit.runner.JUnitCore $(MAIN)
 
-expt: src/A3Example.java
-	$(JC) $(JCLASS) $(JFLAGS) src/A3Example.java
-	$(JVM) $(JCLASS) A3Example
+expt: src/BoardView.java
+	$(JC) $(JCLASS) $(JFLAGS) src/BoardView.java
+	$(JVM) $(JCLASS) BoardView
 
 clean:
 	rm -rf html

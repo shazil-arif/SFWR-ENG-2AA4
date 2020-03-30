@@ -8,6 +8,7 @@
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 /** 
 * @brief TwoDotsBoard provides an ADT to represent a TwoDots game board parameterized by the type Colors
@@ -28,8 +29,8 @@ public class TwoDotsBoard extends Board<Color>{
 		s = new ArrayList<ArrayList<Color>>();
 
 		s.add(new ArrayList<Color>(Arrays.asList(Color.R,Color.G,Color.R,Color.G,Color.R,Color.B)));
-		s.add(new ArrayList<Color>(Arrays.asList(Color.G,Color.R,Color.G,Color.B,Color.G,Color.P)));
-		s.add(new ArrayList<Color>(Arrays.asList(Color.B,Color.O,Color.B,Color.R,Color.O,Color.B)));
+		s.add(new ArrayList<Color>(Arrays.asList(Color.R,Color.R,Color.G,Color.B,Color.G,Color.P)));
+		s.add(new ArrayList<Color>(Arrays.asList(Color.R,Color.O,Color.B,Color.R,Color.O,Color.B)));
 		s.add(new ArrayList<Color>(Arrays.asList(Color.O,Color.G,Color.O,Color.P,Color.B,Color.G)));
 		s.add(new ArrayList<Color>(Arrays.asList(Color.P,Color.B,Color.P,Color.O,Color.G,Color.O)));
 		s.add(new ArrayList<Color>(Arrays.asList(Color.R,Color.P,Color.B,Color.R,Color.P,Color.R)));
@@ -67,18 +68,25 @@ public class TwoDotsBoard extends Board<Color>{
 		
 	}
 	
-	public void isPlayable() {
-		//BoardMoves all_points = getAllPoints();
-		boolean[][] visited = new boolean[n_row][n_col];
-		DFS(visited,new PointT(0,0), s.get(0).get(0));
-		//return isValidPath(all_points);
+	public boolean isPlayable() {
+		int[] x = {-1,1,0,0};
+		int[] y = {0,0,1,-1};
+		for(int i = 0; i < s.size(); i++) {
+			for(int j = 0; j < s.get(i).size(); j++) {
+				for(int k = 0; k < x.length; k++) {
+					PointT neighbor = new PointT(i+x[k],j+y[k]);
+					if(validPoint(neighbor)) {
+						Color neighbor_color = s.get(neighbor.row()).get(neighbor.col()); //color of neighboring cell
+						Color current_color = s.get(i).get(j);
+						if(neighbor_color == current_color) return true;
+						
+					}
+				}
+			}
+		}
+		return false;
 	}
 	
-	private boolean DFS(boolean[][] visited, PointT p, Color target) {
-		if(visited[p.row()][p.col()]==false) return;
-		if(s.get(p.row()).get(p.col()) == target) return true;
-		
-	}
 	
 	/**
 	 * @brief private helper method to check if a given BoardMoves sequence represents a valid move on the Two Dots Board, i.e check if it is a valid path
@@ -90,6 +98,10 @@ public class TwoDotsBoard extends Board<Color>{
 		//allow to move horizontally and vertically
 		int[] x = {-1,1,0,0};
 		int[] y = {0,0,1,-1};
+		boolean[][] visited = new boolean[getNumRow()][getNumCol()];
+		for(int i = 0; i < getNumRow(); i++)
+			for(int j = 0; j < getNumCol(); j++) 
+				visited[i][j] = false;
 		
 		//iterate over all the moves
 		//main idea is to check if we can reach every Point starting from the beginning if we move only horizontally and verically
@@ -103,15 +115,18 @@ public class TwoDotsBoard extends Board<Color>{
 			
 			//check if neighbor is reachable from current cell in Board
 			for(int k = 0; k < x.length; k++) {
-				System.out.println("testing");
 				//first check if neighboring cell indices are within bounds, create a point for this
 				PointT temp = new PointT(i+x[k],j+y[k]);
-				
-				//if not reachable this set of moves is invalid
-				if(!(validPoint(temp) && current_color == neighbor_color))
-					return false;
+				if(validPoint(temp)) {
+					if(temp.row() == neighbor.row() && temp.col() == neighbor.col()) {
+						//if neighboring cell is not same color this path cannot be valid
+						visited[neighbor.row()][neighbor.col()] = true;
+						if(current_color != neighbor_color) 
+							return false;						
+					}
+				}
 			}
-			
+			if(!visited[neighbor.row()][neighbor.col()]) return false;
 		 }
 		
 		return true;
@@ -122,6 +137,23 @@ public class TwoDotsBoard extends Board<Color>{
 		BoardView v = new BoardView();
 		BoardController c = new BoardController(b,v);
 		c.updateView();
-		c.isPlayable();
+		System.out.println(c.isPlayable());
+		Scanner s = new Scanner(System.in);
+		String input;
+		System.out.println("Enter a set of moves as a pair of x,y seperated by spaces");
+		System.out.println("For example 2,1 3,5 4,5");
+		input = s.nextLine();
+		System.out.println(input);
+		String[] x = input.split(" ");
+		BoardMoves bmoves = new BoardMoves();
+		for(String p : x) {
+			String[] temp = p.split(",");
+			int row = Integer.parseInt(temp[0]);
+			int col = Integer.parseInt(temp[1]);
+			PointT point = new PointT(row,col);
+			bmoves.add(point);
+		}
+		System.out.println(b.validateMoves(bmoves));
+		
 	}
 }

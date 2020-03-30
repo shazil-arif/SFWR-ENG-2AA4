@@ -10,7 +10,7 @@ import java.util.ArrayList;
 * @brief Board provides an ADT to represent a generic 2D board parameterized over any type
 */
 
-public class Board<T>{
+abstract public class Board<T>{
 
     //state variables
     protected ArrayList<ArrayList<T>> s; //represents the board
@@ -44,6 +44,8 @@ public class Board<T>{
     	this.s = s; //todo , deep copy parameter s to state variable list
 		
 	}
+    
+    
     
     /**
      * @brief setter method for Board, get a value at a given point

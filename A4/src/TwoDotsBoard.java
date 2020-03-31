@@ -48,15 +48,20 @@ public class TwoDotsBoard extends Board<Color>{
 	/**
 	 * @brief setter method to update a sequence of cells on the Board that have been removed
 	 * @param moves sequence of BoardMoves containing the cells on the Board to update
-	 */
+	 */	
 	public void updateBoard(BoardMoves moves) {
-		for (PointT move : moves) {
-			Color rnd_color = Color.randomColor();
-			s.get(move.row()).set(move.col(), rnd_color);
+		for(PointT move: moves) {
+			int row = move.row();
+			int col = move.col();
+			for(int i = row; i >= 1; i--) {
+				//exchange board[row][col] with board[row-1][col]
+				Color temp = s.get(i-1).get(col);
+				set(new PointT(row,col), temp);
+				row--;
+			}
+			setRandom(new PointT(row,col));
 		}
-		if(!isPlayable()) updateBoard(moves);
 	}
-	
 	public boolean isPlayable() {
 		int[] x = {-1,1,0,0};
 		int[] y = {0,0,1,-1};
@@ -123,5 +128,11 @@ public class TwoDotsBoard extends Board<Color>{
 		 }
 		
 		return true;	
+	}
+	
+	private void setRandom(PointT p) {
+		Color rnd_color = Color.randomColor();
+		set(p,rnd_color);
+		if(!isPlayable()) setRandom(p);
 	}
 }

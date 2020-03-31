@@ -26,14 +26,8 @@ public class TimedStrategy extends StrategyGameMode{
 
 	@Override
 	void updateData() {
-		if(g.hasEnded()) {
-			c.printMsg("Time's Up!");
-			System.exit(0);
-		}
-		else {
-			long now = ((System.nanoTime() - start))/BILLION;
-			c.printMsg(String.format("Time left: %d seconds",now));
-		}
+		long now = (System.nanoTime() - start)/BILLION;
+		c.printMsg(String.format("Time elapsed: %d seconds",now));
 	}
 
 	@Override
@@ -45,9 +39,10 @@ public class TimedStrategy extends StrategyGameMode{
 	}
 
 	@Override
-	void startUp() {
-		g = new GameEnd(TIME);
-		start = System.nanoTime();
+	void startUp(TwoDotsBoard b) {
 		v = new BoardView();
+		c = new BoardController(b,v);
+		start = System.nanoTime();
+		g = new GameEnd(TIME);
 	}
 }

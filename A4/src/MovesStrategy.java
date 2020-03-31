@@ -37,8 +37,9 @@ class MovesStrategy extends StrategyGameMode{
 	}
 
 	@Override
-	void startUp() {
+	void startUp(TwoDotsBoard b) {
 		v = new BoardView();
+		c = new BoardController(b,v);
 		move_count = 30;
 	}
 

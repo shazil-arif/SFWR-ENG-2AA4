@@ -21,12 +21,12 @@ CLASSES = \
 	src/PointT.java \
 	src/TwoDotsBoard.java \
         src/Strategy.java \
-        src/TimedStrategy.java \
         src/MovesStrategy.java \
         src/Color.java \
         src/BoardMoves.java \
         src/BoardController.java \
 	src/BoardView.java \
+	src/StrategyGameMode.java
 
 MAIN = AllTests
 
@@ -41,9 +41,9 @@ doc:
 test: src/$(MAIN).class
 	$(JVM) $(JCLASS) org.junit.runner.JUnitCore $(MAIN)
 
-dots: src/TwoDotsBoard.java
-	$(JC) $(JCLASS) $(JFLAGS) src/TwoDotsBoard.java
-	$(JVM) $(JCLASS) TwoDotsBoard
+dots: src/Dots.java
+	$(JC) $(JCLASS) $(JFLAGS) src/Dots.java
+	$(JVM) $(JCLASS) Dots
 
 clean:
 	rm -rf html

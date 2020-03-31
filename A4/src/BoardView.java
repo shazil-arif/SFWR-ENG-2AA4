@@ -53,24 +53,24 @@ public class BoardView {
 		BoardMoves bmoves = new BoardMoves();
 		boolean retry = true;
 		while(retry) {
-			try {
+			//try {
 				input = s.nextLine();
 				String[] moves = input.split(" ");
 				for(String move : moves) {
 					String[] temp = move.split(",");
 					int row = Integer.parseInt(temp[0]);
 					int col = Integer.parseInt(temp[1]);
-					PointT point = new PointT(row,col);
+					PointT point = new PointT(row-1,col-1);
 					retry = false;
 					bmoves.add(point);
 				}
-			}
-			catch(RuntimeException e){
-				retry = true;
-				System.out.println("Invalid input format. Please Re-enter");
-			}
+			//}
+//			catch(RuntimeException e){
+//				retry = true;
+//				System.out.println("Invalid input format. Please Re-enter");
+//			}
 		}
-		s.close();
+		//s.close();
 		return bmoves;
 	}
 	public void printMsg(String msg) { 

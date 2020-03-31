@@ -26,22 +26,24 @@ public class TwoDotsBoard extends Board<Color>{
 	public TwoDotsBoard(int row, int col) {
 		super(row, col);
 		//ArrayList<ArrayList<Color>> p = new ArrayList<ArrayList<Color>>();
-		s = new ArrayList<ArrayList<Color>>();
-
-		s.add(new ArrayList<Color>(Arrays.asList(Color.R,Color.G,Color.R,Color.G,Color.R,Color.B)));
-		s.add(new ArrayList<Color>(Arrays.asList(Color.R,Color.R,Color.G,Color.B,Color.G,Color.P)));
-		s.add(new ArrayList<Color>(Arrays.asList(Color.R,Color.O,Color.B,Color.R,Color.O,Color.B)));
-		s.add(new ArrayList<Color>(Arrays.asList(Color.O,Color.G,Color.O,Color.P,Color.B,Color.G)));
-		s.add(new ArrayList<Color>(Arrays.asList(Color.P,Color.B,Color.P,Color.O,Color.G,Color.O)));
-		s.add(new ArrayList<Color>(Arrays.asList(Color.R,Color.P,Color.B,Color.R,Color.P,Color.R)));
+//		s = new ArrayList<ArrayList<Color>>();
+//
+//		s.add(new ArrayList<Color>(Arrays.asList(Color.R,Color.G,Color.R,Color.G,Color.R,Color.B)));
+//		s.add(new ArrayList<Color>(Arrays.asList(Color.R,Color.R,Color.G,Color.B,Color.G,Color.P)));
+//		s.add(new ArrayList<Color>(Arrays.asList(Color.R,Color.O,Color.B,Color.R,Color.O,Color.B)));
+//		s.add(new ArrayList<Color>(Arrays.asList(Color.O,Color.G,Color.O,Color.P,Color.B,Color.G)));
+//		s.add(new ArrayList<Color>(Arrays.asList(Color.P,Color.B,Color.P,Color.O,Color.G,Color.O)));
+//		s.add(new ArrayList<Color>(Arrays.asList(Color.R,Color.P,Color.B,Color.R,Color.P,Color.R)));
 
 		
-//		for(int i = 0; i < n_row; i++) {
-//			for(int j = 0; j < n_col; j++) {
-//				Color random_color = Color.randomColor();
-//				s.get(i).add(random_color);
-//			}
-//		}
+		while(!isPlayable()) {
+			for(int i = 0; i < n_row; i++) {
+				for(int j = 0; j < n_col; j++) {
+					Color random_color = Color.randomColor();
+					s.get(i).add(random_color);
+				}
+			}
+		}
 	}
 	
 	
@@ -65,7 +67,7 @@ public class TwoDotsBoard extends Board<Color>{
 			Color rnd_color = Color.randomColor();
 			s.get(move.row()).set(move.col(), rnd_color);
 		}
-		
+		if(!isPlayable()) updateBoard(moves);
 	}
 	
 	public boolean isPlayable() {
@@ -129,31 +131,6 @@ public class TwoDotsBoard extends Board<Color>{
 			if(!visited[neighbor.row()][neighbor.col()]) return false;
 		 }
 		
-		return true;
-		
-	}
-	public static void main(String[] args) {
-		TwoDotsBoard b = new TwoDotsBoard(6,6);
-		BoardView v = new BoardView();
-		BoardController c = new BoardController(b,v);
-		c.updateView();
-		System.out.println(c.isPlayable());
-		Scanner s = new Scanner(System.in);
-		String input;
-		System.out.println("Enter a set of moves as a pair of x,y seperated by spaces");
-		System.out.println("For example 2,1 3,5 4,5");
-		input = s.nextLine();
-		System.out.println(input);
-		String[] x = input.split(" ");
-		BoardMoves bmoves = new BoardMoves();
-		for(String p : x) {
-			String[] temp = p.split(",");
-			int row = Integer.parseInt(temp[0]);
-			int col = Integer.parseInt(temp[1]);
-			PointT point = new PointT(row,col);
-			bmoves.add(point);
-		}
-		System.out.println(b.validateMoves(bmoves));
-		
+		return true;	
 	}
 }

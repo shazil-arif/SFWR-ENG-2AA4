@@ -30,5 +30,14 @@ public class BoardController {
 		view.printBoard(model);
 	}
 	
+	public BoardMoves getInput() {
+		BoardMoves b = view.getInput();
+		while(!model.validateMoves(b)) {
+			view.printMsg();
+			b = view.getInput();
+		}
+		return b;
+	}
+	
 
 }

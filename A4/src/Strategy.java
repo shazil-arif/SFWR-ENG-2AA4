@@ -13,5 +13,5 @@
 	/**
     * @brief Generic method to start a game mode from a family of different modes
     */
-	void startGame();
+	void play();
 }

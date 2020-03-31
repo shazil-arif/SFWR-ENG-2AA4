@@ -1,5 +1,6 @@
 import java.util.Dictionary;
 import java.util.Hashtable;
+import java.util.Scanner;
 
 public class BoardView {
 	//source: https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
@@ -41,15 +42,45 @@ public class BoardView {
 			}
 			System.out.println();
 			
+		}	
+	}
+	
+	public BoardMoves getInput() {
+		Scanner s = new Scanner(System.in);
+		String input;
+		//System.out.println("Enter a set of moves as a pair of x,y seperated by spaces");
+		//System.out.println("For example 2,1 3,5 4,5");
+		BoardMoves bmoves = new BoardMoves();
+		boolean retry = true;
+		while(retry) {
+			try {
+				input = s.nextLine();
+				String[] moves = input.split(" ");
+				for(String move : moves) {
+					String[] temp = move.split(",");
+					int row = Integer.parseInt(temp[0]);
+					int col = Integer.parseInt(temp[1]);
+					PointT point = new PointT(row,col);
+					retry = false;
+					bmoves.add(point);
+				}
+			}
+			catch(RuntimeException e){
+				retry = true;
+				System.out.println("Invalid input format. Please Re-enter");
+			}
 		}
-		
+		s.close();
+		return bmoves;
+	}
+	public void printMsg() { 
+		System.out.println("Invalid combination of board. Please Re try"); 
 	}
 	
 	public static void main(String[] args) {
 		TwoDotsBoard b = new TwoDotsBoard(6,6);
 		BoardView v = new BoardView();
 		v.printBoard(b);
-		
 	}
 
 }

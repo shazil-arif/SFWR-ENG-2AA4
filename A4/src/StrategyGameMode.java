@@ -4,7 +4,7 @@ abstract public class StrategyGameMode implements Strategy {
 	protected BoardMoves moves;
 	public void play(TwoDotsBoard b) {
 		c = new BoardController(b,v);
-		c.updateView();
+		startUp();
 		introMsg();
 		while(c.isPlayable() && canContinue()) {
 			c.updateView();
@@ -15,6 +15,7 @@ abstract public class StrategyGameMode implements Strategy {
 		}
 	}
 	
+	abstract void startUp();
 	abstract void updateConditions();
 	abstract boolean canContinue();
 	abstract void updateData();

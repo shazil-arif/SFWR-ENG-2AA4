@@ -6,9 +6,6 @@
 *  @date April 1st 2020
 */
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
 
 /** 
 * @brief TwoDotsBoard provides an ADT to represent a TwoDots game board parameterized by the type Colors
@@ -112,6 +109,10 @@ public class TwoDotsBoard extends Board<Color>{
 				if(validPoint(temp)) {
 					if(temp.row() == neighbor.row() && temp.col() == neighbor.col()) {
 						//if neighboring cell is not same color this path cannot be valid
+						
+						//this cell was already visited on path, this means the line connecting the dots attempts to turn back which is not allowed
+						if(visited[neighbor.row()][neighbor.col()]) return false;
+
 						visited[neighbor.row()][neighbor.col()] = true;
 						if(current_color != neighbor_color) 
 							return false;						

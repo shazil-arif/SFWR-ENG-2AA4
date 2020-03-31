@@ -1,7 +1,7 @@
 @SuppressWarnings("all")
 class MovesStrategy extends StrategyGameMode{
 
-	private int move_count = 30;
+	private int move_count;
 	private final int TARGET = 5;
 	
 	@Override
@@ -12,10 +12,11 @@ class MovesStrategy extends StrategyGameMode{
 	@Override
 	void updateConditions() {
 		if(moves.size()==TARGET) {
-			c.printMsg(String.format("You won by eliminating %d in one move!", TARGET));
-			System.exit(1);
+			c.printMsg(String.format("You won by eliminating %d dots in one move!", TARGET));
+			System.exit(0);
 		}
-		move_count--;
+		else
+			move_count--;
 	}
 
 	@Override
@@ -28,7 +29,16 @@ class MovesStrategy extends StrategyGameMode{
 
 	@Override
 	void updateData() {
+		if(move_count == 0) {
+			c.printMsg(String.format("The game ended! You ran out of moves"));
+			System.exit(0);
+		}
 		c.printMsg(String.format("Moves left: %d", move_count));
+	}
+
+	@Override
+	void startUp() {
+		move_count = 30;
 	}
 
 }

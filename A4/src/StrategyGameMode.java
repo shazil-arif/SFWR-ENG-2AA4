@@ -1,14 +1,14 @@
 abstract public class StrategyGameMode implements Strategy {
-	
+	protected BoardView v = new BoardView();
+	protected BoardController c;
+	protected BoardMoves moves;
 	public void play(TwoDotsBoard b) {
-		BoardView v = new BoardView();
-		BoardController c = new BoardController(b,v);
-		BoardMoves moves;
+		c = new BoardController(b,v);
 		while(c.isPlayable() && canContinue()) {
 			c.updateView();
 			moves = c.getInput();
-			updateConditions();
 			c.updateBoard(moves);
+			updateConditions();
 		}
 	}
 	abstract void updateConditions();

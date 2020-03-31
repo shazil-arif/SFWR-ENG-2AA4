@@ -29,11 +29,14 @@ public class BoardController {
 	public void updateView() {
 		view.printBoard(model);
 	}
+	public void printMsg(String msg) {
+		view.printMsg(msg);
+	}
 	
 	public BoardMoves getInput() {
 		BoardMoves b = view.getInput();
 		while(!model.validateMoves(b)) {
-			view.printMsg();
+			printMsg("Invalid combination of board moves. Please Re try");
 			b = view.getInput();
 		}
 		return b;

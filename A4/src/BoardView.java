@@ -73,8 +73,8 @@ public class BoardView {
 		s.close();
 		return bmoves;
 	}
-	public void printMsg() { 
-		System.out.println("Invalid combination of board. Please Re try"); 
+	public void printMsg(String msg) { 
+		System.out.println(msg); 
 	}
 	
 	public static void main(String[] args) {

@@ -25,16 +25,6 @@ public class TwoDotsBoard extends Board<Color>{
      */
 	public TwoDotsBoard(int row, int col) {
 		super(row, col);
-		//ArrayList<ArrayList<Color>> p = new ArrayList<ArrayList<Color>>();
-//		s = new ArrayList<ArrayList<Color>>();
-//
-//		s.add(new ArrayList<Color>(Arrays.asList(Color.R,Color.G,Color.R,Color.G,Color.R,Color.B)));
-//		s.add(new ArrayList<Color>(Arrays.asList(Color.R,Color.R,Color.G,Color.B,Color.G,Color.P)));
-//		s.add(new ArrayList<Color>(Arrays.asList(Color.R,Color.O,Color.B,Color.R,Color.O,Color.B)));
-//		s.add(new ArrayList<Color>(Arrays.asList(Color.O,Color.G,Color.O,Color.P,Color.B,Color.G)));
-//		s.add(new ArrayList<Color>(Arrays.asList(Color.P,Color.B,Color.P,Color.O,Color.G,Color.O)));
-//		s.add(new ArrayList<Color>(Arrays.asList(Color.R,Color.P,Color.B,Color.R,Color.P,Color.R)));
-
 		
 		while(!isPlayable()) {
 			for(int i = 0; i < n_row; i++) {

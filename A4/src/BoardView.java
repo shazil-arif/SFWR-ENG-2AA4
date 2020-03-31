@@ -11,6 +11,7 @@ public class BoardView {
 	private static final String ANSI_PURPLE = "\u001B[35m";
 	private static final String ANSI_YELLOW = "\u001B[33m";
 	private static final Dictionary<Color,String> colors = new Hashtable<Color,String>(); 
+	Scanner s;
     
          
 	public void printBoard(TwoDotsBoard board) {
@@ -46,32 +47,43 @@ public class BoardView {
 	}
 	
 	public BoardMoves getInput() {
-		Scanner s = new Scanner(System.in);
+		s = new Scanner(System.in);
 		String input;
 		//System.out.println("Enter a set of moves as a pair of x,y seperated by spaces");
 		//System.out.println("For example 2,1 3,5 4,5");
 		BoardMoves bmoves = new BoardMoves();
 		boolean retry = true;
 		while(retry) {
-			//try {
-				input = s.nextLine();
-				String[] moves = input.split(" ");
-				for(String move : moves) {
+			input = s.nextLine();
+			String[] moves = input.split(" ");
+			for(String move : moves) {
+				if(tryParseString(move)) {
 					String[] temp = move.split(",");
-					int row = Integer.parseInt(temp[0]);
-					int col = Integer.parseInt(temp[1]);
-					PointT point = new PointT(row-1,col-1);
-					retry = false;
-					bmoves.add(point);
+					if(tryParse(temp[0]) && tryParse(temp[1])) {
+						int row = Integer.parseInt(temp[0]);
+						int col = Integer.parseInt(temp[1]);
+						PointT point = new PointT(row-1,col-1);
+						retry = false;
+						bmoves.add(point);
+					}		
+					else {
+						printMsg("Invalid input");
+						break;
+					}
 				}
-			//}
-//			catch(RuntimeException e){
-//				retry = true;
-//				System.out.println("Invalid input format. Please Re-enter");
-//			}
+				else {
+					printMsg("Invalid input");
+					break;
+				}
+				
+			}
 		}
-		//s.close();
+		s.close();
 		return bmoves;
+	}
+	
+	public void closeStream() {
+		s.close();
 	}
 	public void printMsg(String msg) { 
 		System.out.println(msg); 
@@ -82,5 +94,27 @@ public class BoardView {
 		BoardView v = new BoardView();
 		v.printBoard(b);
 	}
-
+	
+	private boolean tryParse(String a) {
+		try {
+			Integer.parseInt(a);
+			return true;
+		}
+		catch(NumberFormatException e) {
+			return false;
+		}
+	}
+	private boolean tryParseString(String a) {
+		try {
+			String[] tmp = a.split(",");
+			String s= tmp[0];
+			String c = tmp[1];
+			return true;
+		}
+		catch(RuntimeException e) {
+			return false;
+		}
+		
+	}
 }
+

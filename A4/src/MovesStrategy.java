@@ -14,6 +14,7 @@ class MovesStrategy extends StrategyGameMode{
 		if(moves.size()==TARGET) {
 			c.printMsg(String.format("You won by eliminating %d dots in one move!", TARGET));
 			System.exit(0);
+			
 		}
 		else
 			move_count--;

@@ -15,6 +15,7 @@ public class TimedStrategy extends StrategyGameMode{
 	void checkWin() {
 		if(moves.size()==TARGET) {
 			c.printMsg(String.format("You won by eliminating %d dots in one move!", TARGET));
+			c.closeViewStream();
 			System.exit(0);
 		}
 	}

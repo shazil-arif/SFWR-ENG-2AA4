@@ -33,6 +33,10 @@ public class BoardController {
 		view.printMsg(msg);
 	}
 	
+	public void closeViewStream() {
+		view.closeStream();
+	}
+	
 	public BoardMoves getInput() {
 		BoardMoves b = view.getInput();
 		while(!model.validateMoves(b)) {

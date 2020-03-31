@@ -1,30 +1,38 @@
 import java.util.Timer;
 import java.util.TimerTask;
+
 public class TimedStrategy extends StrategyGameMode{
 
 	private final int TARGET = 5;
-	private final int TIME = 60;
-	private boolean has_ended = false;
+	private final int TIME = 60; 
+	private static final long BILLION = 1000000000;
+	GameEnd g;
 	Timer timer;
+	private long start;
+	
 	
 	@Override
-	void updateConditions() {
-		
+	void checkWin() {
+		if(moves.size()==TARGET) {
+			c.printMsg(String.format("You won by eliminating %d dots in one move!", TARGET));
+			System.exit(0);
+		}
 	}
 
 	@Override
 	boolean canContinue() {
-		return has_ended;
+		return true;
 	}
 
 	@Override
 	void updateData() {
-		if(has_ended) {
+		if(g.hasEnded()) {
 			c.printMsg("Time's Up!");
 			System.exit(0);
 		}
 		else {
-			c.printMsg("Keep playing");
+			long now = ((System.nanoTime() - start))/BILLION;
+			c.printMsg(String.format("Time left: %d seconds",now));
 		}
 	}
 
@@ -38,15 +46,8 @@ public class TimedStrategy extends StrategyGameMode{
 
 	@Override
 	void startUp() {
-		timer = new Timer();
-		timer.schedule(new GameEnd(), TIME*1000);	
-	}
-	
-	class GameEnd extends TimerTask {
-		public void run() {
-			timer.cancel();
-			has_ended = true;
-		}
-		
+		g = new GameEnd(TIME);
+		start = System.nanoTime();
+		v = new BoardView();
 	}
 }

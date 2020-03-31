@@ -10,7 +10,7 @@ class MovesStrategy extends StrategyGameMode{
 	}
 
 	@Override
-	void updateConditions() {
+	void checkWin() {
 		if(moves.size()==TARGET) {
 			c.printMsg(String.format("You won by eliminating %d dots in one move!", TARGET));
 			System.exit(0);
@@ -38,6 +38,7 @@ class MovesStrategy extends StrategyGameMode{
 
 	@Override
 	void startUp() {
+		v = new BoardView();
 		move_count = 30;
 	}
 

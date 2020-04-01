@@ -40,8 +40,24 @@ abstract public class Board<T>{
      * @brief second constructor for Board, this constructor should be used when a initially randomized board is not desired
      * @details this is usually helpful for testing the board
      * @param s input sequence of rows representing the board to instantiate
+     * @throws IllegalArgumentException if the scale is less than or equal to 0, the input sequence is empty, the length of the
+     * first row in the sequence is 0 or the length of any row is not equal to the length of the first row
      */
     public Board(ArrayList<ArrayList<T>> s) {
+    	
+    	 //check exceptions
+        if(s.size()==0 || s.get(0).size()==0){
+            throw new IllegalArgumentException("Illegal Argument to Board!");
+        }
+
+        //check remaining exceptions
+        int length = s.get(0).size();
+        for(int i = 1; i < s.size(); i++){
+            if(s.get(i).size()!=length){
+                throw new IllegalArgumentException("Illegal Argument to Board!");
+            }
+        }
+    	
     	 //copy input sequence to state variable s
         for(int i = 0; i < s.size(); i++){
             ArrayList<T> temp = new ArrayList<T>();

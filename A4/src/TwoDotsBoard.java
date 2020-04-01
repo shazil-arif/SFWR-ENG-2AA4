@@ -45,7 +45,7 @@ public class TwoDotsBoard extends Board<Color>{
 	
 	/**
 	 * @brief check if a given BoardMoves sequence is valid set of moves on the two dots board
-	 * @details a sequence of size 1 is not valid, a sequence with the same dot visited twice is not valid,
+	 * @details a sequence of size less than or equal to 1 is not valid, a sequence with the same dot visited twice is not valid,
 	 * a sequence with adjacent dots that do not have the same color are also not valid and if a point is not on the board
 	 * @param moves sequence of points on the board to validate
 	 * @return boolean indicating the result
@@ -53,7 +53,7 @@ public class TwoDotsBoard extends Board<Color>{
 	public boolean validateMoves(BoardMoves moves) {
 		
 		//if only one dot is intended to be removed
-		if(moves.size()==1) return false;
+		if(moves.size() <= 1) return false;
 		
 		//check if each move is a valid point on the board, if not return false
 		for (PointT move : moves) {

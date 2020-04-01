@@ -16,9 +16,6 @@ public class BoardController {
 		model.set(p, c);
 	}
 	
-	public boolean isPlayable() {
-		return model.isPlayable();
-	}
 	public boolean validateMoves(BoardMoves moves) {
 		return model.validateMoves(moves);
 	}

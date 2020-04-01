@@ -5,7 +5,7 @@ abstract public class StrategyGameMode implements Strategy {
 	public void play(TwoDotsBoard b) {
 		startUp(b);
 		introMsg();
-		while(c.isPlayable() && canContinue()) {
+		while(canContinue()) {
 			c.updateView();
 			moves = c.getInput();
 			c.updateBoard(moves);

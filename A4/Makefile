@@ -26,7 +26,10 @@ CLASSES = \
         src/BoardMoves.java \
         src/BoardController.java \
 	src/BoardView.java \
-	src/StrategyGameMode.java
+	src/StrategyGameMode.java\
+	src/TestPointT.java\
+	src/TestTwoDotsBoard.java\
+	src/AllTests.java
 
 MAIN = AllTests
 

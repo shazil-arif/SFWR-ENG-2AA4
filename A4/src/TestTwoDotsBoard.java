@@ -25,7 +25,12 @@ public class TestTwoDotsBoard {
 		s.add(new ArrayList<Color>(Arrays.asList(Color.O,Color.G,Color.O,Color.B,Color.B,Color.G)));
 		s.add(new ArrayList<Color>(Arrays.asList(Color.P,Color.B,Color.P,Color.O,Color.G,Color.O)));
 		s.add(new ArrayList<Color>(Arrays.asList(Color.R,Color.P,Color.B,Color.R,Color.P,Color.R)));
-		b = new TwoDotsBoard(s);
+		b = new TwoDotsBoard(6,6);
+		for(int i = 0; i < s.size(); i++) {
+			for(int j = 0; j < s.get(i).size(); j++) {
+				b.set(new PointT(i,j), s.get(i).get(j));
+			}
+		}
 	}
 	
 	//test constructor exceptions

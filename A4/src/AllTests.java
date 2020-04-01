@@ -12,7 +12,7 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
     TestPointT.class,
-    TestTwoDotsBoard.class,
+    TestTwoDotsBoard.class
 })
 
 public class AllTests

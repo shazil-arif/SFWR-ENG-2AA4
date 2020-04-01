@@ -34,15 +34,6 @@ public class TwoDotsBoard extends Board<Color>{
 		}
 	}
 	
-	 /**
-     * @brief second constructor for TwoDotsBoard, this constructor should be used when a initially randomized board is not desired
-     * @details this is usually helpful for testing the board
-     * @param s input sequence of rows representing the board to instantiate
-     */
-	public TwoDotsBoard(ArrayList<ArrayList<Color>> s) {
-		super(s);
-	}
-	
 	/**
 	 * @brief check if a given BoardMoves sequence is valid set of moves on the two dots board
 	 * @details a sequence of size less than or equal to 1 is not valid, a sequence with the same dot visited twice is not valid,

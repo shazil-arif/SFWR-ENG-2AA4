@@ -33,6 +33,10 @@ public class BoardController {
 		view.printMsg(msg);
 	}
 	
+	public Strategy modePrompt() {
+		return view.modePrompt();
+	}
+
 	public void closeViewStream() {
 		view.closeStream();
 	}

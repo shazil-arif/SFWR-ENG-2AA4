@@ -45,12 +45,29 @@ public class BoardView {
 			
 		}	
 	}
+	public Strategy modePrompt() {
+		s = new Scanner(System.in);
+		printMsg("Enter T for timed Mode or M for moves mode.");
+		String input = s.nextLine();
+		input = input.toUpperCase();
+		while(!(input.equals("T") || input.equals("M"))) {
+			printMsg("Only T and M are valid game modes");
+			input = s.nextLine();
+			input = input.toUpperCase();
+		} 
+		if(input.equals("T")) {
+			TimedStrategy t = new TimedStrategy();
+			return t;
+		}
+		else {
+			MovesStrategy m = new MovesStrategy();
+			return m;
+		}
+	}
 	
 	public BoardMoves getInput() {
 		s = new Scanner(System.in);
 		String input;
-		//System.out.println("Enter a set of moves as a pair of x,y seperated by spaces");
-		//System.out.println("For example 2,1 3,5 4,5");
 		BoardMoves bmoves = new BoardMoves();
 		boolean retry = true;
 		while(retry) {
@@ -78,9 +95,9 @@ public class BoardView {
 				
 			}
 		}
-		s.close();
 		return bmoves;
 	}
+	
 	
 	public void closeStream() {
 		s.close();

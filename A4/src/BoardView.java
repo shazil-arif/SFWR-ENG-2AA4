@@ -55,14 +55,10 @@ public class BoardView {
 			input = s.nextLine();
 			input = input.toUpperCase();
 		} 
-		if(input.equals("T")) {
-			TimedStrategy t = new TimedStrategy();
-			return t;
-		}
-		else {
-			MovesStrategy m = new MovesStrategy();
-			return m;
-		}
+		if(input.equals("T"))
+			return new TimedStrategy();
+		else
+			return new MovesStrategy();
 	}
 	
 	public BoardMoves getInput() {

@@ -1,8 +1,9 @@
+import java.util.ArrayList;
 
 /** 
-*  @file LanduseMapT.java
+*  @file TwoDotsBoard.java
 *  @author Shazil Arif
-*  @brief LanduseMapT extends Seq2D and is parameterized with type Colors
+*  @brief TwoDotsBoard extends Board and is parameterized with type Colors
 *  @date April 1st 2020
 */
 
@@ -33,6 +34,14 @@ public class TwoDotsBoard extends Board<Color>{
 		}
 	}
 	
+	 /**
+     * @brief second constructor for TwoDotsBoard, this constructor should be used when a initially randomized board is not desired
+     * @details this is usually helpful for testing the board
+     * @param s input sequence of rows representing the board to instantiate
+     */
+	public TwoDotsBoard(ArrayList<ArrayList<Color>> s) {
+		super(s);
+	}
 	
 	public boolean validateMoves(BoardMoves moves) {
 		//first check if each move is a valid point on the board
@@ -46,8 +55,8 @@ public class TwoDotsBoard extends Board<Color>{
     }
 	
 	/**
-	 * @brief setter method to update a sequence of cells on the Board that have been removed
-	 * @param moves sequence of BoardMoves containing the cells on the Board to update
+	 * @brief setter method to update the board after 
+	 * @param moves sequence of BoardMoves containing the cells on the Board to remove
 	 */	
 	public void updateBoard(BoardMoves moves) {
 		for(PointT move: moves) {

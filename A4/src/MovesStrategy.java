@@ -13,6 +13,7 @@ class MovesStrategy extends StrategyGameMode{
 	void checkWin() {
 		if(moves.size()==TARGET) {
 			c.printMsg(String.format("You won by eliminating %d dots in one move!", TARGET));
+			c.closeViewStream();
 			System.exit(0);
 			
 		}
@@ -41,7 +42,7 @@ class MovesStrategy extends StrategyGameMode{
 	void startUp(TwoDotsBoard b) {
 		v = new BoardView();
 		c = new BoardController(b,v);
-		move_count = 30;
+		move_count = 15;
 	}
 
 }

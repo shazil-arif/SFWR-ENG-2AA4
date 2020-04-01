@@ -37,11 +37,19 @@ abstract public class Board<T>{
     }
     
     /**
-     * @brief second constructor for Board, this constructor should be used when a randomized board is not desired
+     * @brief second constructor for Board, this constructor should be used when a initially randomized board is not desired
+     * @details this is usually helpful for testing the board
      * @param s input sequence of rows representing the board to instantiate
      */
     public Board(ArrayList<ArrayList<T>> s) {
-    	this.s = s; //todo , deep copy parameter s to state variable list
+    	 //copy input sequence to state variable s
+        for(int i = 0; i < s.size(); i++){
+            ArrayList<T> temp = new ArrayList<T>();
+            for(int j = 0; j < s.get(i).size(); j++){
+                temp.add(s.get(i).get(j));
+            }
+            s.add(temp);
+        }
 		
 	}
     

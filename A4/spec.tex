@@ -43,43 +43,22 @@
 
 \newcommand{\wss}[1]{\authornote{blue}{SS}{#1}}
 
-\title{Assignment 3, Part 1, Specification}
+\title{Assignment 4, Two Dots game Specification}
 \author{SFWR ENG 2AA4}
 
 \begin {document}
 
 \maketitle
 This Module Interface Specification (MIS) document contains modules, types and
-methods for implementing a generic 2D sequence that is instantiated for both
-land use planning and for a Discrete Elevation Model (DEM).
-
-In applying the specification, there may be cases that involve undefinedness.
-We will interpret undefinedness following~\cite{Farmer2004}:
-
-If $p: \alpha_1 \times .... \times \alpha_n \rightarrow \mathbb{B}$ and any of
-$a_1, ..., a_n$ is undefined, then $p(a_1, ..., a_n)$ is False.  For instance,
-if $p(x) = 1/x < 1$, then $p(0) = \text{False}$.  In the language of our
-specification, if evaluating an expression generates an exception, then the
-value of the expression is undefined.
-
-\wss{The parts that you need to fill in are marked by comments, like this one.
-  In several of the modules local functions are specified.  You can use these
-  local functions to complete the missing specifications.}
-
-\wss{As you edit the tex source, please leave the \texttt{wss} comments in the
-  file.  Put your answer \textbf{after} the comment.  This will make grading
-  easier.}
-
-\bibliographystyle{plain}
-\bibliography{SmithCollectedRefs}
+methods for implementing a game of Two Dots
 
 \newpage
 
-\section* {Land Use Type Module}
+\section* {Color Module}
 
 \subsection*{Module}
 
-LanduseT
+Color
 
 \subsection* {Uses}
 
@@ -93,10 +72,10 @@ None
 
 \subsubsection* {Exported Types}
 
-Landtypes = \{R, T, A, C\}\\
+Color = \{R, G, B, P, Y\}\\
 
-\noindent \textit{//R stands for Recreational, T for Transport, A for Agricultural, C for
-  Commercial}
+\noindent \textit{//R stands for Red, G for green, B for blue, P for
+  Purple, Y for yellow}
 
 \subsubsection* {Exported Access Programs}
 
@@ -104,7 +83,7 @@ Landtypes = \{R, T, A, C\}\\
 \hline
 \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
 \hline
-new LanduseT & Landtypes & LanduseT & ~\\
+randomColor &  & Color & ~\\
 \hline
 \end{tabular}
 
@@ -112,7 +91,7 @@ new LanduseT & Landtypes & LanduseT & ~\\
 
 \subsubsection* {State Variables}
 
-landuse: Landtypes
+colors: color
 
 \subsubsection* {State Invariant}
 
@@ -120,16 +99,24 @@ None
 
 \subsubsection* {Access Routine Semantics}
 
-\noindent new LandUseT($t$):
+\noindent randomColor():
 \begin{itemize}
-\item transition: $\mathit{landuse} := t$
-\item output: $out := \mbox{self}$
+\item transition: none
+\item output: $out :=$ randomVal()
 \item exception: none
 \end{itemize}
 
+
+\subsection*{Local Functions}
+
+\noindent randomVal(): Color\\
+\noindent randomVal() $\equiv i$ ($i = 0 \implies $R $| i = 1 \implies$ G $| i = 2 \implies$ B $| i = 3 \implies$ P $| i = 4 \implies$ Y ) 
+Where $i$ is a uniformly-distributed random number in the range $0 \leq i \leq 4$ \\
+
+
 \subsubsection* {Considerations}
 
-When implementing in Java, use enums (as shown in Tutorial 06 for ElementT).
+When implementing in Java, use enums
 
 \newpage
 

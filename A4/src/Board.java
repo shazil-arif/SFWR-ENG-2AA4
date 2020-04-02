@@ -90,11 +90,11 @@ abstract public class Board<T>{
      private boolean validCol(int col){ return col >= 0 && col < n_col; }
 
       /** 
-      * @brief helper method to validate a PointT object
+      * @brief protected helper method to validate a PointT object. visible to the current and a child class only
       * @param p the PointT object to validate
       * @return boolean indicating if the column number is valid (i.e lies in the 2D sequence bounds)
       */
-     public boolean validPoint(PointT p){ 
+     protected boolean validPoint(PointT p){ 
          return validRow(p.row()) && validCol(p.col()); 
      }
     

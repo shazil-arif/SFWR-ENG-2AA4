@@ -110,19 +110,14 @@ None
 \subsection*{Local Functions}
 
 \noindent randomVal(): Color\\
-\noindent randomVal() $\equiv i$ ($i = 0 \implies $R $| i = 1 \implies$ G $| i = 2 \implies$ B $| i = 3 \implies$ P $| i = 4 \implies$ Y ) 
+\noindent randomVal() $\equiv (i = 0 \implies $R $| i = 1 \implies$ G $| i = 2 \implies$ B $| i = 3 \implies$ P $| i = 4 \implies$ Y ) 
 Where $i$ is a uniformly-distributed random number in the range $0 \leq i \leq 4$ \\
-
-
-\subsubsection* {Considerations}
-
-When implementing in Java, use enums
 
 \newpage
 
 \section* {Point ADT Module}
 
-\subsection*{Template Module inherits Equality(PointT)}
+\subsection*{Template Module}
 
 PointT
 
@@ -191,19 +186,13 @@ PointT($row, col$):
 \item exception: None
 \end{itemize}
 
-\noindent translate($\Delta r$, $\Delta c$):
-\begin{itemize}
-\item \textcolor{blue}{output: $out := $ new PointT($r + \Delta r$, $c + \Delta c$)}
-\item exception: \textcolor{blue}{None}
-\end{itemize}
-
 \newpage
 
-\section* {Generic Seq2D Module}
+\section* {Generic Board Module}
 
 \subsection* {Generic Template Module}
 
-Seq2D(T)
+Board(T)
 
 \subsection* {Uses}
 
@@ -213,7 +202,7 @@ PointT
 
 \subsubsection* {Exported Types}
 
-Seq2D(T) = ?
+Board(T) = ?
 
 \subsubsection* {Exported Constants}
 
@@ -225,7 +214,7 @@ None
 \hline
 \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
 \hline
-Seq2D & seq of (seq of T), $\mathbb{R}$ & Seq2D & IllegalArgumentException\\
+Board & $\mathbb{N},\mathbb{N}$ & Board & IllegalArgumentException\\
 \hline
 set & PointT, T & ~ & IndexOutOfBoundsException\\
 \hline
@@ -235,14 +224,6 @@ getNumRow & ~ & $\mathbb{N}$ & \\
 \hline
 getNumCol & ~ & $\mathbb{N}$ & \\
 \hline
-getScale & ~ & $\mathbb{R}$ & \\
-\hline
-count & T & $\mathbb{N}$ & \\
-\hline
-countRow & T, $\mathbb{N}$ & $\mathbb{N}$ & \\
-\hline
-area & T & $\mathbb{R}$ & \\
-\hline
 \end{tabular}
 
 \subsection* {Semantics}
@@ -250,7 +231,6 @@ area & T & $\mathbb{R}$ & \\
 \subsubsection* {State Variables}
 
 $s$: seq of (seq of T)\\
-scale: $\mathbb{R}$\\
 nRow: $\mathbb{N}$\\
 nCol: $\mathbb{N}$
 
@@ -261,7 +241,7 @@ None
 \subsubsection* {Assumptions}
 
 \begin{itemize}
-\item The Seq2D(T) constructor is called for each object instance before any
+\item The Board(T) constructor is called for each object instance before any
 other access routine is called for that object.  The constructor can only be
 called once.
 \item Assume that the input to the constructor is a sequence of rows, where each
@@ -274,25 +254,25 @@ called once.
 
 \subsubsection* {Access Routine Semantics}
 
-Seq2D($S$, scl):
+Board($row$, $col$):
 \begin{itemize}
-\item \textcolor{blue}{transition (note that the list does not enforce an \emph{order} in which the transitions occur, only the transitions that must occur): \begin{enumerate}\item $s := S$  \item $scale := scl$ \item $nRow := |S|$ \item $nCol := |S[0]|$\end{enumerate}}
+\item \textcolor{blue}{transition (note that the list does not enforce an \emph{order} in which the transitions occur, only the transitions that must occur): \begin{enumerate} \item $nRow := row$ \item $nCol := col$\end{enumerate}}
 
 \item output: $\mathit{out} := \mathit{self}$
 \item \textcolor{blue}{exception: \\
-exc $:=$ (scl $<$ 0) $\lor$ (S = $<>$) $\lor$ ($| S[0] | = 0$) $\lor$ ($\exists (x : $ Seq of T $| x \in S[ 1..|S|-1 ] : |x| \neq | S[0] |$)) $\implies$ IllegalArgumentException}
+exc $:=$ (row $\leq$ 0) $\lor$ (col $\leq$ 0) $\implies$ IllegalArgumentException}
 \end{itemize}
 
 \noindent set($p, v$):
 \begin{itemize}
 \item transition: \textcolor{blue}{$s[p.row()][p.col()] = v$}
-\item exception:\\ \textcolor{blue}{exc $:=$ (p.row() $ >= $ nRow) $\lor$ (p.col() $ >= $ nCol) $\lor$ (p.row() $ < $ 0) $\lor$ (p.col() $ < $ 0)$\implies$ IndexOutOfBoundsException}
+\item exception:\\ \textcolor{blue}{$\lnot$ validPoint(p)$\implies$ IndexOutOfBoundsException}
 \end{itemize}
 
 \noindent get($p$):
 \begin{itemize}
 \item output: \textcolor{blue}{$out := s[p.row()][p.col()]$}
-\item exception:\\ \textcolor{blue}{exc $:=$ (p.row() $ >= $ nRow) $\lor$ (p.col() $ >= $ nCol) $\lor$ (p.row() $ < $ 0) $\lor$ (p.col() $ < $ 0) $\implies$ IndexOutOfBoundsException}
+\item exception:\\ \textcolor{blue}{$\lnot$ validPoint(p)$\implies$ IndexOutOfBoundsException}
 \end{itemize}
 
 \noindent getNumRow():
@@ -304,30 +284,6 @@ exc $:=$ (scl $<$ 0) $\lor$ (S = $<>$) $\lor$ ($| S[0] | = 0$) $\lor$ ($\exists 
 \noindent getNumCol():
 \begin{itemize}
 \item output: $out := \mbox{nCol}$
-\item exception: None
-\end{itemize}
-
-\noindent getScale():
-\begin{itemize}
-\item output: $out := \mbox{scale}$
-\item exception: None
-\end{itemize}
-
-\noindent count($t$: T):
-\begin{itemize}
-\item \textcolor{blue}{output: out $:= (+i : \mathbb{N} | i \in [0..|s|-1] : $ countRow($t$,$i$))}
-\item exception: None
-\end{itemize}
-
-\noindent countRow($t$: T, $i: \mathbb{N}$):
-\begin{itemize}
-\item \textcolor{blue}{output: out $:= (+x : $ T $| x \in s[i] \land x = t : 1)$}
-\item \textcolor{blue}{exception: exc $ := \lnot$ validRow($i$) $\implies$ IndexOutOfBoundsException}
-\end{itemize}
-
-\noindent area($t$: T):
-\begin{itemize}
-\item \textcolor{blue}{output: $out :=$ count($t$) $ * (scale * scale)$}
 \item exception: None
 \end{itemize}
 
@@ -346,12 +302,60 @@ exc $:=$ (scl $<$ 0) $\lor$ (S = $<>$) $\lor$ ($| S[0] | = 0$) $\lor$ ($\exists 
 
 \newpage
 
-\section* {LanduseMap Module}
+\section* {TwoDotsBoard Module}
 
 \subsection* {Template Module}
 
-\noindent \textcolor{blue}{LanduseMap is Seq2D(LanduseT)}
+\noindent \textcolor{blue}{TwoDotsBoard is Board(Color)}
 
+\subsection* {Syntax}
+
+\subsubsection* {Exported Constants}
+
+None
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{6cm} |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+validateMoves & BoardMoves & $\mathbb{B}$& \\
+\hline
+updateBoard & BoardMoves &  & \\
+\hline
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {Access Routine Semantics}
+
+\noindent validateMoves(b): 
+\begin{itemize}
+\item \textcolor{blue}{output : out $:= |b| \geq 1 \land \forall(p : PointT | p \in b : validPoint(p)) \land validPath(b) $}
+\item exception: None
+\end{itemize}
+
+\subsection*{Local Functions}
+
+\noindent validRow: $\mathbb{N} \rightarrow \mathbb{B}$\\
+\noindent \textcolor{blue}{validRow($r$) $\equiv r \geq 0 \land (r < $ nRow)} \\
+
+\noindent validCol: $\mathbb{N} \rightarrow \mathbb{B}$\\
+\noindent \textcolor{blue}{validCol($c$) $\equiv (c \geq 0) \land (c < $ nCol)} \\
+
+
+\noindent validPoint: $\mbox{PointT} \rightarrow \mathbb{B}$\\
+\noindent \textcolor{blue}{validPoint($p$) $\equiv$ validCol(p.col()) $\land$ validRow(p.row())}
+
+\noindent validPath: $\mbox{BoardMoves} \rightarrow \mathbb{B}$\\
+\noindent \textcolor{blue}{validPath($b$) $\equiv \forall(i : \mathbb{N} | i \in [0..|b|-1] : isAdjacent(i,i+1) )$}\\
+ 
+\noindent isAdjacent: $ BoardMoves \times \mathbb{N} \times \mathbb{N} \rightarrow \mathbb{B}$\\
+\noindent \textcolor{blue}{isAdjacent($b,i,j$) $\equiv b[i].row() = b[j].row() \land b[i].col() = b[j].col() + 1$\\
+$\lor$  $b[i].row() = b[j].row() \land b[i].col() = b[j].col() - 1$\\
+$\lor$  $b[i].row() = b[j].row() - 1 \land b[i].col() = b[j].col()$\\
+$\lor$  $b[i].row() = b[j].row() + 1 \land b[i].col() = b[j].col()$ }\\
 
 \newpage
 

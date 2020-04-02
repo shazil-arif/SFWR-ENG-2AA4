@@ -299,6 +299,17 @@ exc $:=$ (row $\leq$ 0) $\lor$ (col $\leq$ 0) $\implies$ IllegalArgumentExceptio
 \noindent validPoint: $\mbox{PointT} \rightarrow \mathbb{B}$\\
 \noindent \textcolor{blue}{validPoint($p$) $\equiv$ validCol(p.col()) $\land$ validRow(p.row())}
 
+\newpage
+
+\section* {BoardMoves Module}
+
+\subsection* {Template Module}
+
+\noindent \textcolor{blue}{BoardMoves is seq of PointT}
+
+\subsubsection* {Considerations}
+When using in Java. Use Arraylist parameterized by PointT
+
 
 \newpage
 
@@ -332,7 +343,14 @@ updateBoard & BoardMoves &  & \\
 
 \noindent validateMoves(b): 
 \begin{itemize}
-\item \textcolor{blue}{output : out $:= |b| \geq 1 \land \forall(p : PointT | p \in b : validPoint(p)) \land validPath(b) $}
+\item \textcolor{blue}{output : out $:= |b| > 1 \land \forall ( p : PointT | p \in b : validPoint(p)) \land validPath(b) \land isDistinct(b)$}
+\item exception: None
+\end{itemize}
+
+\noindent updateBoard(b): 
+\begin{itemize}
+\item \textcolor{blue}{output : out $ := $ None}
+\item \textcolor{blue}{transition : s $ := p\forall (p : PointT | p \in b  \forall(i : \mathbb{N} | i \in [p.row()..1]) )$ }
 \item exception: None
 \end{itemize}
 
@@ -346,16 +364,104 @@ updateBoard & BoardMoves &  & \\
 
 
 \noindent validPoint: $\mbox{PointT} \rightarrow \mathbb{B}$\\
-\noindent \textcolor{blue}{validPoint($p$) $\equiv$ validCol(p.col()) $\land$ validRow(p.row())}
+\noindent \textcolor{blue}{validPoint($p$) $\equiv$ validCol(p.col()) $\land$ validRow(p.row())}\\
+
+\noindent isDistinct: BoardMoves $\rightarrow \mathbb{B}$\\
+\noindent isDistinct($b$) $\equiv$ $\forall(i : \mathbb{N}| i \in [0..|b|-1] : \forall (j : \mathbb{N} | j \in [(i+1)..|b|-1]) : \lnot (b[i].row() = b[j].row()) \land (b[i].col() = b[j].col()) )$  \\
+
 
 \noindent validPath: $\mbox{BoardMoves} \rightarrow \mathbb{B}$\\
-\noindent \textcolor{blue}{validPath($b$) $\equiv \forall(i : \mathbb{N} | i \in [0..|b|-1] : isAdjacent(i,i+1) )$}\\
+\noindent \textcolor{blue}{validPath($b$) $\equiv \forall(i : \mathbb{N} | i \in [0..|b|-2] : isAdjacent(b,i,i+1) \land sameColor(b,i,i+1)  ) \land $}\\
  
-\noindent isAdjacent: $ BoardMoves \times \mathbb{N} \times \mathbb{N} \rightarrow \mathbb{B}$\\
+\noindent sameColor : BoardMoves $\times \mathbb{N} \times \mathbb{N} \rightarrow \mathbb{B} $\\
+\noindent sameColor($b,i,j$) $\equiv s[b[i].row()][b[i].col()] = s[b[j].row()][b[j].col()]$\\
+
+\noindent isAdjacent: BoardMoves $\times \mathbb{N} \times \mathbb{N} \rightarrow \mathbb{B}$\\
 \noindent \textcolor{blue}{isAdjacent($b,i,j$) $\equiv b[i].row() = b[j].row() \land b[i].col() = b[j].col() + 1$\\
 $\lor$  $b[i].row() = b[j].row() \land b[i].col() = b[j].col() - 1$\\
 $\lor$  $b[i].row() = b[j].row() - 1 \land b[i].col() = b[j].col()$\\
 $\lor$  $b[i].row() = b[j].row() + 1 \land b[i].col() = b[j].col()$ }\\
+
+\newpage
+
+\section* {BoardView Module}
+
+\subsection* {Template Module}
+
+\noindent \textcolor{blue}{BoardView}
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Constants}
+
+None
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{6cm} |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+printBoard & TwoDotsBoard & $\mathbb{B}$& \\
+\hline
+modePrompt &  & Strategy & \\
+\hline
+getInput &  & BoardMoves & \\
+\hline
+closeStream &  &  & \\
+\hline
+printMsg & $msg : string$ &  & \\
+\hline
+
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {Environment variables}
+\noindent $s$ : 2D sequence of pixels displayed on a standard Unix Shell/console\\
+\noindent $r$ : an object to write text out on a standard Unix Shell/console\\
+
+\subsubsection* {Access Routine Semantics}
+
+\noindent printBoard($b$): 
+\begin{itemize}
+\item transition $s:=$ Modify the Console so that the TwoDotsBoard b is printed in a tabular manner. The contents of each row from $b$ should
+be on individual line. Their should be horizontal and vertical numbering indicating each row and column from one upto and including the row and column size of the board
+\item exception: None
+\end{itemize}
+
+\noindent modePrompt(): 
+\begin{itemize}
+\item transition :
+\begin{enumerate}
+\item $s:=$ Modify the console to print a message asking the user to enter ``T'' for the timed version of the game and ``M'' for the mode of the game with a set number of moves
+\item $r$:= read a single line of text from the standard input. Store this value in memory and then determine what to output as follows:\\
+If the line read in is ``T'' or ``t'' output : out $ := $ new TimedStrategy()\\
+If the line read in is ``M'' or ``m'' output: out $ := $ new MovesStrategy()\\
+Otherwise keep reading a line from the standard input until one of the above two conditions are met
+\end{enumerate}
+\item exception: None
+\end{itemize}
+
+\noindent getInput(): 
+\begin{itemize}
+\item transition :
+\begin{enumerate}
+\item $r$:= read a single line of text from the standard input to determine the coordinates of the dots the user would like to eliminate.
+Note that the desired input format is u,v w,x y,z .... These are pairs of natural numbers with a comma between them and each pair is separated by a space. Store this value in memory and then determine what to output as follows:\\
+If the line read in is in the correct format then $output: out :=$ new BoardMoves() containing the pairs of integers\\
+Otherwise keep reading a line from the standard input until one of the above conditions are met
+\end{enumerate}
+
+\noindent closeStream(): 
+\begin{itemize}
+\item transition : $s$:= close the input stream
+\end{enumerate}
+
+\noindent printMsg($msg : string$): 
+\begin{itemize}
+\item transition : $s$:= Modify the output console to print out text contain in the string $msg$
+\end{enumerate}
 
 \newpage
 
@@ -417,6 +523,55 @@ ascendingRows & & $\mathbb{B}$ & \\
 
 
 \newpage
+
+\section* {Strategy Interface Module}
+
+\subsection* {Interface Module}
+
+\noindent \textcolor{blue}{Strategy}
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Constants}
+
+None
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{6cm} |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+play & TwoDotsBoard & & \\
+\hline
+\end{tabular}
+
+\newpage
+
+\section* {StrategyGameMode Interface Module}
+
+\subsection* {Interface Module}
+
+\noindent \textcolor{blue}{StrategyGameMode}
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Constants}
+
+None
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{6cm} |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+play & TwoDotsBoard & & \\
+\hline
+\end{tabular}
+
+\newpage
+
 
 \section*{Critique of Design}
 

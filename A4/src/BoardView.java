@@ -102,12 +102,6 @@ public class BoardView {
 		System.out.println(msg); 
 	}
 	
-	public static void main(String[] args) {
-		TwoDotsBoard b = new TwoDotsBoard(6,6);
-		BoardView v = new BoardView();
-		v.printBoard(b);
-	}
-	
 	private boolean tryParse(String a) {
 		try {
 			Integer.parseInt(a);

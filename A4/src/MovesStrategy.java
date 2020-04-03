@@ -1,3 +1,4 @@
+
 @SuppressWarnings("all")
 class MovesStrategy extends StrategyGameMode{
 

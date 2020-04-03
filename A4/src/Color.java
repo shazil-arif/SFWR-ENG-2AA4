@@ -10,6 +10,10 @@ import java.util.Random;
 public enum Color{
     R,G,B,P,O;
 	
+	/*
+	 * @brief return a random color R,G,B,P or O
+	 * @return a random Color
+	 */
 	public static Color randomColor(){
 		Random rnd = new Random();
 	    int index = rnd.nextInt(Color.values().length);

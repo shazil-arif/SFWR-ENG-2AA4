@@ -7,10 +7,17 @@
 \usepackage{hhline}
 \usepackage{booktabs}
 \usepackage{multirow}
+\usepackage{hyperref}
 \usepackage{multicol}
 \usepackage{listings}
 \usepackage{xcolor}
 \usepackage{url}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
 \lstset{
   basicstyle=\ttfamily,
   mathescape
@@ -609,6 +616,128 @@ getInput &  & BoardMoves & \\
 
 
 \newpage
+
+\section* {StrategyGameMode Module}
+
+\subsection* {Template Module inherits Strategy}
+
+\noindent {StrategyGameMode}
+
+\subsection{Uses}
+Strategy, BoardView, BoardController, BoardMoves, TwoDotsBoard
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Constants}
+
+None
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{6cm} |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+play & TwoDotsBoard & & \\
+\hline
+startUp & TwoDotsBoard & & \\
+\hline
+checkWin & & & \\
+\hline
+canContinue &  & & \\
+\hline
+updateData &  & & \\
+\hline
+introMsg & & & \\
+\hline
+\end{tabular}
+
+\subsection* {Semantics}
+
+
+\subsubsection* {State variables}
+\noindent $c$ : BoardController
+\noindent $v$ : BoardView
+\noindent $moves$ : BoardMoves
+
+
+\subsubsection*{State invariant}
+\noindent None
+
+\subsubsection* {Access Routine Semantics}
+
+\noindent play(b)
+\begin{itemize}
+\item transition
+\end{itemize}
+
+\subsection* {Consideration}
+\noindent In Java, this module would be implemented as an abstract class that implements the Strategy interface. Unimplemented methods are ones that are abstract methods and will be overridden by its children\\
+\noindent This is the best that could be done to convey the idea of a ``abstract class'' given that MIS does not have the notion of an abstract class, following Dr Smith's advice to use Inheritance and leave a note for reader. Source: \href{https://avenue.cllmcmaster.ca/d2l/le/296632/discussions/threads/1286234/View?groupFilterOption=0&searchText=abstract} {Here (will have to login to avenue)}
+
+\newpage
+
+\section* {MovesStrategy Module}
+
+\subsection* {Template Module inherits StrategyGameMode}
+
+\noindent {MovesStrategy}
+
+\subsection{Uses}
+StrategyGameMode, BoardView, BoardController, BoardMoves, TwoDotsBoard
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Constants}
+
+None
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{6cm} |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+play & TwoDotsBoard & & \\
+\hline
+startUp & TwoDotsBoard & & \\
+\hline
+checkWin & & & \\
+\hline
+canContinue &  & & \\
+\hline
+updateData &  & & \\
+\hline
+introMsg & & & \\
+\hline
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {Environment variables}
+\noindent $sys$ : BoardController
+
+
+\subsubsection* {State variables}
+\noindent $moveCount$ : $\mathbb{N}$
+\noindent $target$ : $\mathbb{N}$
+\noindent $moves$ : BoardMoves
+
+
+\subsubsection*{State invariant}
+\noindent None
+
+\subsubsection* {Access Routine Semantics}
+
+\noindent play(b)
+\begin{itemize}
+\item transition
+\end{itemize}
+
+\newpage
+
+
+
 
 \section* {DEM Module}
 

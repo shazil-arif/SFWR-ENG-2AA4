@@ -26,7 +26,15 @@ public class GameEnd{
 		 timer.schedule(new End(), time*1000);	
 	 }		
 	 
+	 /*
+	  * @brief class End extends TimerTask and provides a method to cancel the timer
+	  */
 	class End extends TimerTask {
+		
+		/*
+		 * @brief this method is executed when the timer's allocated time has run out
+		 * @details exists the system with status code 0 once the timer cancels	
+		 */
 		public void run() {
 			timer.cancel();
 			System.out.println("Times up!");

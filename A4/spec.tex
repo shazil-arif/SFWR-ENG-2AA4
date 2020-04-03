@@ -244,12 +244,7 @@ None
 \item The Board(T) constructor is called for each object instance before any
 other access routine is called for that object.  The constructor can only be
 called once.
-\item Assume that the input to the constructor is a sequence of rows, where each
-  row is a sequence of elements of type T.  The number of columns (number of
-  elements) in each row is assumed to be equal. That is each row
-  of the grid has the same number of entries.  $s[i][j]$ means the ith row and
-  the jth column.  The 0th row is at the top of the grid and the 0th column
-  is at the leftmost side of the grid.
+\item $s[i][j]$ means the ith row and the jth column.  The 0th row is at the top of the grid and the 0th column is at the leftmost side of the grid.
 \end{itemize}
 
 \subsubsection* {Access Routine Semantics}
@@ -382,6 +377,31 @@ $\lor$  $b[i].row() = b[j].row() \land b[i].col() = b[j].col() - 1$\\
 $\lor$  $b[i].row() = b[j].row() - 1 \land b[i].col() = b[j].col()$\\
 $\lor$  $b[i].row() = b[j].row() + 1 \land b[i].col() = b[j].col()$ }\\
 
+
+\newpage
+
+\section* {Strategy Interface Module}
+
+\subsection* {Interface Module}
+
+\noindent {Strategy}
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Constants}
+
+None
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{6cm} |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+play & TwoDotsBoard & & \\
+\hline
+\end{tabular}
+
 \newpage
 
 \section* {BoardView Module}
@@ -433,35 +453,160 @@ be on individual line. Their should be horizontal and vertical numbering indicat
 \noindent modePrompt(): 
 \begin{itemize}
 \item transition :
-\begin{enumerate}
+\begin{itemize}
 \item $s:=$ Modify the console to print a message asking the user to enter ``T'' for the timed version of the game and ``M'' for the mode of the game with a set number of moves
 \item $r$:= read a single line of text from the standard input. Store this value in memory and then determine what to output as follows:\\
 If the line read in is ``T'' or ``t'' output : out $ := $ new TimedStrategy()\\
 If the line read in is ``M'' or ``m'' output: out $ := $ new MovesStrategy()\\
 Otherwise keep reading a line from the standard input until one of the above two conditions are met
-\end{enumerate}
+\end{itemize}
 \item exception: None
 \end{itemize}
 
 \noindent getInput(): 
 \begin{itemize}
 \item transition :
-\begin{enumerate}
+\begin{itemize}
 \item $r$:= read a single line of text from the standard input to determine the coordinates of the dots the user would like to eliminate.
 Note that the desired input format is u,v w,x y,z .... These are pairs of natural numbers with a comma between them and each pair is separated by a space. Store this value in memory and then determine what to output as follows:\\
 If the line read in is in the correct format then $output: out :=$ new BoardMoves() containing the pairs of integers\\
 Otherwise keep reading a line from the standard input until one of the above conditions are met
-\end{enumerate}
+\end{itemize}
+\end{itemize}
 
 \noindent closeStream(): 
 \begin{itemize}
 \item transition : $s$:= close the input stream
-\end{enumerate}
+\end{itemize}
 
 \noindent printMsg($msg : string$): 
 \begin{itemize}
 \item transition : $s$:= Modify the output console to print out text contain in the string $msg$
-\end{enumerate}
+\end{itemize}
+
+\subsection* {Considerations}
+\noindent In java, closing the input stream corresponds to closing the System.in object
+
+
+\newpage
+
+\section* {BoardController Module}
+
+\subsection* {Template Module}
+
+\noindent {BoardController}
+
+\subsection* {Uses}
+
+TwoDotsBoard, BoardView, Color, PointT, BoardMoves
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Constants}
+
+None
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{6cm} |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+BoardController & TwoDotsBoard, BoardView & BoardController& \\
+\hline
+get & PointT & Color & \\
+\hline
+set & PointT, Color &  & \\
+\hline
+validateMoves & BoardMoves & $\mathbb{B}$ & \\
+\hline
+updateBoard & BoardMoves &  & \\
+\hline
+updateView &   &  & \\
+\hline
+printMsg & $msg : string$ &  & \\
+\hline
+modePrompt &  & Strategy & \\
+\hline
+closeViewStream &  &  & \\
+\hline
+getInput &  & BoardMoves & \\
+\hline
+
+\end{tabular}
+
+\subsection* {Semantics}
+
+
+\subsubsection* {State variables}
+\noindent $m$ : TwoDotsBoard
+\noindent $v$ : BoardView
+
+
+
+\subsubsection*{State invariant}
+\noindent None
+
+\subsubsection* {Access Routine Semantics}
+
+
+\noindent BoardController($model$,$view$)
+\begin{itemize} 
+\item output: out := self
+\item transition: $m:=$ model, $v:=$ view
+\item exceptions: none
+\end{itemize}
+
+\noindent get(p)
+\begin{itemize}
+\item output : $out := $ m.get(p)
+\item transition: none
+\item exceptions: none
+\end{itemize}
+
+\noindent set(p,c)
+\begin{itemize}
+\item transition: m.set(p,c)
+\item exception : none
+\end{itemize}
+
+\noindent validateMoves(b)
+\begin{itemize}
+\item output : $out := $ m.validateMoves(b)
+\end{itemize}
+
+\noindent updateBoard(b)
+\begin{itemize}
+\item transition: m.updateBoard(b)
+\end{itemize}
+
+\noindent updateView()
+\begin{itemize}
+\item transition: v.printBoard(m)
+\end{itemize}
+
+\noindent printMsg($msg : string$): 
+\begin{itemize}
+\item transition view.printMsg($msg$)
+\end{itemize}
+
+
+\noindent modePrompt(): 
+\begin{itemize}
+\item output: $out := $ v.modePrompt()
+\end{itemize}
+
+\noindent closeViewStream(): 
+\begin{itemize}
+\item transition :v.closeStream()
+\end{itemize}
+
+
+\noindent getInput(): 
+\begin{itemize}
+\item output: if (m.validateMoves(v.getInput())) then $out:=$ else $out :=$ getInput()
+\end{itemize}
+
 
 \newpage
 
@@ -520,136 +665,8 @@ ascendingRows & & $\mathbb{B}$ & \\
 \noindent sum: Seq of $\mathbb{Z} \rightarrow \mathbb{Z}$\\
 \noindent \textcolor{blue}{sum($s$) $\equiv$ $(+x : \mathbb{Z} | x \in s: x)$}
 
-
-
-\newpage
-
-\section* {Strategy Interface Module}
-
-\subsection* {Interface Module}
-
-\noindent \textcolor{blue}{Strategy}
-
-\subsection* {Syntax}
-
-\subsubsection* {Exported Constants}
-
-None
-
-\subsubsection* {Exported Access Programs}
-
-\begin{tabular}{| l | l | l | p{6cm} |}
-\hline
-\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
-\hline
-play & TwoDotsBoard & & \\
-\hline
-\end{tabular}
-
-\newpage
-
-\section* {StrategyGameMode Interface Module}
-
-\subsection* {Interface Module}
-
-\noindent \textcolor{blue}{StrategyGameMode}
-
-\subsection* {Syntax}
-
-\subsubsection* {Exported Constants}
-
-None
-
-\subsubsection* {Exported Access Programs}
-
-\begin{tabular}{| l | l | l | p{6cm} |}
-\hline
-\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
-\hline
-play & TwoDotsBoard & & \\
-\hline
-\end{tabular}
-
 \newpage
 
 
-\section*{Critique of Design}
-
-
-I would change the specification to avoid stating to use an ArrayList and provide no specific implementation details. This is to free the programmer from any implementation constraints and let that be their own design decision as long as the specification is satisfied. For the repeated local functions (validRow() and validCol()) since they have the exact same implementation I would make them a publicly accessible routine in Seq2D and DemT can then inherit the method. \\
-
-This can also potentially make Seq2D easier to use and require a client to write less code. For example, suppose the client wants to traverse the 2D sequence horizontally and diagonally then with the current implementation they can use a loop and a set of variables that should be within the bounds of the 2D sequence. Although they can get the number of rows and columns with getNumRow() and getNumCol() respectively, they have to write out the full logic for checking if their variables are within bounds which may look something like:\\
-\begin{verbatim}
-Assuming ``maze'' is an instance of Seq2D of some type
-while(i >= 0 && i < maze.getNumRow() && j >= 0 && j < maze.getNumCol()){
-			//traverse/access maze[i][j] etc.
-}
-\end{verbatim}
-
-The above loop condition gets messy and complicated. But with publicly accessible methods validRow() and validCol() it can be cleanly written as:\\
-\begin{verbatim}
-Assuming ``maze'' is an instance of Seq2D of some type
-while(validRow(i) && validCol(j)){
-			//traverse/access maze[i][j] etc.
-}
-\end{verbatim}
-
-Furthermore, if validRow() is publicly accessible then a client can use to verify a row number before calling countRow(). Same idea for set(), a client can validate their row and column values before passing a point object to set(), adding additional safety to the software usage and thus prone to less errors/exceptions.
-
-
-\begin{enumerate}
-\item The original version of the assignment had an Equality interface defined
-  as for A2, but this idea was dropped.  In the original version Seq2D inherited
-  the Equality interface.  Although this works in Java with the LanduseMapT, it is
-  problematic for DemT.  Why is it problematic?  (Hint: DEMT is instantiated
-  with the Java type Integer.)\\
   
-  In Java, the type Integer is a reference type which is different from the primitive type int. Integer inherits from Object and as a result equality of two Integers is defined as the equality of their references, i.e two Integer values are the same if they point to the same memory location. For LanduseMapT it is instantiated with type LandUseT which is an enumeration. enums in Java is not an object but rather a special data type. Two enum objects are considered equal if either they reference the same memory location or their values are equal. Consider this code:
-  \begin{verbatim}
-enum Color {
-    	Red, Green, Blue;
-	}
-	public class MyClass {
-    	public static void main(String args[]) {
-      		Integer p = new Integer(5);
-      		Integer q = new Integer(5);
-      		System.out.println(q.equals(p));
-      		System.out.println(q == p);
-      
-     		 Color c1 = Color.Green;
-      		Color c3 = Color.Green;
-      		System.out.println(c3.equals(c1));
-      		System.out.println(c3 == c1);
-    }
-}
-\end{verbatim}
-
-The output of the above code is :\\
-true\\
-false\\
-true\\
-true\\
-
-Notice that for the Integer object, if the two objects have the same value but are instantiated separately (i.e they reference different memory locations) then they are not considered equal. This requires explicitly using .equals()\\
-
-However, for the enum object even if two objects have the same value but reference different memory locations they are still equal. Thus, it is problematic to inherit a Equality interface for DemT due to definition of Equality for Integer versus enum in Java.
-  
-  
-\item Although Java has several interfaces as part of the standard language,
-  such as the Comparable interface, there is no Equality interface.  Instead
-  equals is provided through inheritance from Object.  Why do you think the
-  Java language designers decided to use inheritance for equality, instead of
-  providing an interface?\\
-  
-  I believe this choice was made due to the nature of equality of some types in Java. Generally, two objects are considered equal if they reference the same memory location but certain types do not have to meet this requirement(e.g enums as discussed above). So to avoid ambiguity when it comes to what ``Equality'' is defined as, .equals() is provided through inheritance from Object since this will always compare memory references and this allows for a standard definition of ``Equality'' for all the different types/objects in Java.
-  
-\item The qualities of good module interface push the design of the interface in
-  different directions. Why is it rarely possible to achieve a module interface
-  that simultaneously is essential, minimal and general?\\
-  
-  A module is essential if it has no redundant features. This means there are no methods/routines, state variables and invariant that can be removed. A module is minimal if for each routine we have as few state transitions as possible and different services/transitions are independent of one another. A module is general if it is designed without a specific use in mind but rather address a broader domain. Keeping this in mind, It is rarely possible to achieve a module interface that simultaneously meets the criteria of being essential, minimal and general. This is because a general module will need to offer different functionality and be flexible (work with different types, work with different input formats (CSV vs JSON file) etc.). To offer these different features there will need to be several methods/routines that are almost similar but differ slightly (e.g parsing a JSON file vs a CSV file). In order to provide a client different functionality and make the module more flexible often there will need to be an excess number of state transitions. For example, a client may want to return the results of reading a JSON file as a single string or as a Dictionary of Key, value pairs, to offer this extra flexibility and provide both we need to have state transitions for both of these and a result the module may not always be minimal. Lastly, due to this addition of several methods to achieve and provide a range of features the module will usually not always be essential either. There may be methods that can be removed and the specification is still matched but having them present possbily improves the code quality of the module. 
-  
-  
-\end{enumerate}
-
 \end {document}

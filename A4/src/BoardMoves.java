@@ -1,3 +1,9 @@
+/**
+*  @file BoardMoves.java
+*  @author Shazil Arif
+*  @brief BoardMoves is a sequence of PointT objects
+*  @date
+*/
 import java.util.ArrayList;
 
 @SuppressWarnings("serial")

@@ -1,7 +1,17 @@
+/**
+*  @file Seq2D.java
+*  @author Shazil Arif
+*  @brief BoardView is a module used to provide input output operations to interact with a TwoDotsBoard object
+*  @date March 16th 2020
+*/
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.Scanner;
 
+
+/** 
+* @brief BoardView provides several access program to interact with a TwoDotsBoard object
+*/
 public class BoardView {
 	//source: https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
 	private static final String ANSI_RESET = "\u001B[0m";
@@ -13,7 +23,11 @@ public class BoardView {
 	private static final Dictionary<Color,String> colors = new Hashtable<Color,String>(); 
 	Scanner s;
     
-         
+    
+	/*
+	 * @brief print the contents of a TwoDotsBoard to standard output in a tabular manner
+	 * @param the board to print out
+	 */
 	public void printBoard(TwoDotsBoard board) {
 		//create a mapping between Colors enums and corresponding string value for printing colored text in terminal
 		colors.put(Color.R, ANSI_RED);
@@ -37,7 +51,7 @@ public class BoardView {
 			for(int j = 0; j < board.getNumCol(); j++) {
 				Color out = board.get(new PointT(i,j));
 				String out_line = String.format("   %s  ",out);
-				//out_line = colors.get(out) + out_line + ANSI_RESET;
+				out_line = colors.get(out) + out_line + ANSI_RESET;
 				System.out.print(out_line);
 
 			}
@@ -45,6 +59,11 @@ public class BoardView {
 			
 		}	
 	}
+	
+	/*
+	 * @brief get user input for which game mode to play
+	 * @return the game mode the user wants to play
+	 */
 	public Strategy modePrompt() {
 		s = new Scanner(System.in);
 		printMsg("Enter T for timed Mode or M for moves mode.");
@@ -61,6 +80,11 @@ public class BoardView {
 			return new MovesStrategy();
 	}
 	
+	/*
+	 * @brief get user input for which dots to eliminate on the TwoDotsBoard, sequence of PointT objects
+	 * @details will continuously ask for input until user enters correct format
+	 * @return BoardMoves object containing the dots to eliminate
+	 */
 	public BoardMoves getInput() {
 		s = new Scanner(System.in);
 		String input;
@@ -95,13 +119,25 @@ public class BoardView {
 	}
 	
 	
+	/*
+	 * @brief close the scanner stream
+	 */
 	public void closeStream() {
 		s.close();
 	}
+	
+	/*
+	 * @brief print out a string to the standard output
+	 * @param msg the message to print
+	 */
 	public void printMsg(String msg) { 
 		System.out.println(msg); 
 	}
 	
+	/*
+	 * @brief private helper method to help parse user input. Check if a input string can be converted to integer
+	 * @return the result
+	 */
 	private boolean tryParse(String a) {
 		try {
 			Integer.parseInt(a);
@@ -111,6 +147,12 @@ public class BoardView {
 			return false;
 		}
 	}
+	
+	
+	/*
+	 * @brief private helper method to help parse user input. Check if a input string can be split into to two integer values
+	 * @return the result
+	 */
 	private boolean tryParseString(String a) {
 		try {
 			String[] tmp = a.split(",");

@@ -1,6 +1,16 @@
-import java.util.Timer;
-import java.util.TimerTask;
+/** 
+*  @file TimedStrategy.java
+*  @author Shazil Arif
+*  @brief TimedStrategy is the timed game mode for TwoDots 
+*  @date April 2nd 2020
+*/
 
+import java.util.Timer;
+
+/*
+ * @brief 
+ * @details extends StrategyGameMode to implement a customizable game play 
+ */
 public class TimedStrategy extends StrategyGameMode{
 
 	private final int TARGET = 5;

@@ -24,7 +24,7 @@ public class BoardView {
 	Scanner s;
     
     
-	/*
+	/**
 	 * @brief print the contents of a TwoDotsBoard to standard output in a tabular manner
 	 * @param the board to print out
 	 */
@@ -60,7 +60,7 @@ public class BoardView {
 		}	
 	}
 	
-	/*
+	/**
 	 * @brief get user input for which game mode to play
 	 * @return the game mode the user wants to play
 	 */
@@ -80,7 +80,7 @@ public class BoardView {
 			return new MovesStrategy();
 	}
 	
-	/*
+	/**
 	 * @brief get user input for which dots to eliminate on the TwoDotsBoard, sequence of PointT objects
 	 * @details will continuously ask for input until user enters correct format
 	 * @return BoardMoves object containing the dots to eliminate
@@ -119,14 +119,14 @@ public class BoardView {
 	}
 	
 	
-	/*
+	/**
 	 * @brief close the scanner stream
 	 */
 	public void closeStream() {
 		s.close();
 	}
 	
-	/*
+	/**
 	 * @brief print out a string to the standard output
 	 * @param msg the message to print
 	 */
@@ -134,7 +134,7 @@ public class BoardView {
 		System.out.println(msg); 
 	}
 	
-	/*
+	/**
 	 * @brief private helper method to help parse user input. Check if a input string can be converted to integer
 	 * @return the result
 	 */
@@ -149,16 +149,16 @@ public class BoardView {
 	}
 	
 	
-	/*
+	/**
 	 * @brief private helper method to help parse user input. Check if a input string can be split into to two integer values
 	 * @return the result
 	 */
 	private boolean tryParseString(String a) {
 		try {
 			String[] tmp = a.split(",");
-			String s= tmp[0];
-			String c = tmp[1];
-			return true;
+			String one = tmp[0];
+			String two = tmp[1];
+			return tryParse(one) && tryParse(two);			
 		}
 		catch(RuntimeException e) {
 			return false;

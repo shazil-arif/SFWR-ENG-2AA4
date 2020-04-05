@@ -12,8 +12,8 @@ class MovesStrategy extends StrategyGameMode{
 
 	@Override
 	void checkWin() {
-		if(moves.size()==TARGET) {
-			c.printMsg(String.format("You won by eliminating %d dots in one move!", TARGET));
+		if(moves.size()>=TARGET) {
+			c.printMsg(String.format("You won by eliminating %d dots in one move!", moves.size()));
 			c.closeViewStream();
 			System.exit(0);
 			
@@ -25,7 +25,7 @@ class MovesStrategy extends StrategyGameMode{
 	@Override
 	void introMsg() {
 		c.printMsg(String.format("This is the mode with %d moves",move_count));
-		c.printMsg(String.format("You win by eliminating %d dots in one move",TARGET));
+		c.printMsg(String.format("You win by eliminating %d or more dots in one move",TARGET));
 		c.printMsg("Enter a sequence of x,y pairs seperate by spaces");
 		c.printMsg("Example: 1,2 4,5 5,5");
 	}

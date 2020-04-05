@@ -7,7 +7,7 @@
 
 import java.util.Timer;
 
-/*
+/**
  * @brief 
  * @details extends StrategyGameMode to implement a customizable game play 
  */

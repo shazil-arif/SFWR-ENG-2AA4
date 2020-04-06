@@ -1,8 +1,8 @@
 /** 
-*  @file TestDemT.java
+*  @file TestTwoDotsBoard.java
 *  @author Shazil Arif
-*  @brief TestDemT is used to test module DemT
-*  @date March 16th 2020
+*  @brief TestTwoDotsBoard is used to test module TwoDotsBoard
+*  @date April 6th
 */
 
 import org.junit.*;
@@ -24,7 +24,7 @@ public class TestTwoDotsBoard {
 		s.add(new ArrayList<Color>(Arrays.asList(Color.B,Color.O,Color.B,Color.B,Color.O,Color.B)));
 		s.add(new ArrayList<Color>(Arrays.asList(Color.O,Color.G,Color.O,Color.B,Color.B,Color.G)));
 		s.add(new ArrayList<Color>(Arrays.asList(Color.P,Color.B,Color.P,Color.O,Color.G,Color.O)));
-		s.add(new ArrayList<Color>(Arrays.asList(Color.R,Color.P,Color.B,Color.R,Color.P,Color.R)));
+		s.add(new ArrayList<Color>(Arrays.asList(Color.R,Color.P,Color.P,Color.P,Color.P,Color.R)));
 		b = new TwoDotsBoard(6,6);
 		for(int i = 0; i < s.size(); i++) {
 			for(int j = 0; j < s.get(i).size(); j++) {
@@ -101,6 +101,33 @@ public class TestTwoDotsBoard {
 		moves.add(new PointT(1,0));
 		moves.add(new PointT(2,0));
 		assertTrue(! b.validateMoves(moves));	
+	}
+	
+	@Test
+	public void testUpdateBoard() {
+		/*
+		 * testing the updateBoard() directly is not possible because the board sets new random values to certain cells
+		 * the approach here to test is to eliminate a row of dots and then check if the values on top of those dots have sunk down
+		 * notice in the startUp() method there is a row of P/Purple colored dots that we can test with
+		 * if we remove those dots the colors B,P,O,G will sink down and take there place 
+		 */
+		
+		BoardMoves test = new BoardMoves();
+		test.add(new PointT(5,1)); //should update to B
+		test.add(new PointT(5,2)); //updates to P
+		test.add(new PointT(5,3)); //updates to O
+		test.add(new PointT(5,4)); //updates to G
+		
+		ArrayList<Color> c = new ArrayList<Color>();
+		c.add(Color.B);
+		c.add(Color.P);
+		c.add(Color.O);
+		c.add(Color.G);
+		
+		b.updateBoard(test);
+		
+		for (int i = 0; i < test.size(); i++) 
+			assertTrue(b.get(test.get(i)) == c.get(i));
 	}
 	
 }

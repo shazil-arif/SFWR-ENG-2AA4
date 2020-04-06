@@ -22,6 +22,10 @@ public class TimedStrategy extends StrategyGameMode{
 	
 	
 	@Override
+	/*
+	 * @brief check winning condition for gaming
+	 * @details if 5 or more dots eliminated in one move then the game exits with status code 0
+	 */
 	void checkWin() {
 		if(moves.size()==TARGET) {
 			c.printMsg(String.format("You won by eliminating %d dots in one move!", TARGET));
@@ -31,17 +35,28 @@ public class TimedStrategy extends StrategyGameMode{
 	}
 
 	@Override
+	/*
+	 * @brief check if game can still be continued
+	 * @details this always returns true, when the timer runs out the game will end anyways
+	 * @return true
+	 */
 	boolean canContinue() {
 		return true;
 	}
 
 	@Override
+	/*
+	 * @brief update view to indicate time elapsed since start of game
+	 */
 	void updateData() {
 		long now = (System.nanoTime() - start)/BILLION;
 		c.printMsg(String.format("Time elapsed: %d seconds",now));
 	}
 
 	@Override
+	/*
+	 * @brief display an intro message and brief information on how to play the game mode
+	 */
 	void introMsg() {
 		c.printMsg(String.format("This is the mode with %d seconds",TIME));
 		c.printMsg(String.format("You win by eliminating %d dots in one move",TARGET));
@@ -50,6 +65,9 @@ public class TimedStrategy extends StrategyGameMode{
 	}
 
 	@Override
+	/*
+	 * @brief set up global variables at beginning of game
+	 */
 	void startUp(TwoDotsBoard b) {
 		v = new BoardView();
 		c = new BoardController(b,v);

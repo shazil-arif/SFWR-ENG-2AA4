@@ -51,7 +51,7 @@ public class BoardView {
 			for(int j = 0; j < board.getNumCol(); j++) {
 				Color out = board.get(new PointT(i,j));
 				String out_line = String.format("   %s  ",out);
-				out_line = colors.get(out) + out_line + ANSI_RESET;
+				//out_line = colors.get(out) + out_line + ANSI_RESET;
 				System.out.print(out_line);
 
 			}

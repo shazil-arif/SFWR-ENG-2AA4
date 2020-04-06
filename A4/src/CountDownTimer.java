@@ -11,25 +11,31 @@ import java.util.TimerTask;
 
 /*  @brief GameEnd contains routines to create a count down timer and execute a function when this timer is out of time 
  */
-public class GameEnd{
+public class CountDownTimer{
 	//special thanks to: http://www.iitk.ac.in/esc101/05Aug/tutorial/essential/threads/timer.html
-	 Timer timer;
-	 End task;
+	 private Timer timer;
+	 private End task;
+	 private boolean cancelled;
 	 
 	 /*
 	  * @brief constructor for GameEnd
 	  * @param time the time in milli seconds to set for the timer
 	  */
-	 public GameEnd(int time) {
+	 public CountDownTimer(int time) {
 		 timer = new Timer();
 		 task = new End();
+		 cancelled = false;
 		 timer.schedule(new End(), time*1000);	
 	 }		
+	 
+	 public boolean isCancelled() {
+		 return !this.cancelled;
+	 }
 	 
 	 /*
 	  * @brief class End extends TimerTask and provides a method to cancel the timer
 	  */
-	class End extends TimerTask {
+	private class End extends TimerTask {
 		
 		/*
 		 * @brief this method is executed when the timer's allocated time has run out
@@ -37,8 +43,9 @@ public class GameEnd{
 		 */
 		public void run() {
 			timer.cancel();
-			System.out.println("Times up!");
-			System.exit(0);
+			cancelled = true;
+			//System.out.println("Times up!");
+			//System.exit(0);
 		}
 	}
 }

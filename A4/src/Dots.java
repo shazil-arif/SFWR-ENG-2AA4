@@ -17,6 +17,8 @@ public class Dots {
 		c.printMsg("You can choose between the timed mode or the mode that lasts 30 moves");
 		Strategy mode = c.modePrompt();
 		mode.play(b);
+		c.printMsg("The game ended");
 	}
+	
 
 }

@@ -29,6 +29,7 @@ CLASSES = \
 	src/StrategyGameMode.java\
 	src/TestPointT.java\
 	src/TestTwoDotsBoard.java\
+	src/CountDownTimer.java\
 	src/AllTests.java
 
 MAIN = AllTests

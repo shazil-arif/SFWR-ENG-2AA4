@@ -15,9 +15,8 @@ public class TimedStrategy extends StrategyGameMode{
 
 	private final int TARGET = 5;
 	private final int TIME = 60; 
-	private static final long BILLION = 1000000000;
-	GameEnd g;
-	Timer timer;
+	private final long BILLION = 1000000000;
+	CountDownTimer timer;
 	private long start;
 	
 	
@@ -41,7 +40,7 @@ public class TimedStrategy extends StrategyGameMode{
 	 * @return true
 	 */
 	boolean canContinue() {
-		return true;
+		return timer.isCancelled();
 	}
 
 	@Override
@@ -72,6 +71,6 @@ public class TimedStrategy extends StrategyGameMode{
 		v = new BoardView();
 		c = new BoardController(b,v);
 		start = System.nanoTime();
-		g = new GameEnd(TIME);
+		timer = new CountDownTimer(TIME);
 	}
 }

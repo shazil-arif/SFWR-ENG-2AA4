@@ -13,10 +13,12 @@ import java.util.Arrays;
 public class TestTwoDotsBoard {
 	
 	TwoDotsBoard b;
+	ArrayList<ArrayList<Color>> s;
+
 	
 	@Before
 	public void SetUp() {
-		ArrayList<ArrayList<Color>> s = new ArrayList<ArrayList<Color>>();
+		s = new ArrayList<ArrayList<Color>>();
 		
 		//note that there is a valid path at the top left with the 3 red dots
 		s.add(new ArrayList<Color>(Arrays.asList(Color.R,Color.G,Color.R,Color.G,Color.R,Color.B)));
@@ -51,6 +53,7 @@ public class TestTwoDotsBoard {
 		new TwoDotsBoard(1,-1);
 	}
 	
+	//test getter and setter methods
 	@Test
 	public void testGet() {
 		assertTrue(b.get(new PointT(0,0)) == Color.R);
@@ -61,6 +64,18 @@ public class TestTwoDotsBoard {
 		assertTrue(b.get(new PointT(0,5)) == Color.G);
 	}
 	
+	@Test
+	public void testgetNumCol() {
+		assertTrue(b.getNumCol()== s.get(0).size());
+	}
+	
+	@Test 
+	public void testgetNumRow() { 
+		assertTrue(b.getNumRow() == s.size());
+	}
+	
+	
+	//test validate moves with different inputs
 	@Test
 	public void testValidateMovesForSequenceSizeLessThanOne() {
 		TwoDotsBoard board = new TwoDotsBoard(6,6);
@@ -102,7 +117,7 @@ public class TestTwoDotsBoard {
 		moves.add(new PointT(1,3));
 		moves.add(new PointT(2,3));
 		moves.add(new PointT(3,3));
-		assertTrue(! b.validateMoves(moves));	
+		assertTrue(!b.validateMoves(moves));	
 	}
 	@Test
 	public void testValidateMovesWithInvalidMoves() {
@@ -110,9 +125,10 @@ public class TestTwoDotsBoard {
 		moves.add(new PointT(0,0));
 		moves.add(new PointT(1,0));
 		moves.add(new PointT(2,0));
-		assertTrue(! b.validateMoves(moves));	
+		assertTrue(!b.validateMoves(moves));	
 	}
 	
+	//test update board
 	@Test
 	public void testUpdateBoard() {
 		/*

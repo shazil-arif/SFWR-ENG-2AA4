@@ -35,7 +35,7 @@ abstract public class StrategyGameMode implements Strategy {
 	}
 	
 	/*
-	 * @brief abstract method to be overriden. model a customizable startup process at the beginning of each game mode
+	 * @brief abstract method to be overridden. model a customizable startup process at the beginning of each game mode
      * @param b a TwoDotsBoard
 	 */
 	abstract void startUp(TwoDotsBoard b);

@@ -52,6 +52,16 @@ public class TestTwoDotsBoard {
 	}
 	
 	@Test
+	public void testGet() {
+		assertTrue(b.get(new PointT(0,0)) == Color.R);
+	}
+	@Test
+	public void testSet() {
+		b.set(new PointT(0,5),Color.G);
+		assertTrue(b.get(new PointT(0,5)) == Color.G);
+	}
+	
+	@Test
 	public void testValidateMovesForSequenceSizeLessThanOne() {
 		TwoDotsBoard board = new TwoDotsBoard(6,6);
 		BoardMoves moves = new BoardMoves();

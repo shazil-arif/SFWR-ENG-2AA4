@@ -5,7 +5,7 @@
 *  @date April 1st 2020
 */
 public class Dots {
-	/*
+	/**
 	 * @brief main code to instantiate a controller and start a game mode strategy
 	 * @details this method should be run to play the game using the given makefile with rule 'make dots'
 	 */

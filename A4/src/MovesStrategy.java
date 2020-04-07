@@ -28,18 +28,14 @@ class MovesStrategy extends StrategyGameMode{
 	@Override
 	/*
 	 * @brief check winning conditions for moves strategy game mode
-	 * @details if 5 or more dots eliminated in one move the game exits with status code 0
+	 * @return if 5 or more dots eliminated in one move 
 	 */
 	boolean checkWin() {
-		if(moves.size()>=TARGET) {
-			c.printMsg(String.format("You won by eliminating %d dots in one move!", moves.size()));
-			c.closeViewStream();
-			return true;
-			
-		}
-		else
+		if(moves.size()>=TARGET) return true;
+		else {
 			move_count--;
 			return false;
+		}
 	}
 
 	@Override
@@ -75,6 +71,14 @@ class MovesStrategy extends StrategyGameMode{
 		c = new BoardController(b,v);
 		move_count = 15;
 		TARGET = 5;
+	}
+	
+	@Override
+	/**
+	 * @brief indicate to the user they have won and the reason 
+	 */
+	void endMsg() {
+		c.printMsg(String.format("You won by eliminating %d dots in one move!", TARGET));
 	}
 
 }

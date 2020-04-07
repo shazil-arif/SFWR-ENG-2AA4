@@ -23,6 +23,7 @@ abstract public class StrategyGameMode implements Strategy {
 	 * @param the TwoDotsBoard to play the game on
 	 */
 	public void play(TwoDotsBoard b) {
+		//define a generic process for playing a game of two dots
 		startUp(b);
 		introMsg();
 		while(canContinue()) {
@@ -30,7 +31,7 @@ abstract public class StrategyGameMode implements Strategy {
 			moves = c.getInput();
 			c.updateBoard(moves);
 			if(checkWin()) {
-				c.printMsg(String.format("You won by eliminating %d dots in one move!", TARGET));
+				endMsg();
 				c.closeViewStream();
 				return;
 			}
@@ -67,6 +68,12 @@ abstract public class StrategyGameMode implements Strategy {
 	 * by child classes
 	 */
 	abstract void introMsg();
+	
+	
+	/**
+	 * @brief generic method to tell the user the reason they won a game after the game has ended
+	 */
+	abstract void endMsg();
 
 }
 

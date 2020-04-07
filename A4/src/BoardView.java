@@ -29,7 +29,7 @@ public class BoardView {
 	 * @param the board to print out
 	 */
 	public void printBoard(TwoDotsBoard board) {
-		//create a mapping between Colors enums and corresponding string value for printing colored text in terminal
+		//create a mapping between Colors enum and corresponding string value for printing colored text in terminal
 		colors.put(Color.R, ANSI_RED);
 		colors.put(Color.G,ANSI_GREEN);
 		colors.put(Color.B,ANSI_BLUE);
@@ -66,18 +66,16 @@ public class BoardView {
 	 */
 	public Strategy modePrompt() {
 		s = new Scanner(System.in);
-		printMsg("Enter T for timed Mode or M for moves mode.");
+		printMsg("Enter T or t for timed Mode or M or m for moves mode");
 		String input = s.nextLine();
 		input = input.toUpperCase();
 		while(!(input.equals("T") || input.equals("M"))) {
-			printMsg("Only T and M are valid game modes");
+			printMsg("Only T or t and M or m are valid game modes");
 			input = s.nextLine();
 			input = input.toUpperCase();
 		} 
-		if(input.equals("T"))
-			return new TimedStrategy();
-		else
-			return new MovesStrategy();
+		if(input.equals("T")) return new TimedStrategy();
+		else return new MovesStrategy();
 	}
 	
 	/**

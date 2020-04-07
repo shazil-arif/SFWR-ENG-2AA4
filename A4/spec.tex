@@ -646,13 +646,15 @@ play & TwoDotsBoard & & \\
 \hline
 startUp & TwoDotsBoard & & \\
 \hline
-checkWin & & & \\
+checkWin & & $\mathbb{B}$ & \\
 \hline
 canContinue &  & $\mathbb{B}$ & \\
 \hline
 updateData &  & & \\
 \hline
 introMsg & & & \\
+\hline
+endMsg & & & \\
 \hline
 \end{tabular}
 
@@ -680,7 +682,7 @@ introMsg & & & \\
 \begin{itemize}
 \item c.updateView()
 \item c.updateBoard(c.getInput())
-\item checkWin()
+\item if checkWin() then 
 \item updateData()
 \item if canContinue() then repeat these steps labeled with $*$
 \end{itemize} 
@@ -718,13 +720,15 @@ play & TwoDotsBoard & & \\
 \hline
 startUp & TwoDotsBoard & & \\
 \hline
-checkWin & & & \\
+checkWin & & $\mathbb{B}$ & \\
 \hline
 canContinue &  & $\mathbb{B}$ & \\
 \hline
 updateData &  & & \\
 \hline
 introMsg & & & \\
+\hline
+endMsg & & & \\
 \hline
 \end{tabular}
 
@@ -751,8 +755,8 @@ introMsg & & & \\
 
 \noindent checkWin()
 \begin{itemize}
-\item transition: if $|moves| >= TARGET$ then c.exit()\\
- else $moves := moves - 1$
+\item transition: if $|moves| < TARGET$ then $moves := moves - 1$
+ \item outupt: $out :=$ if $|moves| >= TARGET$ then $out := true$ else $out := false$
 \end{itemize}
 
 \noindent canContinue()
@@ -763,14 +767,136 @@ introMsg & & & \\
 
 \noindent updateData()
 \begin{itemize}
-\item transition: if $(moveCount) = 0$ then c.exit() \\
-else $c := $ using c.printMsg(), modify the screen to print out how many moves are left
+\item transition: if $moveCount = 0$ then c.exit() \\
+else $c := $ using c.printMsg(), modify the screen to print out how many moves are left, i.e print the value of $moveCount$
 \end{itemize}
 
 
-\noindent introMsg(b)
+\noindent introMsg()
 \begin{itemize}
 \item transition: $c :=$ using c.printMsg(), modify the screen to print a message to state the rules. This includes instruction for how to enter input, how to win and how many total moves the user has
+\end{itemize}
+
+\noindent endMsg()\\
+\noindent transition: $c :=$ using c.printMsg(), modify the screen by printing a message telling the user the game is over
+
+
+\newpage
+
+\section* {CountDownTimer Module}
+
+\subsection* {Module}
+
+\noindent {CountDownTimer}
+
+\subsection*{Uses}
+None
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Constants}
+
+None
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{6cm} |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+newTimer & $\mathbb{Z}$ & & IllegalArgumentException \\
+\hline
+isCancelled &  & $\mathbb{B}$ & \\
+\hline
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {Environment variables}
+\noindent $t$ : Represents the system clock\\
+
+
+
+\subsubsection* {State variables}
+\noindent $cancelled$ : $\mathbb{B}$\\
+\noindent $multiplier$ : $\mathbb{Z}$\\
+
+
+\subsubsection*{State invariant}
+\noindent None
+
+\subsubsection* {Access Routine Semantics}
+
+\noindent newTimer(time : $\mathbb{Z}$)
+\begin{itemize}
+\item transition: $cancelled := false$\\
+$multiplier := 1000$\\
+$t := $ Use the system clock to start tracking the current time. Once time*multiplier amount of time has passed then the transition $cancelled := true$ happens\\
+\item exception: $exc := $ time $< 1 \implies$ IllegalArgumentException
+\end{itemize}
+
+\noindent isCancelled()
+\begin{itemize}
+\item output: $out := \lnot cancelled$
+\end{itemize}
+
+\newpage
+
+\section* {TimedStrategy Module}
+
+\subsection* {Template Module}
+
+\noindent {TimedStrategy}
+
+\subsection*{Uses}
+None
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Constants}
+
+None
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{6cm} |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+newTimer & $\mathbb{Z}$ & & IllegalArgumentException \\
+\hline
+isCancelled &  & $\mathbb{B}$ & \\
+\hline
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {Environment variables}
+\noindent $t$ : Represents the system clock\\
+
+
+
+\subsubsection* {State variables}
+\noindent $cancelled$ : $\mathbb{B}$\\
+\noindent $multiplier$ : $\mathbb{Z}$\\
+
+
+\subsubsection*{State invariant}
+\noindent None
+
+\subsubsection* {Access Routine Semantics}
+
+\noindent newTimer(time : $\mathbb{Z}$)
+\begin{itemize}
+\item transition: $cancelled := false$\\
+$multiplier := 1000$\\
+$t := $ Use the system clock to start tracking the current time. Once time*multiplier amount of time has passed then the transition $cancelled := true$ happens\\
+\item exception: $exc := $ time $< 1 \implies$ IllegalArgumentException
+\end{itemize}
+
+\noindent isCancelled()
+\begin{itemize}
+\item output: $out := \lnot cancelled$
 \end{itemize}
 
 \newpage

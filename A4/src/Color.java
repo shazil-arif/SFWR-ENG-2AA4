@@ -7,11 +7,16 @@
 
 import java.util.Random;
 
+
+/**
+ * @brief Color is enumeration for different colors on a two dots game board
+ *
+ */
 public enum Color{
     R,G,B,P,Y;
 	
-	/*
-	 * @brief return a random color R,G,B,P or O
+	/**
+	 * @brief return a random color R,G,B,P or Y
 	 * @return a random Color
 	 */
 	public static Color randomColor(){

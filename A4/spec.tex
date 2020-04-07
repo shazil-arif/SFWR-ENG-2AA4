@@ -56,7 +56,7 @@
 \begin {document}
 
 \maketitle
-This Module Interface Specification (MIS) document contains modules, types and
+This Module Interface Specification (MIS) document contains interfaces,ADT's and
 methods for implementing a game of Two Dots
 
 \newpage
@@ -352,7 +352,7 @@ updateBoard & BoardMoves &  & \\
 \noindent updateBoard(b): 
 \begin{itemize}
 \item \textcolor{blue}{output : out $ := $ None}
-\item \textcolor{blue}{transition : s $ := p\forall (p : PointT | p \in b  \forall(i : \mathbb{N} | i \in [p.row()..1]) )$ }
+\item \textcolor{blue}{transition : s $ := \forall (p : PointT | p \in b  \forall(i : \mathbb{N} | i \in [p.row()..1]) )$ }
 \item exception: None
 \end{itemize}
 
@@ -373,7 +373,7 @@ updateBoard & BoardMoves &  & \\
 
 
 \noindent validPath: $\mbox{BoardMoves} \rightarrow \mathbb{B}$\\
-\noindent \textcolor{blue}{validPath($b$) $\equiv \forall(i : \mathbb{N} | i \in [0..|b|-2] : isAdjacent(b,i,i+1) \land sameColor(b,i,i+1)  ) \land $}\\
+\noindent \textcolor{blue}{validPath($b$) $\equiv \forall(i : \mathbb{N} | i \in [0..|b|-2] : isAdjacent(b,i,i+1) \land sameColor(b,i,i+1)) $}\\
  
 \noindent sameColor : BoardMoves $\times \mathbb{N} \times \mathbb{N} \rightarrow \mathbb{B} $\\
 \noindent sameColor($b,i,j$) $\equiv s[b[i].row()][b[i].col()] = s[b[j].row()][b[j].col()]$\\
@@ -396,6 +396,10 @@ $\lor$  $b[i].row() = b[j].row() + 1 \land b[i].col() = b[j].col()$ }\\
 \subsection* {Syntax}
 
 \subsubsection* {Exported Constants}
+
+None
+
+\subsubsection* {Exported types}
 
 None
 
@@ -623,7 +627,7 @@ getInput &  & BoardMoves & \\
 
 \noindent {StrategyGameMode}
 
-\subsection{Uses}
+\subsection*{Uses}
 Strategy, BoardView, BoardController, BoardMoves, TwoDotsBoard
 
 \subsection* {Syntax}
@@ -656,9 +660,9 @@ introMsg & & & \\
 
 
 \subsubsection* {State variables}
-\noindent $c$ : BoardController
-\noindent $v$ : BoardView
-\noindent $moves$ : BoardMoves
+\noindent $c$ : BoardController\\
+\noindent $v$ : BoardView\\
+\noindent $moves$ : BoardMoves\\
 
 
 \subsubsection*{State invariant}
@@ -668,7 +672,19 @@ introMsg & & & \\
 
 \noindent play(b)
 \begin{itemize}
-\item transition
+\item transition: 
+\begin{itemize}
+\item startUp(b)
+\item introMsg()
+\item if canContinue() then:
+\begin{itemize}
+\item c.updateView()
+\item c.updateBoard(c.getInput())
+\item checkWin()
+\item updateData()
+\item if canContinue() then repeat these steps labeled with $*$
+\end{itemize} 
+\end{itemize}
 \end{itemize}
 
 \subsection* {Consideration}
@@ -683,7 +699,7 @@ introMsg & & & \\
 
 \noindent {MovesStrategy}
 
-\subsection{Uses}
+\subsection*{Uses}
 StrategyGameMode, BoardView, BoardController, BoardMoves, TwoDotsBoard
 
 \subsection* {Syntax}
@@ -715,12 +731,11 @@ introMsg & & & \\
 \subsection* {Semantics}
 
 \subsubsection* {Environment variables}
-\noindent $sys$ : BoardController\\
 
 
 \subsubsection* {State variables}
 \noindent $moveCount$ : $\mathbb{N}$\\
-\noindent $target$ : $\mathbb{N}$\\
+\noindent $TARGET$ : $\mathbb{N}$\\
 
 
 \subsubsection*{State invariant}
@@ -728,10 +743,36 @@ introMsg & & & \\
 
 \subsubsection* {Access Routine Semantics}
 
-\noindent play(b)
+\noindent startUp(b)
 \begin{itemize}
-\item transition
+\item transition: $v,c,moveCount,TARGET :=$  new BoardView(), new BoardController($b,v$), 15, 5 
 \end{itemize}
+
+
+\noindent checkWin()
+\begin{itemize}
+\item transition: if $|moves| >= TARGET$ then c.exit() else $moves := moves - 1$
+\end{itemize}
+
+\noindent canContinue()
+\begin{itemize}
+\item output: $out := moveCount > 0$
+\end{itemize}
+
+
+\noindent updateData()
+\begin{itemize}
+\item transition: if $(moveCount) = 0$ then c.exit() else $c := $ modify the screen to update the user of how many moves are left using c.printMsg()
+\end{itemize}
+
+
+\noindent introMsg(b)
+\begin{itemize}
+\item transition: $c :=$ use the printMsg() method defined for state variable c to modify the screen to print an interact intro message to the game and state the rules(including instruction for how to enter input and how to win)
+\end{itemize}
+
+
+
 
 \newpage
 

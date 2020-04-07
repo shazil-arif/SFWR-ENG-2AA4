@@ -34,7 +34,7 @@ public class BoardView {
 		colors.put(Color.G,ANSI_GREEN);
 		colors.put(Color.B,ANSI_BLUE);
 		colors.put(Color.P,ANSI_PURPLE);
-		colors.put(Color.O,ANSI_YELLOW); //using yellow for orange for now
+		colors.put(Color.Y,ANSI_YELLOW); //using yellow for orange for now
 
 		
 		System.out.print(" | 0 |");

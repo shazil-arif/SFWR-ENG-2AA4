@@ -23,9 +23,9 @@ public class TestTwoDotsBoard {
 		//note that there is a valid path at the top left with the 3 red dots
 		s.add(new ArrayList<Color>(Arrays.asList(Color.R,Color.G,Color.R,Color.G,Color.R,Color.B)));
 		s.add(new ArrayList<Color>(Arrays.asList(Color.R,Color.R,Color.G,Color.B,Color.G,Color.P)));
-		s.add(new ArrayList<Color>(Arrays.asList(Color.B,Color.O,Color.B,Color.B,Color.O,Color.B)));
-		s.add(new ArrayList<Color>(Arrays.asList(Color.O,Color.G,Color.O,Color.B,Color.B,Color.G)));
-		s.add(new ArrayList<Color>(Arrays.asList(Color.P,Color.B,Color.P,Color.O,Color.G,Color.O)));
+		s.add(new ArrayList<Color>(Arrays.asList(Color.B,Color.Y,Color.B,Color.B,Color.Y,Color.B)));
+		s.add(new ArrayList<Color>(Arrays.asList(Color.Y,Color.G,Color.Y,Color.B,Color.B,Color.G)));
+		s.add(new ArrayList<Color>(Arrays.asList(Color.P,Color.B,Color.P,Color.Y,Color.G,Color.Y)));
 		s.add(new ArrayList<Color>(Arrays.asList(Color.R,Color.P,Color.P,Color.P,Color.P,Color.R)));
 		b = new TwoDotsBoard(6,6);
 		for(int i = 0; i < s.size(); i++) {
@@ -147,7 +147,7 @@ public class TestTwoDotsBoard {
 		ArrayList<Color> c = new ArrayList<Color>();
 		c.add(Color.B);
 		c.add(Color.P);
-		c.add(Color.O);
+		c.add(Color.Y);
 		c.add(Color.G);
 		
 		b.updateBoard(test);

@@ -9,7 +9,9 @@ import java.util.Timer;
 
 /**
  * @brief 
- * @details extends StrategyGameMode to implement a customizable game play 
+ * @details extends StrategyGameMode to implement a customizable game play. Note that in this game mode the user has a set amount of time.
+ * if the time runs out while the user is typing in a set of dots to eliminate, they are allowed to finish inputting the set of dots to eliminate
+ * if this input results in a win, the user wins otherwise the game ends 
  */
 public class TimedStrategy extends StrategyGameMode{
 
@@ -35,9 +37,9 @@ public class TimedStrategy extends StrategyGameMode{
 
 	@Override
 	/*
-	 * @brief check if game can still be continued
-	 * @details this always returns true, when the timer runs out the game will end anyways
-	 * @return true
+	 * @brief check if game can still be continued. 
+	 * @details checks if timer has been cancelled or not
+	 * @return if the timer has been cancelled or not
 	 */
 	boolean canContinue() {
 		return timer.isCancelled();

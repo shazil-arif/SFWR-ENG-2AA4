@@ -8,7 +8,7 @@
 import java.util.Random;
 
 public enum Color{
-    R,G,B,P,O;
+    R,G,B,P,Y;
 	
 	/*
 	 * @brief return a random color R,G,B,P or O

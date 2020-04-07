@@ -14,7 +14,7 @@
 class MovesStrategy extends StrategyGameMode{
 
 	private int move_count;
-	private final int TARGET = 5;
+	private int TARGET;
 	
 	@Override
 	/*
@@ -73,6 +73,7 @@ class MovesStrategy extends StrategyGameMode{
 		v = new BoardView();
 		c = new BoardController(b,v);
 		move_count = 15;
+		TARGET = 5;
 	}
 
 }

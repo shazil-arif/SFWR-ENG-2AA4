@@ -648,7 +648,7 @@ startUp & TwoDotsBoard & & \\
 \hline
 checkWin & & & \\
 \hline
-canContinue &  & & \\
+canContinue &  & $\mathbb{B}$ & \\
 \hline
 updateData &  & & \\
 \hline
@@ -720,7 +720,7 @@ startUp & TwoDotsBoard & & \\
 \hline
 checkWin & & & \\
 \hline
-canContinue &  & & \\
+canContinue &  & $\mathbb{B}$ & \\
 \hline
 updateData &  & & \\
 \hline
@@ -751,7 +751,8 @@ introMsg & & & \\
 
 \noindent checkWin()
 \begin{itemize}
-\item transition: if $|moves| >= TARGET$ then c.exit() else $moves := moves - 1$
+\item transition: if $|moves| >= TARGET$ then c.exit()\\
+ else $moves := moves - 1$
 \end{itemize}
 
 \noindent canContinue()
@@ -762,22 +763,17 @@ introMsg & & & \\
 
 \noindent updateData()
 \begin{itemize}
-\item transition: if $(moveCount) = 0$ then c.exit() else $c := $ modify the screen to update the user of how many moves are left using c.printMsg()
+\item transition: if $(moveCount) = 0$ then c.exit() \\
+else $c := $ using c.printMsg(), modify the screen to print out how many moves are left
 \end{itemize}
 
 
 \noindent introMsg(b)
 \begin{itemize}
-\item transition: $c :=$ use the printMsg() method defined for state variable c to modify the screen to print an interact intro message to the game and state the rules(including instruction for how to enter input and how to win)
+\item transition: $c :=$ using c.printMsg(), modify the screen to print a message to state the rules. This includes instruction for how to enter input, how to win and how many total moves the user has
 \end{itemize}
 
-
-
-
 \newpage
-
-
-
 
 \section* {DEM Module}
 

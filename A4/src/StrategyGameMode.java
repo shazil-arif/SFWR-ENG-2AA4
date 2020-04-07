@@ -17,7 +17,7 @@ abstract public class StrategyGameMode implements Strategy {
 	protected BoardController c;
 	protected BoardMoves moves;
 	
-	/*
+	/**
 	 * @brief implements the play method in the Strategy interface. represents a generic process for playing different modes with 
 	 * the help of abstract template methods
 	 * @param the TwoDotsBoard to play the game on
@@ -29,34 +29,40 @@ abstract public class StrategyGameMode implements Strategy {
 			c.updateView();
 			moves = c.getInput();
 			c.updateBoard(moves);
-			checkWin();
+			if(checkWin()) {
+				c.printMsg(String.format("You won by eliminating %d dots in one move!", TARGET));
+				c.closeViewStream();
+				return;
+			}
 			updateData();
 		}
 	}
 	
-	/*
+	/**
 	 * @brief abstract method to be overridden. model a customizable startup process at the beginning of each game mode
      * @param b a TwoDotsBoard
 	 */
 	abstract void startUp(TwoDotsBoard b);
 	
-	/*
+	/**
 	 * @brief generic method to check winning condition. customizable by child class/each differet game mode has its own conditions
 	 */
-	abstract void checkWin();
+	abstract boolean checkWin();
 	
-	/*
+	/**
 	 * @brief generic template method to check if the game can be continued based on some constraints
+	 * @return whether the game can still be continued
 	 */
 	abstract boolean canContinue();
 	
-	/*
+	/**
 	 * @brief generic template method to update/output some data/info about the current game to a user. examples may include but not limited to
 	 * score, moves left, time left, number of dots eliminated for a specific color etc. Again a customizable method 
+	 * 
 	 */
 	abstract void updateData();
 	
-	/*
+	/**
 	 * @brief generic template method to give the user a brief intro to the current game mode. customizable as per game mode and can be overriden
 	 * by child classes
 	 */

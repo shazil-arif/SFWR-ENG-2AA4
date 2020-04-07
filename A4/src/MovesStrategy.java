@@ -30,15 +30,16 @@ class MovesStrategy extends StrategyGameMode{
 	 * @brief check winning conditions for moves strategy game mode
 	 * @details if 5 or more dots eliminated in one move the game exits with status code 0
 	 */
-	void checkWin() {
+	boolean checkWin() {
 		if(moves.size()>=TARGET) {
 			c.printMsg(String.format("You won by eliminating %d dots in one move!", moves.size()));
 			c.closeViewStream();
-			System.exit(0);
+			return true;
 			
 		}
 		else
 			move_count--;
+			return false;
 	}
 
 	@Override

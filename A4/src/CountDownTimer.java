@@ -13,31 +13,33 @@ import java.util.TimerTask;
  */
 public class CountDownTimer{
 	//special thanks to: http://www.iitk.ac.in/esc101/05Aug/tutorial/essential/threads/timer.html
-	 private Timer timer;
-	 private End task;
-	 private boolean cancelled;
+	 private static Timer timer;
+	 private static boolean cancelled;
 	 
-	 /*
-	  * @brief constructor for GameEnd
+	 /**
+	  * @brief create a new Timer
 	  * @param time the time in milli seconds to set for the timer
 	  */
-	 public CountDownTimer(int time) {
+	 public static void newTimer(int time) {
 		 timer = new Timer();
-		 task = new End();
 		 cancelled = false;
 		 timer.schedule(new End(), time*1000);	
 	 }		
 	 
-	 public boolean isCancelled() {
-		 return !this.cancelled;
+	 /**
+	  * @brief check if the timer has been cancelled or not
+	  * @return whether the timer has ended or not
+	  */
+	 public static boolean isCancelled() {
+		 return !cancelled;
 	 }
 	 
-	 /*
+	 /**
 	  * @brief class End extends TimerTask and provides a method to cancel the timer
 	  */
-	private class End extends TimerTask {
+	public static class End extends TimerTask {
 		
-		/*
+		/**
 		 * @brief this method is executed when the timer's allocated time has run out
 		 * @details exists the system with status code 0 once the timer cancels	
 		 */

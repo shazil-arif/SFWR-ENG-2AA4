@@ -27,12 +27,9 @@ public class TimedStrategy extends StrategyGameMode{
 	 * @brief check winning condition for gaming
 	 * @details if 5 or more dots eliminated in one move then the game exits with status code 0
 	 */
-	void checkWin() {
-		if(moves.size()==TARGET) {
-			c.printMsg(String.format("You won by eliminating %d dots in one move!", TARGET));
-			c.closeViewStream();
-			System.exit(0);
-		}
+	boolean checkWin() {
+		if(moves.size()==TARGET) return true;
+		return false;
 	}
 
 	@Override
@@ -42,7 +39,7 @@ public class TimedStrategy extends StrategyGameMode{
 	 * @return if the timer has been cancelled or not
 	 */
 	boolean canContinue() {
-		return timer.isCancelled();
+		return CountDownTimer.isCancelled();
 	}
 
 	@Override
@@ -73,6 +70,6 @@ public class TimedStrategy extends StrategyGameMode{
 		v = new BoardView();
 		c = new BoardController(b,v);
 		start = System.nanoTime();
-		timer = new CountDownTimer(TIME);
+		CountDownTimer.newTimer(TIME);
 	}
 }

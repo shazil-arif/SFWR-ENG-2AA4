@@ -57,7 +57,7 @@
 
 \maketitle
 This Module Interface Specification (MIS) document contains interfaces,ADT's and
-methods for implementing a game of Two Dots
+methods for implementing a game of Two Dots. Some modules and notation were borrowed from the A3 specification and all credit goes to it. The specification is generally formal but contains some informal parts for specifying for example; output to a screen, starting a timer and describing a iterative method which has no output. The strategy pattern was used in the Strategy interface and the classes that inherit it for different game modes. The singleton pattern was followed for the Timer module and MVC was used throughout to structure the interface of the application and to seperate concerns. A full MIS of the View and Controller is also provided. Comments are provided in the ``Considerations'' section at the end of each module where appropriate to clarify any misunderstandings and ambiguities.
 
 \newpage
 
@@ -98,7 +98,7 @@ randomColor &  & Color & ~\\
 
 \subsubsection* {State Variables}
 
-colors: color
+colors: Color
 
 \subsubsection* {State Invariant}
 
@@ -149,8 +149,6 @@ PointT & $\mathbb{Z}$, $\mathbb{Z}$ & PointT & \\
 row & ~ & $\mathbb{Z}$ & ~\\
 \hline
 col & ~ & $\mathbb{Z}$ & ~\\
-\hline
-translate & $\mathbb{Z}$, $\mathbb{Z}$ & PointT & ~\\
 \hline
 \end{tabular}
 
@@ -310,7 +308,7 @@ exc $:=$ (row $\leq$ 0) $\lor$ (col $\leq$ 0) $\implies$ IllegalArgumentExceptio
 \noindent \textcolor{blue}{BoardMoves is seq of PointT}
 
 \subsubsection* {Considerations}
-When using in Java. Use Arraylist parameterized by PointT
+When implementing in Java. Extend Arraylist parameterized by the type PointT
 
 
 \newpage
@@ -345,14 +343,14 @@ updateBoard & BoardMoves &  & \\
 
 \noindent validateMoves(b): 
 \begin{itemize}
-\item \textcolor{blue}{output : out $:= |b| > 1 \land \forall ( p : PointT | p \in b : validPoint(p)) \land validPath(b) \land isDistinct(b)$}
+\item \textcolor{blue}{output : out $:= |b| > 1$  $\land$  $\forall ( p : PointT$ $|$ $p$ $\in $b : validPoint(p)$) \land validPath(b) \land isDistinct(b)$}
 \item exception: None
 \end{itemize}
 
 \noindent updateBoard(b): 
 \begin{itemize}
 \item \textcolor{blue}{output : out $ := $ None}
-\item \textcolor{blue}{transition : s $ := \forall (p : PointT | p \in b  \forall(i : \mathbb{N} | i \in [p.row()..1]) )$ }
+\item \textcolor{blue}{transition : s $ := \forall (p : PointT | p \in b  \forall(i : \mathbb{N} | i \in [p.row()..1]) : s[i][p.col()] := $ randomColor() ) }
 \item exception: None
 \end{itemize}
 
@@ -383,6 +381,9 @@ updateBoard & BoardMoves &  & \\
 $\lor$  $b[i].row() = b[j].row() \land b[i].col() = b[j].col() - 1$\\
 $\lor$  $b[i].row() = b[j].row() - 1 \land b[i].col() = b[j].col()$\\
 $\lor$  $b[i].row() = b[j].row() + 1 \land b[i].col() = b[j].col()$ }\\
+
+\subsection*{Considerations}
+\noindent In Java, calling randomColor() represents a call to a static function so it would actually be done as Color.randomColor()
 
 
 \newpage
@@ -844,12 +845,12 @@ $t := $ Use the system clock to start tracking the current time. Once time*multi
 
 \section* {TimedStrategy Module}
 
-\subsection* {Template Module}
+\subsection* {Template Module inherits StrategyGameMode}
 
 \noindent {TimedStrategy}
 
 \subsection*{Uses}
-None
+Strategy, BoardController, StrategyGameMode, CountDownTimer
 
 \subsection* {Syntax}
 
@@ -863,9 +864,19 @@ None
 \hline
 \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
 \hline
-newTimer & $\mathbb{Z}$ & & IllegalArgumentException \\
+play & TwoDotsBoard & & \\
 \hline
-isCancelled &  & $\mathbb{B}$ & \\
+startUp & TwoDotsBoard & & \\
+\hline
+checkWin & & $\mathbb{B}$ & \\
+\hline
+canContinue &  & $\mathbb{B}$ & \\
+\hline
+updateData &  & & \\
+\hline
+introMsg & & & \\
+\hline
+endMsg & & & \\
 \hline
 \end{tabular}
 
@@ -877,8 +888,8 @@ isCancelled &  & $\mathbb{B}$ & \\
 
 
 \subsubsection* {State variables}
-\noindent $cancelled$ : $\mathbb{B}$\\
-\noindent $multiplier$ : $\mathbb{Z}$\\
+\noindent $TARGET$ : $\mathbb{Z}$\\
+\noindent $TIME$ : $\mathbb{Z}$\\
 
 
 \subsubsection*{State invariant}
@@ -886,28 +897,57 @@ isCancelled &  & $\mathbb{B}$ & \\
 
 \subsubsection* {Access Routine Semantics}
 
-\noindent newTimer(time : $\mathbb{Z}$)
+\noindent startUp(b)
 \begin{itemize}
-\item transition: $cancelled := false$\\
-$multiplier := 1000$\\
-$t := $ Use the system clock to start tracking the current time. Once time*multiplier amount of time has passed then the transition $cancelled := true$ happens\\
-\item exception: $exc := $ time $< 1 \implies$ IllegalArgumentException
+\item transition: $v,c,moveCount,TARGET,TIME :=$  new BoardView(), new BoardController($b,v$), 5, 60\\
+newTimer(TIME) 
 \end{itemize}
 
-\noindent isCancelled()
+
+\noindent checkWin()
 \begin{itemize}
-\item output: $out := \lnot cancelled$
+\item output: $out := |moves| >= TARGET$
 \end{itemize}
+
+\noindent canContinue()
+\begin{itemize}
+\item output: $out := $ isCancelled()
+\end{itemize}
+
+
+\noindent updateData()
+\begin{itemize}
+\item transition: $c := $ using c.printMsg(), modify the screen to print out how much time has elapsed since the start of the game. Formally, print out $t.now() - TIME$
+\end{itemize}
+
+
+\noindent introMsg()
+\begin{itemize}
+\item transition: $c :=$ using c.printMsg(), modify the screen to print a message to state the rules. This includes instruction for how to enter input, how to win and how much time the user has
+\end{itemize}
+
+\noindent endMsg()\\
+\noindent transition: $c :=$ using c.printMsg(), modify the screen by printing a message telling the user the game is over
+
+\subsection*{Consideration}
+\noindent When calling methods such as newTimer() and isCancelled() these are references to the access programs defined in CountDownTimer module. In java these would static access program and would be accessed without creating an instance of the module. Also assume $t.now()$ gives the current time in seconds
 
 \newpage
 
-\section* {DEM Module}
+\section* {Dots Module}
 
-\subsection* {Template Module}
+\subsection* {Module}
 
-DemT is Seq2D($\mathbb{Z}$)
+\noindent {Dots}
+
+\subsection*{Uses}
+Strategy, BoardController, TwoDotsBoard, BoardView
 
 \subsection* {Syntax}
+
+\subsubsection* {Exported Constants}
+
+None
 
 \subsubsection* {Exported Access Programs}
 
@@ -915,49 +955,46 @@ DemT is Seq2D($\mathbb{Z}$)
 \hline
 \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
 \hline
-total & & $\mathbb{Z}$ & \\
-\hline
-max &  & $\mathbb{Z}$ & \\
-\hline
-ascendingRows & & $\mathbb{B}$ & \\
+main & seq of $string$ & & \\
 \hline
 \end{tabular}
 
 \subsection* {Semantics}
 
+\subsubsection* {Environment variables}
+None
+
+\subsubsection* {State variables}
+None
+
+\subsubsection*{State invariant}
+\noindent None
+
 \subsubsection* {Access Routine Semantics}
 
-\noindent total(): 
-\begin{itemize}
-\item \textcolor{blue}{output : out $:= +(x, y : \mathbb{N} |$ validRow($x$) $\land$ validCol($y$) : $s[x][y]$)}
-\item exception: None
-\end{itemize}
+\noindent main($args$ : seq of $string$):\\
+\noindent transition:\\
+new BoardController(new TwoDotsBoard(6,6), new BoardView()).modePrompt().play(new TwoDotsBoard(6,6))
 
-\noindent max():
-\begin{itemize}
-\item \textcolor{blue}{output: out $:=$ $M$ such that $\forall (x : $ Seq of $\mathbb{Z}$ $| x \in s : \forall (y : \mathbb{Z} | y \in x : M \geq y ))  \land (\exists i : \mathbb{N} | validRow(i) : M \in s[i] $)}
-\item exception: None
-\end{itemize}
-
-\noindent ascendingRows():
-\begin{itemize}
-\item \textcolor{blue}{output:out $:= \forall (i : \mathbb{N} | i \in [0..|s|-2] : sum(s[i]) < sum(s[i+1])) $}
-\item exception: None
-\end{itemize}
-
-\subsection*{Local Functions}
-
-\noindent validRow: $\mathbb{N} \rightarrow \mathbb{B}$\\
-\noindent \textcolor{blue}{validRow($n$) $\equiv$ ($n \geq 0$) $\land$ ($n < $ nRow)}\\
-
-\noindent validCol: $\mathbb{N} \rightarrow \mathbb{B}$\\
-\noindent \textcolor{blue}{validCol($c$) $\equiv$ ($c \geq 0$) $\land$ ($c < $ nCol)}\\
-  
-\noindent sum: Seq of $\mathbb{Z} \rightarrow \mathbb{Z}$\\
-\noindent \textcolor{blue}{sum($s$) $\equiv$ $(+x : \mathbb{Z} | x \in s: x)$}
+\subsection*{Considerations}
+The main role of this module, in terms of implementation is to instantiate the controller, start the desired mode the user wants and then play the game while manipulating the board and interacting with the user via the controller.
 
 \newpage
 
+\section*{Discussion Question}
+\subsection*{Critique of design}
+\begin{enumerate}
+\item Consistency: 
 
-  
+\item Essentiality: In general I believe the design provided is essential for all the modules. However, essentially becomes more difficult to achieve the more complex a design becomes. To maintain essentiallity in all of the modules I did my best to modularize the design. Splitting different concerns of the game into different modules, ADT's and abstract objects. However, there are some parts of the design that are not essential and could be improved. 
+
+\item Generality: The MIS/Interface design is general. For example, the PointT class can represent any point in 2D space not just a point on a TwoDotsBoard. The Board module is a general purpose 2D grid that can be customized with any dimensions and has some useful and general access programs that one may want to use on a 2D grid. The StrategyGameMode is also very general. It defines a very high level iterative process for playing a game of TwoDots, along with several abstract/template methods to check conditions as the game is played. When looked at it more closely the StrategyGameMode can be adopted to many different games, not just TwoDots. Any game that has a set number of moves, time or other conditions can be created by inheriting the StrategyGameMode module. 
+
+\item Minimality: In general, I tried to keep all modules minimal and address only a single concern. Most of the modules are minimal and do not offer more than one service, however there are a few exception and this is the challenge with designing a large system while maintaining such qualities. One example of a function that returns a value and has a potential state transition depending on a boolean condition is the checkWin() method in MovesStrategy module. This module return whether the user just eliminated 5 or more dots in move. However, if the user did not achieve this target then the state variable ``moves'' counter is decremented and then the function return false. So, here we have a state transition and a output thus not minimal. In the future, to make this minimal this can be achieved by splitting the function into two functions. One that checks the winning condition only and another that decrements the ``moves'' variable only.
+
+\item Cohesion: In general, all the modules have high cohesion. Every module only has methods and data structures/types that are related. For example the TwoDotsBoard module
+
+\item Information hiding: I have kept the inner working details of my modules as encapsulated as possible. For example in my TwoDotsBoard module there are getter methods for the row and column. The randomColor() function is described as general as possible giving the flexbility of being implemented in any way. Same goes for the BoardView and CountDownTimer modules. These describe at a high level what should be outputted to the screen and how the timer should operate. In terms, of Java the timer may be implemented using the System.nanoTime() or other functions provided in System to access time or it may be done using the Timer class and set a Timer in the background as the game plays. The MIS, abstracts this all way and only requires a isCancelled() method to indicate whether a required amount of time has past or not.
+
+\end{enumerate}
 \end {document}

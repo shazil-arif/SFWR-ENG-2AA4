@@ -2,7 +2,7 @@
 *  @file TestPointT.java
 *  @author Shazil Arif
 *  @brief TestPointT is used to test the routines in PointT.java
-*  @date March 31st 2020
+*  @date April 6th 2020
 */
 import org.junit.*;
 import static org.junit.Assert.*;

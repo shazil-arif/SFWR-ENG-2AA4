@@ -17,7 +17,7 @@ class MovesStrategy extends StrategyGameMode{
 	private int TARGET;
 	
 	@Override
-	/*
+	/**
 	 * @brief condition to check if game can still be continued
 	 * @return boolean indicating whether game can be continued
 	 */
@@ -26,7 +26,7 @@ class MovesStrategy extends StrategyGameMode{
 	}
 
 	@Override
-	/*
+	/**
 	 * @brief check winning conditions for moves strategy game mode
 	 * @return if 5 or more dots eliminated in one move 
 	 */
@@ -39,7 +39,7 @@ class MovesStrategy extends StrategyGameMode{
 	}
 
 	@Override
-	/*
+	/**
 	 * @brief display an intro message and brief information on how to play the game mode
 	 */
 	void introMsg() {
@@ -50,7 +50,7 @@ class MovesStrategy extends StrategyGameMode{
 	}
 
 	@Override
-	/*
+	/**
 	 * @brief update view to indicate amount of score left
 	 * @details if the number of moves has ran out then the game exits with exit code 0
 	 */
@@ -63,7 +63,7 @@ class MovesStrategy extends StrategyGameMode{
 	}
 
 	@Override
-	/*
+	/**
 	 * @brief set up global variables at beginning of game. 
 	 */
 	void startUp(TwoDotsBoard b) {

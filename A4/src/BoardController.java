@@ -4,6 +4,10 @@
 *  @brief BoardController is a module used to interact with a TwoDotsBoard and a BoardView object
 *  @date April 2nd 2020
 */
+
+/**
+ * @brief controller for TwoDotsBoard and a BoardView object
+ */
 public class BoardController {
 	private TwoDotsBoard model;
 	private BoardView view;

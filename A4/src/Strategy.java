@@ -10,7 +10,7 @@
 * @brief Strategy is an interface for defining a family of game modes for Two Dots
 */
  interface Strategy {
-   /**
+    /**
      * @brief Generic method to start a game mode from a family of different modes
      */
 	public void play(TwoDotsBoard b);

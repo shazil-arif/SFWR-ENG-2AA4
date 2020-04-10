@@ -1003,6 +1003,8 @@ The main role of this module, in terms of implementation is to instantiate the c
 \subsection*{Strategy Design Pattern}
 \noindent The strategy design pattern is generally used to encapsulate a family of different algorithms/objects that have some common behavior/attributes but also have some difference. This two dots game is a good example. The Timed version and the version with a set number of moves is very similar. The game plays exactly the same way except our winning condition is different for each. The strategy design pattern address's this issue by defining a interface with generic methods to replicate a similar process. For two different game modes we may have a play() method defined in a interface. Then a class can inherit this interface and implement the play() method. The game play is identical for both modes so we can write code to simulate the playing of the game and introduce a method checkWin() to check the winning condition. Then two additional classes, one for each game mode can inherit this class and have a unique implementation of checkWin(). This way we reduce code duplication and use modularity to encapsulate a family of closely related objects. Both modes inherit from one interface so they both have a play method
 
+\subsection*{Adapter Pattern}
+
 
 \end{enumerate}
 \end {document}

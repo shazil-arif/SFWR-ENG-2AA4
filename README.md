@@ -5,6 +5,6 @@ Assignment 1 (34/35)
 
 Assignment 2 (64/65)
 
-Assignment 3 (NA)
+Assignment 3 (37.5/40)
 
 Assignment 4 (NA) + ~4% Bonus 
